@@ -1,5 +1,5 @@
 ﻿using BusReservations.Core.Abstract.Repository;
-using BusReservations.Core.Domain;
+using BusReservations.Core.Domain.BusModel;
 
 namespace BusReservations.Infrastructure.Data.Repository
 {

@@ -1,4 +1,4 @@
-﻿namespace BusReservations.Core.Domain
+﻿namespace BusReservations.Core.Domain.BusModel
 {
     public class Bus
     {
