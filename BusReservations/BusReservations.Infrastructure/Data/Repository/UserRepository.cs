@@ -28,4 +28,4 @@ namespace BusReservations.Infrastructure.Data.Repository
         }
     }
 }
-}
+
