@@ -10,7 +10,6 @@ namespace BusReservations.Infrastructure.Data.Repository
         public BusRepository(AppDBContext appDBContext)
         {
             _appDBContext = appDBContext ?? throw new ArgumentNullException(nameof(appDBContext)); ;
-
         }
 
         public void AddBus(Bus bus)
