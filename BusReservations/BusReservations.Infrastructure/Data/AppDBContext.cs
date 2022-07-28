@@ -1,14 +1,13 @@
-﻿using BusReservations.Core.Domain.BusModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BusReservations.Core.Domain;
+using BusReservations.Core.Domain.BusModel;
 
 namespace BusReservations.Infrastructure.Data
 {
     public class AppDBContext
     {
-        public List<Bus>? Buses { get; set; } = new List<Bus>();    
+        public List<Bus> Buses { get; set; } = new List<Bus>();
+        public List<User> Users { get; set; } = new List<User>();
+        public List<Customer> Customers { get; set; } = new List<Customer>();
+        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
 }

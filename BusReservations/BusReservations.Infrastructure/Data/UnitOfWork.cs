@@ -1,11 +1,6 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Abstract.Repository;
 using BusReservations.Infrastructure.Data.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusReservations.Infrastructure.Data
 {
@@ -13,6 +8,9 @@ namespace BusReservations.Infrastructure.Data
     {
         private readonly AppDBContext _dbContext;
         private IBusRepository? _busRepository;
+        private IUserRepository? _userRepository;
+        private ICustomerRepository? _customerRepository;
+        private IReservationRepository? _reservationRepository;
         
         public UnitOfWork(AppDBContext dbContext)
         {
@@ -32,6 +30,49 @@ namespace BusReservations.Infrastructure.Data
             {
                 _busRepository = value;
             } 
+        }
+
+        public IUserRepository UserRepository {
+            get
+            {
+                if (_userRepository == null)
+                    _userRepository = new UserRepository(_dbContext);
+
+                return _userRepository;
+            }
+            set
+            {
+                _userRepository = value;
+            }
+        }
+        public ICustomerRepository CustomerRepository
+        {
+            get
+            {
+                if (_customerRepository == null)
+                    _customerRepository = new CustomerRepository(_dbContext);
+
+                return _customerRepository;
+            }
+            set
+            {
+                _customerRepository = value;
+            }
+        }
+
+        public IReservationRepository ReservationRepository 
+        {
+            get
+            {
+                if (_reservationRepository == null)
+                    _reservationRepository = new ReservationRepository(_dbContext);
+
+                return _reservationRepository;
+            }
+            set
+            {
+                _reservationRepository = value;
+            }
         }
     }
 }
