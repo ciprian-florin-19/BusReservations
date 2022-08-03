@@ -6,5 +6,6 @@ namespace BusReservations.Core.Abstract.Repository
     {
         void AddBus(Bus bus);
         IEnumerable<Bus> GetAllBuses();
+        Bus GetBusByID(Guid busId);
     }
 }

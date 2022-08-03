@@ -22,5 +22,10 @@ namespace BusReservations.Infrastructure.Data.Repository
         {
             return _appDBContext.Buses.ToList();
         }
+
+        public Bus GetBusByID(Guid busId)
+        {
+            return _appDBContext.Buses.SingleOrDefault(bus => bus.Id == busId);
+        }
     }
 }
