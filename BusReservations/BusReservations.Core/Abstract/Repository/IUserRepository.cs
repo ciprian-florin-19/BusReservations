@@ -6,5 +6,7 @@ namespace BusReservations.Core.Abstract.Repository
     {
         void AddUser(User user);
         IEnumerable<User> GetAllUsers();
+        void CreateLocalBackup(string fileName);
+        public bool IsBackedUp { get; }
     }
 }

@@ -8,7 +8,7 @@ var bus = new Bus
     Id = Guid.NewGuid(),
     Capacity = 20,
     Route = null,
-    SeatTypes=null
+    SeatTypes = null
 };
 var user = new User
 {
@@ -36,4 +36,5 @@ unitOfWork.ReservationRepository.AddReservation(reservation);
 var buses = unitOfWork.BusRepository.GetAllBuses();
 var users = unitOfWork.UserRepository.GetAllUsers();
 var reservations = unitOfWork.ReservationRepository.GetAllReservations();
+unitOfWork.UserRepository.CreateLocalBackup("users.txt");
 Console.ReadLine();

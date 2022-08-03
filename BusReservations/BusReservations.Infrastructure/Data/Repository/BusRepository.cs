@@ -1,4 +1,5 @@
-﻿using BusReservations.Core.Abstract.Repository;
+﻿using BusReservations.Core;
+using BusReservations.Core.Abstract.Repository;
 using BusReservations.Core.Domain.BusModel;
 
 namespace BusReservations.Infrastructure.Data.Repository
@@ -9,7 +10,7 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public BusRepository(AppDBContext appDBContext)
         {
-            _appDBContext = appDBContext ?? throw new ArgumentNullException(nameof(appDBContext)); ;
+            _appDBContext = appDBContext ?? throw new ArgumentNullException(nameof(appDBContext));
         }
 
         public void AddBus(Bus bus)
