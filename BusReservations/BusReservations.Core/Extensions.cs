@@ -6,11 +6,11 @@ namespace BusReservations.Core
     {
         public static PagedList<T> ToPagedList<T>(this IEnumerable<T> values)
         {
-            return new PagedList<T>(values.ToList(), new PaginationParameters());
+            return new PagedList<T>(values, new PaginationParameters());
         }
         public static PagedList<T> ToPagedList<T>(this IEnumerable<T> values, int pageSize, int pageIndex = 1)
         {
-            return new PagedList<T>(values.ToList(), new PaginationParameters() { PageSize = pageSize, PageIndex = pageIndex });
+            return new PagedList<T>(values, new PaginationParameters() { PageSize = pageSize, PageIndex = pageIndex });
         }
     }
 }

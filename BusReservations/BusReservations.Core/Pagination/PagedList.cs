@@ -9,11 +9,11 @@
         public bool HasNext => CurrentPage < PageCount;
         public bool HasPrevious => CurrentPage > 1;
 
-        public PagedList(List<T> collection, PaginationParameters parameters)
+        public PagedList(IEnumerable<T> collection, PaginationParameters parameters)
         {
             CurrentPage = parameters.PageIndex;
             PageSize = parameters.PageSize;
-            PageCount = (int)Math.Ceiling(collection.Count / (double)PageSize);
+            PageCount = (int)Math.Ceiling(collection.Count() / (double)PageSize);
             AddRange(collection.Skip((parameters.PageIndex - 1) * PageSize).Take(PageSize));
         }
 
