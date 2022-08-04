@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BusReservations.Core
 {
-    public class LocalBackupUtilities
+    public sealed class LocalBackupUtilities
     {
         private StreamWriter? _streamWriter;
+        private static LocalBackupUtilities? _instance = null;
 
-        public void WriteCollectionToFile(IEnumerable<object> collection, string filepath)
+        private LocalBackupUtilities() { }
+
+        public static LocalBackupUtilities Instance => _instance ?? (_instance = new LocalBackupUtilities());
+        public void WriteCollectionToFile<T>(IEnumerable<T> collection, string filepath)
         {
             using (_streamWriter = new StreamWriter(filepath, false))
             {
@@ -26,12 +26,12 @@ namespace BusReservations.Core
             List<PropertyInfo> properties = new List<PropertyInfo>(type.GetProperties());
             return string.Join(',', properties.Select(p => p.Name));
         }
-        private string GenerateLine(object item)
+        private string GenerateLine<T>(T item)
         {
             List<PropertyInfo> properties = new List<PropertyInfo>(item.GetType().GetProperties());
             return string.Join(',', properties.Select(p => p.GetValue(item)));
         }
-        private string GenerateBody(IEnumerable<object> collection)
+        private string GenerateBody<T>(IEnumerable<T> collection)
         {
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var item in collection)

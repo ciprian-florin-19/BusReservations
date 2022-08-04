@@ -46,7 +46,7 @@ unitOfWork.ReservationRepository.AddReservation(reservation);
 
 var users = unitOfWork.UserRepository.GetAllUsers();
 var reservations = unitOfWork.ReservationRepository.GetAllReservations();
-unitOfWork.UserRepository.CreateLocalBackup("users.txt");
+unitOfWork.UserRepository.CreateLocalBackup("users.csv");
 
 var addBusCommand = new AddBusCommand() { Bus = bus };
 var addBusCommandHandler = new AddBusCommandHandler(unitOfWork);
