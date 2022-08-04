@@ -20,7 +20,7 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public IEnumerable<Bus> GetAllBuses()
         {
-            return _appDBContext.Buses.ToList();
+            return _appDBContext.Buses.ToPagedList();
         }
 
         public Bus GetBusByID(Guid busId)
