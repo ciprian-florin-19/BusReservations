@@ -4,6 +4,7 @@ using BusReservations.Core.CommandHandlers;
 using BusReservations.Core.Commands;
 using BusReservations.Core.Domain;
 using BusReservations.Core.Domain.BusModel;
+using BusReservations.Core.Domain.Factory;
 using BusReservations.Infrastructure.Data;
 
 var bus = new Bus
@@ -57,4 +58,16 @@ await addBusCommandHandler.Handle(addBusCommand, new CancellationToken());
 //var busByID = await queryHandler.Handle(busQuery, new CancellationToken());
 var buses = unitOfWork.BusRepository.GetAllBuses();
 var busPage = buses.ToPagedList(1, 2);
+
+//Factory
+IUserFactory userFactory;
+
+//create customer
+userFactory = new CustomerFactory();
+var customer = userFactory.CreateUser();
+
+//create admin
+userFactory = new AdminFactory();
+var admin = userFactory.CreateUser();
+
 Console.ReadLine();
