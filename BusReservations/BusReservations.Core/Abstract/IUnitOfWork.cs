@@ -8,5 +8,6 @@ namespace BusReservations.Core.Abstract
         IUserRepository UserRepository { get; set; }
         ICustomerRepository CustomerRepository { get; set; }
         IReservationRepository ReservationRepository { get; set; }
+        IDrivenRouteRepository RouteRepository { get; set; }
     }
 }

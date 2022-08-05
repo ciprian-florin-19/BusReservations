@@ -23,7 +23,7 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public IEnumerable<User> GetAllUsers()
         {
-            return _appDBContext.Users.ToList();
+            return _appDBContext.Users.ToPagedList();
         }
 
         public void CreateLocalBackup(string fileName)

@@ -3,7 +3,7 @@
     public class PaginationParameters
     {
         private int _maxPageSize = 20;
-        private int _pageSize = 5;
+        private int _pageSize = 1;
 
         public int PageIndex { get; set; } = 1;
         public int PageSize

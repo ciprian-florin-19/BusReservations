@@ -1,10 +1,6 @@
-﻿using BusReservations.Core.Abstract.Repository;
+﻿using BusReservations.Core;
+using BusReservations.Core.Abstract.Repository;
 using BusReservations.Core.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusReservations.Infrastructure.Data.Repository
 {
@@ -14,7 +10,7 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public ReservationRepository(AppDBContext addDBContext)
         {
-            _addDBContext = addDBContext?? throw new ArgumentNullException(nameof(AppDBContext));
+            _addDBContext = addDBContext ?? throw new ArgumentNullException(nameof(AppDBContext));
         }
 
         public void AddReservation(Reservation reservation)
@@ -24,7 +20,7 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public IEnumerable<Reservation> GetAllReservations()
         {
-            return _addDBContext.Reservations.ToList();
+            return _addDBContext.Reservations.ToPagedList();
         }
     }
 }

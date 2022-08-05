@@ -18,9 +18,9 @@ namespace BusReservations.Infrastructure.Data.Repository
             _appDBContext.Buses?.Add(bus);
         }
 
-        public IEnumerable<Bus> GetAllBuses()
+        public IEnumerable<Bus> GetAllBuses(int pageIndex = 1)
         {
-            return _appDBContext.Buses.ToPagedList();
+            return _appDBContext.Buses.ToPagedList(pageIndex);
         }
 
         public Bus GetBusByID(Guid busId)

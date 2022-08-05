@@ -1,10 +1,6 @@
-﻿using BusReservations.Core.Abstract.Repository;
+﻿using BusReservations.Core;
+using BusReservations.Core.Abstract.Repository;
 using BusReservations.Core.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusReservations.Infrastructure.Data.Repository
 {
@@ -24,7 +20,7 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public IEnumerable<Customer> GetAllCustomers()
         {
-            return _appDBContext.Customers.ToList();
+            return _appDBContext.Customers.ToPagedList();
         }
     }
 }

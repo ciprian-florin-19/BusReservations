@@ -1,4 +1,5 @@
-﻿using BusReservations.Core.Abstract.Repository;
+﻿using BusReservations.Core;
+using BusReservations.Core.Abstract.Repository;
 using BusReservations.Core.Domain;
 
 namespace BusReservations.Infrastructure.Data.Repository
@@ -14,12 +15,17 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public void AddDrivenRoute(DrivenRoute route)
         {
-
+            _appDBContext.DrivenRoutes.Add(route);
         }
 
         public IEnumerable<DrivenRoute> GetAllDrivenRoutes()
         {
-            throw new NotImplementedException();
+            return _appDBContext.DrivenRoutes.ToPagedList();
+        }
+
+        public IEnumerable<DrivenRoute> GetAvailableRides(string start, string destination, DateTime departureDate, int pageIndex = 1)
+        {
+            return _appDBContext.DrivenRoutes.Where(route => route.Bus.Capacity > route.OccupiedSeats.Count && route.TimeTable.DepartureDate.Date == departureDate.Date).ToPagedList(pageIndex);
         }
     }
 }
