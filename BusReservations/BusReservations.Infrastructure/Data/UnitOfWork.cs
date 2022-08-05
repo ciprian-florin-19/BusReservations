@@ -4,35 +4,37 @@ using BusReservations.Infrastructure.Data.Repository;
 
 namespace BusReservations.Infrastructure.Data
 {
-    public class UnitOfWork:IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDBContext _dbContext;
         private IBusRepository? _busRepository;
         private IUserRepository? _userRepository;
         private ICustomerRepository? _customerRepository;
         private IReservationRepository? _reservationRepository;
-        
+        private IDrivenRouteRepository? _routeRepository;
+
         public UnitOfWork(AppDBContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public IBusRepository BusRepository 
-        {    
-            get 
+        public IBusRepository BusRepository
+        {
+            get
             {
                 if (_busRepository == null)
                     _busRepository = new BusRepository(_dbContext);
 
                 return _busRepository;
             }
-            set 
+            set
             {
                 _busRepository = value;
-            } 
+            }
         }
 
-        public IUserRepository UserRepository {
+        public IUserRepository UserRepository
+        {
             get
             {
                 if (_userRepository == null)
@@ -60,7 +62,7 @@ namespace BusReservations.Infrastructure.Data
             }
         }
 
-        public IReservationRepository ReservationRepository 
+        public IReservationRepository ReservationRepository
         {
             get
             {
@@ -72,6 +74,20 @@ namespace BusReservations.Infrastructure.Data
             set
             {
                 _reservationRepository = value;
+            }
+        }
+
+        public IDrivenRouteRepository RouteRepository
+        {
+            get
+            {
+                if (_routeRepository == null)
+                    _routeRepository = new DrivenRouteRepository(_dbContext);
+                return _routeRepository;
+            }
+            set
+            {
+                _routeRepository = value;
             }
         }
     }

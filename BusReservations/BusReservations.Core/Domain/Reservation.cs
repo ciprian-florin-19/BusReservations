@@ -4,8 +4,8 @@ namespace BusReservations.Core.Domain
 {
     public class Reservation
     {
+        public Guid Id { get; set; }
         public DrivenRoute DrivenRoute { get; set; }
-        public int SeatNumber { get; set; }
-        public Seat? SeatType { get; set; }
+        public Seat? SeatInfo { get; set; }
     }
 }

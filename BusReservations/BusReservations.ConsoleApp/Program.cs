@@ -26,6 +26,7 @@ var reservation = new Reservation
     SeatNumber = 23,
     SeatType = new StudentSeat(),
     DrivenRoute = new DrivenRoute(),
+    Id = Guid.NewGuid(),
 };
 var appDBContext = new AppDBContext();
 IUnitOfWork unitOfWork = new UnitOfWork(appDBContext);

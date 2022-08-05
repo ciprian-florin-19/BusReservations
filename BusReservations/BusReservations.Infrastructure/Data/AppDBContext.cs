@@ -8,5 +8,6 @@ namespace BusReservations.Infrastructure.Data
         public List<User> Users { get; set; } = new List<User>();
         public List<Customer> Customers { get; set; } = new List<Customer>();
         public List<Reservation> Reservations { get; set; } = new List<Reservation>();
+        public List<DrivenRoute> DrivenRoutes { get; set; }
     }
 }

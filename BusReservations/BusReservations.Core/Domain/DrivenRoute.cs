@@ -2,6 +2,7 @@
 {
     public class DrivenRoute
     {
+        public Guid Id { get; set; }
         public Bus Bus { get; set; }
         public Route Route { get; set; }
         public float SeatPrice { get; set; }
