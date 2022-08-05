@@ -4,7 +4,8 @@
     {
         public Guid Id { get; set; }
         public Bus Bus { get; set; }
-        public Route Route { get; set; }
+        public string? Start { get; set; }
+        public string? Destination { get; set; }
         public float SeatPrice { get; set; }
         public TimeTable? TimeTable { get; set; }
         public List<int> OccupiedSeats { get; set; }

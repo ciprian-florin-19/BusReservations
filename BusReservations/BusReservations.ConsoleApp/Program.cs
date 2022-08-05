@@ -23,8 +23,7 @@ var user = new User
 };
 var reservation = new Reservation
 {
-    SeatNumber = 23,
-    SeatType = new StudentSeat(),
+    SeatInfo = new StudentSeat(),
     DrivenRoute = new DrivenRoute(),
     Id = Guid.NewGuid(),
 };
