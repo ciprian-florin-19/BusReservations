@@ -3,16 +3,15 @@ using BusReservations.Core.Abstract;
 using BusReservations.Core.CommandHandlers;
 using BusReservations.Core.Commands;
 using BusReservations.Core.Domain;
-using BusReservations.Core.Domain.BusModel;
 using BusReservations.Core.Domain.Factory;
+using BusReservations.Core.Domain.SeatModel;
 using BusReservations.Infrastructure.Data;
 
 var bus = new Bus
 {
     Id = Guid.NewGuid(),
     Capacity = 20,
-    Route = null,
-    SeatTypes = null
+    Name = "VasileTransports",
 };
 var user = new User
 {
@@ -24,13 +23,9 @@ var user = new User
 };
 var reservation = new Reservation
 {
-    BusId = bus.Id,
-    BusName = "generic bus",
-    Destination = "Pitesti",
-    Start = "Bucuresti",
     SeatNumber = 23,
     SeatType = new StudentSeat(),
-    Timetable = new TimeTable()
+    DrivenRoute = new DrivenRoute(),
 };
 var appDBContext = new AppDBContext();
 IUnitOfWork unitOfWork = new UnitOfWork(appDBContext);
@@ -39,8 +34,7 @@ unitOfWork.BusRepository.AddBus(
     {
         Id = Guid.NewGuid(),
         Capacity = 10,
-        Route = null,
-        SeatTypes = null
+        Name = "GigelTransports"
     });
 unitOfWork.UserRepository.AddUser(user);
 unitOfWork.ReservationRepository.AddReservation(reservation);

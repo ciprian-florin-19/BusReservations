@@ -1,6 +1,6 @@
 ﻿using BusReservations.Core;
 using BusReservations.Core.Abstract.Repository;
-using BusReservations.Core.Domain.BusModel;
+using BusReservations.Core.Domain;
 
 namespace BusReservations.Infrastructure.Data.Repository
 {

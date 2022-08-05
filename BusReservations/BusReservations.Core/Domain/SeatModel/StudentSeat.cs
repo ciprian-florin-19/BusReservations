@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusReservations.Core.Domain.BusModel
+namespace BusReservations.Core.Domain.SeatModel
 {
     public class StudentSeat : Seat
     {

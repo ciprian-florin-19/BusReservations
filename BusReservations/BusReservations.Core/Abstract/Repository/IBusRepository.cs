@@ -1,4 +1,4 @@
-﻿using BusReservations.Core.Domain.BusModel;
+﻿using BusReservations.Core.Domain;
 
 namespace BusReservations.Core.Abstract.Repository
 {

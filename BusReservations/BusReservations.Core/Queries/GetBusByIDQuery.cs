@@ -1,4 +1,4 @@
-﻿using BusReservations.Core.Domain.BusModel;
+﻿using BusReservations.Core.Domain;
 using MediatR;
 using System;
 using System.Collections.Generic;

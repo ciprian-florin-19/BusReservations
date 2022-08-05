@@ -1,4 +1,4 @@
-﻿namespace BusReservations.Core.Domain.BusModel
+﻿namespace BusReservations.Core.Domain.SeatModel
 {
     public class RegularSeat : Seat
     {
