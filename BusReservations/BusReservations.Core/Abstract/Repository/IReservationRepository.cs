@@ -1,15 +1,13 @@
 ﻿using BusReservations.Core.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusReservations.Core.Abstract.Repository
 {
     public interface IReservationRepository
     {
-        public void AddReservation(Reservation reservation);
-        public IEnumerable<Reservation> GetAllReservations();   
+        void AddReservation(Reservation reservation);
+        IEnumerable<Reservation> GetAllReservations();
+        Reservation GetReservationById(Guid id);
+        void UpdateReservation(Guid reservationId, Reservation newReservation);
+        void DeleteReservation(Guid reservationId);
     }
 }

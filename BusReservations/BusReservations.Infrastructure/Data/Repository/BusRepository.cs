@@ -18,14 +18,31 @@ namespace BusReservations.Infrastructure.Data.Repository
             _appDBContext.Buses?.Add(bus);
         }
 
+        public void DeleteBus(Guid id)
+        {
+            _appDBContext.Buses.Remove(GetBusByID(id));
+        }
+
         public IEnumerable<Bus> GetAllBuses(int pageIndex = 1)
         {
             return _appDBContext.Buses.ToPagedList(pageIndex);
         }
 
-        public Bus GetBusByID(Guid busId)
+        public Bus GetBusByID(Guid id)
         {
-            return _appDBContext.Buses.SingleOrDefault(bus => bus.Id == busId);
+            return _appDBContext.Buses.FirstOrDefault(bus => bus.Id == id);
+        }
+
+        public IEnumerable<Bus> GetBusesByName(string name, int pageIndex = 1)
+        {
+            return _appDBContext.Buses.Where(bus => bus.Name == name).ToPagedList(pageIndex);
+        }
+
+        public void UpdateBus(Guid id, Bus newBus)
+        {
+            var index = _appDBContext.Buses.IndexOf(GetBusByID(id));
+            if (index != -1)
+                _appDBContext.Buses[index] = newBus;
         }
     }
 }

@@ -6,5 +6,8 @@ namespace BusReservations.Core.Abstract.Repository
     {
         void AddCustomer(Customer customer);
         IEnumerable<Customer> GetAllCustomers();
+        Customer GetCustomerById(Guid id);
+        void UpdateCustomer(Guid id, Customer newCustomer);
+        void DeleteCustomer(Guid id);
     }
 }

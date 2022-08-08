@@ -34,6 +34,22 @@ namespace BusReservations.Infrastructure.Data.Repository
             _isBackedUp = true;
         }
 
+        public User GetUserById(Guid id)
+        {
+            return _appDBContext.Users.FirstOrDefault(user => user.Id == id);
+        }
+
+        public void UpdateUser(Guid id, User newUser)
+        {
+            var index = _appDBContext.Users.IndexOf(GetUserById(id));
+            if (index != -1)
+                _appDBContext.Users[index] = newUser;
+        }
+
+        public void DeleteUser(Guid id)
+        {
+            _appDBContext.Users.Remove(GetUserById(id));
+        }
     }
 }
 

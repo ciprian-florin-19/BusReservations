@@ -123,4 +123,13 @@ unitOfWork.RouteRepository.AddDrivenRoute(route2);
 unitOfWork.RouteRepository.AddDrivenRoute(route3);
 var routesQueryhandler = new GetAvailableRidesQueryHandler(unitOfWork);
 var availableRoutes = routesQueryhandler.Handle(routesQuery, new CancellationToken()).Result;
+//var bus2 = new Bus
+//{
+//    Id = Guid.NewGuid(),
+//    Capacity = 10,
+//    Name = "Vasile2Transports"
+//};
+//unitOfWork.BusRepository.UpdateBus(bus.Id, bus2);
+unitOfWork.BusRepository.DeleteBus(bus.Id);
+var updatedBuses = unitOfWork.BusRepository.GetAllBuses(2);
 Console.ReadLine();
