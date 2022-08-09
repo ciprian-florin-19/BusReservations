@@ -33,6 +33,13 @@ namespace BusReservations.Infrastructure.Data.Repository
             return _appDBContext.DrivenRoutes.Where(route => route.Bus.Capacity > route.OccupiedSeats.Count && route.TimeTable.DepartureDate.Date == departureDate.Date).ToPagedList(pageIndex);
         }
 
+        public IEnumerable<int> GetAvailableSeats(Guid id)
+        {
+            var route = GetDrivenRouteById(id);
+            var seats = Enumerable.Range(1, route.Bus.Capacity);
+            return seats.Where(seat => !route.OccupiedSeats.Contains(seat)).ToList();
+        }
+
         public DrivenRoute GetDrivenRouteById(Guid id)
         {
             return _appDBContext.DrivenRoutes.FirstOrDefault(route => route.Id == id);

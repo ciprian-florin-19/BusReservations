@@ -6,7 +6,7 @@
         {
         }
 
-        public override string? Type { get => "regular"; set => base.Type = value; }
+        public override Status Type { get => Status.regular; set => base.Type = value; }
         public override float Discount { get => 0; set => base.Discount = value; }
     }
 }

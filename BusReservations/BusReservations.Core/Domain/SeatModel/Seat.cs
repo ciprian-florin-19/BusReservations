@@ -2,7 +2,7 @@
 {
     public class Seat
     {
-        public virtual string? Type { get; set; }
+        public virtual Status Type { get; set; }
         public virtual float Discount { get; set; }
         public int SeatNumber { get; set; }
 

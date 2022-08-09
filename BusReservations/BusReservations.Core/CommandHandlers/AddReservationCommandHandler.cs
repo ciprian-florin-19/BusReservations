@@ -4,11 +4,11 @@ using MediatR;
 
 namespace BusReservations.Core.CommandHandlers
 {
-    internal class AddReservationHandler : IRequestHandler<AddReservationCommand>
+    public class AddReservationCommandHandler : IRequestHandler<AddReservationCommand>
     {
         private IUnitOfWork _unitOfWork;
 
-        public AddReservationHandler(IUnitOfWork unitOfWork)
+        public AddReservationCommandHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -16,6 +16,7 @@ namespace BusReservations.Core.CommandHandlers
         public async Task<Unit> Handle(AddReservationCommand request, CancellationToken cancellationToken)
         {
             _unitOfWork.ReservationRepository.AddReservation(request.Reservation);
+            _unitOfWork.CustomerRepository.GetCustomerById(request.customerId).Reservations.Add(request.Reservation);
             return Unit.Value;
         }
     }

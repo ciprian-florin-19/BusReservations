@@ -1,4 +1,5 @@
-﻿using BusReservations.Core.Abstract;
+﻿using BusReservations.Core;
+using BusReservations.Core.Abstract;
 using BusReservations.Core.CommandHandlers;
 using BusReservations.Core.Commands;
 using BusReservations.Core.Domain;
@@ -11,7 +12,7 @@ using BusReservations.Infrastructure.Data;
 var bus = new Bus
 {
     Id = Guid.NewGuid(),
-    Capacity = 2,
+    Capacity = 20,
     Name = "VasileTransports",
 };
 var user = new User
@@ -20,13 +21,6 @@ var user = new User
     Email = "vasile@gmail.com",
     Name = "Vasile",
     PhoneNumber = "071111111",
-    Status = "student"
-};
-var reservation = new Reservation
-{
-    SeatInfo = new StudentSeat(2),
-    DrivenRoute = new DrivenRoute(),
-    Id = Guid.NewGuid(),
 };
 var appDBContext = new AppDBContext();
 IUnitOfWork unitOfWork = new UnitOfWork(appDBContext);
@@ -38,7 +32,6 @@ unitOfWork.BusRepository.AddBus(
         Name = "GigelTransports"
     });
 unitOfWork.UserRepository.AddUser(user);
-unitOfWork.ReservationRepository.AddReservation(reservation);
 
 var users = unitOfWork.UserRepository.GetAllUsers();
 var reservations = unitOfWork.ReservationRepository.GetAllReservations();
@@ -131,5 +124,32 @@ var availableRoutes = routesQueryhandler.Handle(routesQuery, new CancellationTok
 //};
 //unitOfWork.BusRepository.UpdateBus(bus.Id, bus2);
 unitOfWork.BusRepository.DeleteBus(bus.Id);
-var updatedBuses = unitOfWork.BusRepository.GetAllBuses(2);
+var testCustomer = new Customer(user, Status.student);
+var testReservation = new Reservation(user, route1, new ElderlySeat(2));
+var testReservation2 = new Reservation(user, route1, new ElderlySeat(2));
+var createReservationCommand = new AddReservationCommand()
+{
+    customerId = testCustomer.Id,
+    Reservation = testReservation2,
+};
+unitOfWork.ReservationRepository.AddReservation(testReservation);
+unitOfWork.CustomerRepository.AddCustomer(testCustomer);
+unitOfWork.UserRepository.AddUser(user);
+var createReservationCommandHandler = new AddReservationCommandHandler(unitOfWork);
+await createReservationCommandHandler.Handle(createReservationCommand, new CancellationToken());
+var createdReservation = unitOfWork.ReservationRepository.GetAllReservations().ToPagedList(2);
+var newCustomer = unitOfWork.CustomerRepository.GetAllCustomers();
+
+var getAvailableSeatsQuery = new GetAvailableSeatsQuery() { RouteId = route1.Id };
+var getAvailableSeatsQueryHandler = new GetAvailableSeatsQueryHandler(unitOfWork);
+var availableSeats = getAvailableSeatsQueryHandler.Handle(getAvailableSeatsQuery, new CancellationToken()).Result;
+
+var getUserReservationsQuery = new GetCustomerReservationsQuery() { CustomerId = testCustomer.Id };
+var getUserReservationsQueryHandler = new GetCustomerReservationsQueryHandler(unitOfWork);
+
+var cancelReservationCommand = new CancelReservationCommand() { CustomerId = testCustomer.Id, ReservationId = testReservation2.Id };
+var cancelReservationCommandHandler = new CancelReservationCommandHandler(unitOfWork);
+cancelReservationCommandHandler.Handle(cancelReservationCommand, new CancellationToken());
+var customerReservations = getUserReservationsQueryHandler.Handle(getUserReservationsQuery, new CancellationToken()).Result;
+
 Console.ReadLine();
