@@ -2,7 +2,6 @@
 {
     public class Customer : User
     {
-        public List<Reservation>? Reservations { get; set; } = new List<Reservation>();
         public Status? Status { get; set; }
         public Customer(User user, Status status)
         {

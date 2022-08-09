@@ -125,8 +125,8 @@ var availableRoutes = routesQueryhandler.Handle(routesQuery, new CancellationTok
 //unitOfWork.BusRepository.UpdateBus(bus.Id, bus2);
 unitOfWork.BusRepository.DeleteBus(bus.Id);
 var testCustomer = new Customer(user, Status.student);
-var testReservation = new Reservation(user, route1, new ElderlySeat(2));
-var testReservation2 = new Reservation(user, route1, new ElderlySeat(2));
+var testReservation = new Reservation(user, testCustomer.Id, route1, new ElderlySeat(2));
+var testReservation2 = new Reservation(user, testCustomer.Id, route1, new ElderlySeat(2));
 var createReservationCommand = new AddReservationCommand()
 {
     customerId = testCustomer.Id,
@@ -139,7 +139,7 @@ var createReservationCommandHandler = new AddReservationCommandHandler(unitOfWor
 await createReservationCommandHandler.Handle(createReservationCommand, new CancellationToken());
 var createdReservation = unitOfWork.ReservationRepository.GetAllReservations().ToPagedList(2);
 var newCustomer = unitOfWork.CustomerRepository.GetAllCustomers();
-
+unitOfWork.ReservationRepository.AddReservation(testReservation);
 var getAvailableSeatsQuery = new GetAvailableSeatsQuery() { RouteId = route1.Id };
 var getAvailableSeatsQueryHandler = new GetAvailableSeatsQueryHandler(unitOfWork);
 var availableSeats = getAvailableSeatsQueryHandler.Handle(getAvailableSeatsQuery, new CancellationToken()).Result;
@@ -147,9 +147,9 @@ var availableSeats = getAvailableSeatsQueryHandler.Handle(getAvailableSeatsQuery
 var getUserReservationsQuery = new GetCustomerReservationsQuery() { CustomerId = testCustomer.Id };
 var getUserReservationsQueryHandler = new GetCustomerReservationsQueryHandler(unitOfWork);
 
-var cancelReservationCommand = new CancelReservationCommand() { CustomerId = testCustomer.Id, ReservationId = testReservation2.Id };
-var cancelReservationCommandHandler = new CancelReservationCommandHandler(unitOfWork);
-cancelReservationCommandHandler.Handle(cancelReservationCommand, new CancellationToken());
+//var cancelReservationCommand = new CancelReservationCommand() { CustomerId = testCustomer.Id, ReservationId = testReservation2.Id };
+//var cancelReservationCommandHandler = new CancelReservationCommandHandler(unitOfWork);
+//cancelReservationCommandHandler.Handle(cancelReservationCommand, new CancellationToken());
 var customerReservations = getUserReservationsQueryHandler.Handle(getUserReservationsQuery, new CancellationToken()).Result;
 
 Console.ReadLine();

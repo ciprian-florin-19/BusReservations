@@ -1,4 +1,5 @@
-﻿using BusReservations.Core.Abstract.Repository;
+﻿using BusReservations.Core;
+using BusReservations.Core.Abstract.Repository;
 using BusReservations.Core.Domain;
 
 namespace BusReservations.Infrastructure.Data.Repository
@@ -22,9 +23,14 @@ namespace BusReservations.Infrastructure.Data.Repository
             _appDBContext.Reservations.Remove(GetReservationById(id));
         }
 
-        public IEnumerable<Reservation> GetAllReservations()
+        public IEnumerable<Reservation> GetAllReservations(int pageIndex = 1)
         {
-            return _appDBContext.Reservations.ToList();
+            return _appDBContext.Reservations.ToPagedList(pageIndex);
+        }
+
+        public IEnumerable<Reservation> getCustomerReservations(Guid customerId, int pageIndex = 1)
+        {
+            return _appDBContext.Reservations.Where(item => item.CustomerId == customerId).ToPagedList(pageIndex);
         }
 
         public Reservation GetReservationById(Guid id)

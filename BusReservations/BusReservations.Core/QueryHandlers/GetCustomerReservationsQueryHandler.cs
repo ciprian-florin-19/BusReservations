@@ -15,7 +15,7 @@ namespace BusReservations.Core.QueryHandlers
         }
         public async Task<IEnumerable<Reservation>> Handle(GetCustomerReservationsQuery request, CancellationToken cancellationToken)
         {
-            return _unitOfWork.CustomerRepository.GetCustomerById(request.CustomerId).Reservations.ToPagedList(request.PageIndex);
+            return _unitOfWork.ReservationRepository.getCustomerReservations(request.CustomerId);
         }
     }
 }

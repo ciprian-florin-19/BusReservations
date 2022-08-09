@@ -16,7 +16,6 @@ namespace BusReservations.Core.CommandHandlers
         public async Task<Unit> Handle(AddReservationCommand request, CancellationToken cancellationToken)
         {
             _unitOfWork.ReservationRepository.AddReservation(request.Reservation);
-            _unitOfWork.CustomerRepository.GetCustomerById(request.customerId).Reservations.Add(request.Reservation);
             return Unit.Value;
         }
     }
