@@ -140,10 +140,6 @@ await createReservationCommandHandler.Handle(createReservationCommand, new Cance
 var createdReservation = unitOfWork.ReservationRepository.GetAllReservations().ToPagedList(2);
 var newCustomer = unitOfWork.CustomerRepository.GetAllCustomers();
 unitOfWork.ReservationRepository.AddReservation(testReservation);
-var getAvailableSeatsQuery = new GetAvailableSeatsQuery() { RouteId = route1.Id };
-var getAvailableSeatsQueryHandler = new GetAvailableSeatsQueryHandler(unitOfWork);
-var availableSeats = getAvailableSeatsQueryHandler.Handle(getAvailableSeatsQuery, new CancellationToken()).Result;
-
 var getUserReservationsQuery = new GetCustomerReservationsQuery() { CustomerId = testCustomer.Id };
 var getUserReservationsQueryHandler = new GetCustomerReservationsQueryHandler(unitOfWork);
 

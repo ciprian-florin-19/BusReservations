@@ -8,7 +8,6 @@ namespace BusReservations.Core.Abstract.Repository
         DrivenRoute GetDrivenRouteById(Guid id);
         IEnumerable<DrivenRoute> GetAllDrivenRoutes();
         IEnumerable<DrivenRoute> GetAvailableRides(string start, string destination, DateTime departureDate, int PageIndex = 1);
-        IEnumerable<int> GetAvailableSeats(Guid id);
         void UpdateDrivenRoute(Guid id, DrivenRoute newRoute);
         void DeleteDrivenRoute(Guid id);
     }
