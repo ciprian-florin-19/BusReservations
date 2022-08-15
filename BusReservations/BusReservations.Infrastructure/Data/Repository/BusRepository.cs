@@ -1,4 +1,5 @@
 ﻿using BusReservations.Core;
+using BusReservations.Core.Abstract;
 using BusReservations.Core.Abstract.Repository;
 using BusReservations.Core.Domain;
 
@@ -6,9 +7,9 @@ namespace BusReservations.Infrastructure.Data.Repository
 {
     public class BusRepository : IBusRepository
     {
-        private readonly AppDBContext _appDBContext;
+        private readonly IDbContext _appDBContext;
 
-        public BusRepository(AppDBContext appDBContext)
+        public BusRepository(IDbContext appDBContext)
         {
             _appDBContext = appDBContext ?? throw new ArgumentNullException(nameof(appDBContext));
         }

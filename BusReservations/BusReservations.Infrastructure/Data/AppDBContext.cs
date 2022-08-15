@@ -1,8 +1,9 @@
-﻿using BusReservations.Core.Domain;
+﻿using BusReservations.Core.Abstract;
+using BusReservations.Core.Domain;
 
 namespace BusReservations.Infrastructure.Data
 {
-    public class AppDBContext
+    public class AppDBContext : IDbContext
     {
         public List<Bus> Buses { get; set; } = new List<Bus>();
         public List<User> Users { get; set; } = new List<User>();
