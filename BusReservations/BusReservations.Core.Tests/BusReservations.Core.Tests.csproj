@@ -22,4 +22,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BusReservations.Core\BusReservations.Core.csproj" />
+    <ProjectReference Include="..\BusReservations.Infrastructure\BusReservations.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
