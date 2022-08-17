@@ -5,13 +5,13 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusReservations.WebAPI", "BusReservations.WebAPI.csproj", "{106DB802-9FE5-448F-A417-558C16C7EEFF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusReservations.ConsoleApp", "..\BusReservations.ConsoleApp\BusReservations.ConsoleApp.csproj", "{ADB14B5D-6D66-4069-956B-26D6FB744AC1}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusReservations.Infrastructure", "..\BusReservations.Infrastructure\BusReservations.Infrastructure.csproj", "{F7B04C64-686F-42CF-B133-517A9932A7C0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusReservations.Core", "..\BusReservations.Core\BusReservations.Core.csproj", "{3BAA553F-054B-4E53-A7EB-47A02D9125F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusReservations.Core.Tests", "..\BusReservations.Core.Tests\BusReservations.Core.Tests.csproj", "{3F628547-69A7-4852-9432-C74250669A95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusReservations.Core.Tests", "..\BusReservations.Core.Tests\BusReservations.Core.Tests.csproj", "{3F628547-69A7-4852-9432-C74250669A95}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusReservations.ConsoleApp", "..\BusReservations.ConsoleApp\BusReservations.ConsoleApp.csproj", "{F491CA47-6661-4383-BC78-177E08580DDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,6 @@ Global
 		{106DB802-9FE5-448F-A417-558C16C7EEFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{106DB802-9FE5-448F-A417-558C16C7EEFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{106DB802-9FE5-448F-A417-558C16C7EEFF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ADB14B5D-6D66-4069-956B-26D6FB744AC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ADB14B5D-6D66-4069-956B-26D6FB744AC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ADB14B5D-6D66-4069-956B-26D6FB744AC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ADB14B5D-6D66-4069-956B-26D6FB744AC1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F7B04C64-686F-42CF-B133-517A9932A7C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F7B04C64-686F-42CF-B133-517A9932A7C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7B04C64-686F-42CF-B133-517A9932A7C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{3F628547-69A7-4852-9432-C74250669A95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F628547-69A7-4852-9432-C74250669A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F628547-69A7-4852-9432-C74250669A95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F491CA47-6661-4383-BC78-177E08580DDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F491CA47-6661-4383-BC78-177E08580DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F491CA47-6661-4383-BC78-177E08580DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F491CA47-6661-4383-BC78-177E08580DDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,7 +8,6 @@ namespace BusReservations.Infrastructure.Data
     {
         private readonly AppDBContext _dbContext;
         private IBusRepository? _busRepository;
-        private IUserRepository? _userRepository;
         private ICustomerRepository? _customerRepository;
         private IReservationRepository? _reservationRepository;
         private IDrivenRouteRepository? _routeRepository;
@@ -33,20 +32,6 @@ namespace BusReservations.Infrastructure.Data
             }
         }
 
-        public IUserRepository UserRepository
-        {
-            get
-            {
-                if (_userRepository == null)
-                    _userRepository = new UserRepository(_dbContext);
-
-                return _userRepository;
-            }
-            set
-            {
-                _userRepository = value;
-            }
-        }
         public ICustomerRepository CustomerRepository
         {
             get

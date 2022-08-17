@@ -1,14 +1,21 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace BusReservations.Infrastructure.Data
 {
-    public class AppDBContext : IDbContext
+    public class AppDBContext : DbContext
     {
-        public List<Bus> Buses { get; set; } = new List<Bus>();
-        public List<User> Users { get; set; } = new List<User>();
-        public List<Customer> Customers { get; set; } = new List<Customer>();
-        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
-        public List<DrivenRoute> DrivenRoutes { get; set; } = new List<DrivenRoute>();
+        public AppDBContext() { }
+
+        public DbSet<Bus> Buses { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<DrivenRoute> DrivenRoutes { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=BusReservations;Trusted_Connection=True;TrustServerCertificate=True");
+        }
     }
 }

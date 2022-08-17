@@ -7,9 +7,9 @@ namespace BusReservations.Infrastructure.Data.Repository
 {
     public class BusRepository : IBusRepository
     {
-        private readonly IDbContext _appDBContext;
+        private readonly AppDBContext _appDBContext;
 
-        public BusRepository(IDbContext appDBContext)
+        public BusRepository(AppDBContext appDBContext)
         {
             _appDBContext = appDBContext ?? throw new ArgumentNullException(nameof(appDBContext));
         }
@@ -17,11 +17,13 @@ namespace BusReservations.Infrastructure.Data.Repository
         public void AddBus(Bus bus)
         {
             _appDBContext.Buses?.Add(bus);
+            _appDBContext.SaveChanges();
         }
 
         public void DeleteBus(Guid id)
         {
             _appDBContext.Buses.Remove(GetBusByID(id));
+            _appDBContext.SaveChanges();
         }
 
         public IEnumerable<Bus> GetAllBuses(int pageIndex = 1)
@@ -41,9 +43,12 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public void UpdateBus(Guid id, Bus newBus)
         {
-            var index = _appDBContext.Buses.IndexOf(GetBusByID(id));
-            if (index != -1)
-                _appDBContext.Buses[index] = newBus;
+            var bus = GetBusByID(id);
+            if (bus != null)
+            {
+                bus = newBus;
+                _appDBContext.SaveChanges();
+            }
         }
     }
 }

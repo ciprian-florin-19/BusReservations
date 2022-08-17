@@ -16,11 +16,13 @@ namespace BusReservations.Infrastructure.Data.Repository
         public void AddCustomer(Customer customer)
         {
             _appDBContext.Customers.Add(customer);
+            _appDBContext.SaveChanges();
         }
 
         public void DeleteCustomer(Guid id)
         {
             _appDBContext.Customers.Remove(GetCustomerById(id));
+            _appDBContext.SaveChanges();
         }
 
         public IEnumerable<Customer> GetAllCustomers()
@@ -35,9 +37,12 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public void UpdateCustomer(Guid id, Customer newCustomer)
         {
-            var index = _appDBContext.Customers.IndexOf(GetCustomerById(id));
-            if (index != -1)
-                _appDBContext.Customers[index] = newCustomer;
+            var customer = GetCustomerById(id);
+            if (customer != null)
+            {
+                customer = newCustomer;
+                _appDBContext.SaveChanges();
+            }
         }
     }
 }

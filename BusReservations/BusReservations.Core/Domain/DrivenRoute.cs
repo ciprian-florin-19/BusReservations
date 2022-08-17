@@ -1,4 +1,6 @@
-﻿namespace BusReservations.Core.Domain
+﻿using BusReservations.Core.Domain.SeatModel;
+
+namespace BusReservations.Core.Domain
 {
     public class DrivenRoute
     {
@@ -8,6 +10,6 @@
         public string? Destination { get; set; }
         public float SeatPrice { get; set; }
         public TimeTable? TimeTable { get; set; }
-        public List<int> OccupiedSeats { get; set; }
+        public List<Seat> OccupiedSeats { get; set; }
     }
 }

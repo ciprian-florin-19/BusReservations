@@ -31,11 +31,11 @@ unitOfWork.BusRepository.AddBus(
         Capacity = 10,
         Name = "GigelTransports"
     });
-unitOfWork.UserRepository.AddUser(user);
+//unitOfWork.UserRepository.AddUser(user);
 
-var users = unitOfWork.UserRepository.GetAllUsers();
-var reservations = unitOfWork.ReservationRepository.GetAllReservations();
-unitOfWork.UserRepository.CreateLocalBackup("users.csv");
+//var users = unitOfWork.UserRepository.GetAllUsers();
+//var reservations = unitOfWork.ReservationRepository.GetAllReservations();
+//unitOfWork.UserRepository.CreateLocalBackup("users.csv");
 
 var addBusCommand = new AddBusCommand() { Bus = bus };
 var addBusCommandHandler = new AddBusCommandHandler(unitOfWork);
@@ -65,7 +65,6 @@ var route1 = new DrivenRoute
     Bus = bus,
     Start = "Pitesti",
     Destination = "Sibiu",
-    OccupiedSeats = new List<int> { 1, 2 },
     SeatPrice = 50,
     TimeTable = new TimeTable
     {
@@ -80,7 +79,6 @@ var route2 = new DrivenRoute
     Bus = bus,
     Start = "Pitesti",
     Destination = "Sibiu",
-    OccupiedSeats = new List<int> { 1 },
     SeatPrice = 70,
     TimeTable = new TimeTable
     {
@@ -95,7 +93,6 @@ var route3 = new DrivenRoute
     Bus = bus,
     Start = "Pitesti",
     Destination = "Sibiu",
-    OccupiedSeats = new List<int>(),
     SeatPrice = 30,
     TimeTable = new TimeTable
     {
@@ -134,7 +131,6 @@ var createReservationCommand = new AddReservationCommand()
 };
 unitOfWork.ReservationRepository.AddReservation(testReservation);
 unitOfWork.CustomerRepository.AddCustomer(testCustomer);
-unitOfWork.UserRepository.AddUser(user);
 var createReservationCommandHandler = new AddReservationCommandHandler(unitOfWork);
 await createReservationCommandHandler.Handle(createReservationCommand, new CancellationToken());
 var createdReservation = unitOfWork.ReservationRepository.GetAllReservations().ToPagedList(2);

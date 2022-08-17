@@ -13,6 +13,8 @@ namespace BusReservations.Core.Domain
 
         public float FinalSeatPrice { get; set; }
 
+        public Reservation() { }
+
         public Reservation(User user, Guid customerId, DrivenRoute drivenRoute, Seat seatInfo)
         {
             Id = Guid.NewGuid();

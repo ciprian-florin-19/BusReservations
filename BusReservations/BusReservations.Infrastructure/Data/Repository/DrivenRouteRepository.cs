@@ -16,11 +16,13 @@ namespace BusReservations.Infrastructure.Data.Repository
         public void AddDrivenRoute(DrivenRoute route)
         {
             _appDBContext.DrivenRoutes.Add(route);
+            _appDBContext.SaveChanges();
         }
 
         public void DeleteDrivenRoute(Guid id)
         {
             _appDBContext.DrivenRoutes.Remove(GetDrivenRouteById(id));
+            _appDBContext.SaveChanges();
         }
 
         public IEnumerable<DrivenRoute> GetAllDrivenRoutes()
@@ -40,9 +42,12 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public void UpdateDrivenRoute(Guid id, DrivenRoute newRoute)
         {
-            var index = _appDBContext.DrivenRoutes.IndexOf(GetDrivenRouteById(id));
-            if (index != -1)
-                _appDBContext.DrivenRoutes[index] = newRoute;
+            var route = GetDrivenRouteById(id);
+            if (route != null)
+            {
+                route = newRoute;
+                _appDBContext.SaveChanges();
+            }
         }
     }
 }
