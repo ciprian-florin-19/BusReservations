@@ -1,5 +1,6 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Domain;
+using BusReservations.Core.Domain.SeatModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace BusReservations.Infrastructure.Data
@@ -9,9 +10,11 @@ namespace BusReservations.Infrastructure.Data
         public AppDBContext() { }
 
         public DbSet<Bus> Buses { get; set; }
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Account> Accounts { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<DrivenRoute> DrivenRoutes { get; set; }
+        public DbSet<Seat> Seats { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

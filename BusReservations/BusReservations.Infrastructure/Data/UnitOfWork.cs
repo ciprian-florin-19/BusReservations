@@ -8,9 +8,10 @@ namespace BusReservations.Infrastructure.Data
     {
         private readonly AppDBContext _dbContext;
         private IBusRepository? _busRepository;
-        private ICustomerRepository? _customerRepository;
+        private IUserRepository? _userRepository;
         private IReservationRepository? _reservationRepository;
         private IDrivenRouteRepository? _routeRepository;
+        private IAccountRepository? _accountRepository;
 
         public UnitOfWork(AppDBContext dbContext)
         {
@@ -32,18 +33,18 @@ namespace BusReservations.Infrastructure.Data
             }
         }
 
-        public ICustomerRepository CustomerRepository
+        public IUserRepository CustomerRepository
         {
             get
             {
-                if (_customerRepository == null)
-                    _customerRepository = new CustomerRepository(_dbContext);
+                if (_userRepository == null)
+                    _userRepository = new UserRepository(_dbContext);
 
-                return _customerRepository;
+                return _userRepository;
             }
             set
             {
-                _customerRepository = value;
+                _userRepository = value;
             }
         }
 
@@ -73,6 +74,20 @@ namespace BusReservations.Infrastructure.Data
             set
             {
                 _routeRepository = value;
+            }
+        }
+
+        public IAccountRepository AccountRepository
+        {
+            get
+            {
+                if (_accountRepository == null)
+                    _accountRepository = new AccountRepository(_dbContext);
+                return _accountRepository;
+            }
+            set
+            {
+                _accountRepository = value;
             }
         }
     }

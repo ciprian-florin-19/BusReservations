@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusReservations.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20220817141849_CreateDB")]
+    [Migration("20220818112733_CreateDB")]
     partial class CreateDB
     {
         /// <inheritdoc />
@@ -24,6 +24,25 @@ namespace BusReservations.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("BusReservations.Core.Domain.Account", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("HasAdminPrivileges")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Accounts");
+                });
 
             modelBuilder.Entity("BusReservations.Core.Domain.Bus", b =>
                 {
@@ -156,10 +175,6 @@ namespace BusReservations.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -169,23 +184,23 @@ namespace BusReservations.Infrastructure.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
-
-                    b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("BusReservations.Core.Domain.Customer", b =>
+            modelBuilder.Entity("BusReservations.Core.Domain.Account", b =>
                 {
-                    b.HasBaseType("BusReservations.Core.Domain.User");
+                    b.HasOne("BusReservations.Core.Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int?>("Status")
-                        .HasColumnType("int");
-
-                    b.HasDiscriminator().HasValue("Customer");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BusReservations.Core.Domain.DrivenRoute", b =>

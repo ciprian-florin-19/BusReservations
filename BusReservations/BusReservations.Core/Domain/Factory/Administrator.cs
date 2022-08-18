@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace BusReservations.Core.Domain
+namespace BusReservations.Core.Domain.Factory
 {
     internal class Administrator : User
     {

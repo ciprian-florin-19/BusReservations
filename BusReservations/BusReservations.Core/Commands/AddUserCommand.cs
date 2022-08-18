@@ -3,9 +3,8 @@ using MediatR;
 
 namespace BusReservations.Core.Commands
 {
-    internal class AddCustomerCommand : IRequest
+    internal class AddUserCommand : IRequest
     {
         public User User { get; set; }
-        public Status Status { get; set; }
     }
 }

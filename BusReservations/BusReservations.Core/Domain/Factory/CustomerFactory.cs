@@ -4,7 +4,7 @@
     {
         public User CreateUser()
         {
-            return new Customer();
+            return new User();
         }
     }
 }

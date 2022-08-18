@@ -22,6 +22,25 @@ namespace BusReservations.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("BusReservations.Core.Domain.Account", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("HasAdminPrivileges")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Accounts");
+                });
+
             modelBuilder.Entity("BusReservations.Core.Domain.Bus", b =>
                 {
                     b.Property<Guid>("Id")
@@ -85,7 +104,7 @@ namespace BusReservations.Infrastructure.Migrations
                     b.Property<float>("FinalSeatPrice")
                         .HasColumnType("real");
 
-                    b.Property<Guid>("SeatInfoSeatId")
+                    b.Property<Guid>("SeatId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserId")
@@ -95,7 +114,7 @@ namespace BusReservations.Infrastructure.Migrations
 
                     b.HasIndex("DrivenRouteId");
 
-                    b.HasIndex("SeatInfoSeatId");
+                    b.HasIndex("SeatId");
 
                     b.HasIndex("UserId");
 
@@ -104,7 +123,7 @@ namespace BusReservations.Infrastructure.Migrations
 
             modelBuilder.Entity("BusReservations.Core.Domain.SeatModel.Seat", b =>
                 {
-                    b.Property<Guid>("SeatId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -120,11 +139,11 @@ namespace BusReservations.Infrastructure.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.HasKey("SeatId");
+                    b.HasKey("Id");
 
                     b.HasIndex("DrivenRouteId");
 
-                    b.ToTable("Seat");
+                    b.ToTable("Seats");
                 });
 
             modelBuilder.Entity("BusReservations.Core.Domain.TimeTable", b =>
@@ -153,10 +172,6 @@ namespace BusReservations.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -166,23 +181,23 @@ namespace BusReservations.Infrastructure.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("User");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
-
-                    b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("BusReservations.Core.Domain.Customer", b =>
-                {
-                    b.HasBaseType("BusReservations.Core.Domain.User");
-
-                    b.Property<int?>("Status")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.HasDiscriminator().HasValue("Customer");
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("BusReservations.Core.Domain.Account", b =>
+                {
+                    b.HasOne("BusReservations.Core.Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BusReservations.Core.Domain.DrivenRoute", b =>
@@ -210,9 +225,9 @@ namespace BusReservations.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BusReservations.Core.Domain.SeatModel.Seat", "SeatInfo")
+                    b.HasOne("BusReservations.Core.Domain.SeatModel.Seat", "Seat")
                         .WithMany()
-                        .HasForeignKey("SeatInfoSeatId")
+                        .HasForeignKey("SeatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -224,7 +239,7 @@ namespace BusReservations.Infrastructure.Migrations
 
                     b.Navigation("DrivenRoute");
 
-                    b.Navigation("SeatInfo");
+                    b.Navigation("Seat");
 
                     b.Navigation("User");
                 });
