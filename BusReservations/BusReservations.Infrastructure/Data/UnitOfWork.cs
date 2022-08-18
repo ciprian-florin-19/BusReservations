@@ -33,7 +33,7 @@ namespace BusReservations.Infrastructure.Data
             }
         }
 
-        public IUserRepository CustomerRepository
+        public IUserRepository UserRepository
         {
             get
             {
