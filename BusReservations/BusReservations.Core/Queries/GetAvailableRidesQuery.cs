@@ -3,7 +3,7 @@ using MediatR;
 
 namespace BusReservations.Core.Queries
 {
-    public class GetAvailableRidesQuery : IRequest<IEnumerable<DrivenRoute>>
+    public class GetAvailableRidesQuery : IRequest<IEnumerable<BusDrivenRoute>>
     {
         public string Start { get; set; }
         public string Destination { get; set; }

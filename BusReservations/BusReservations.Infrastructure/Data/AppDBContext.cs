@@ -15,6 +15,8 @@ namespace BusReservations.Infrastructure.Data
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<DrivenRoute> DrivenRoutes { get; set; }
         public DbSet<Seat> Seats { get; set; }
+        public DbSet<TimeTable> TimeTables { get; set; }
+        public DbSet<BusDrivenRoute> BusDrivenRoutes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -22,6 +22,19 @@ var user = new User
     Name = "Vasile",
     PhoneNumber = "071111111",
 };
+var route1 = new DrivenRoute
+{
+    Id = Guid.NewGuid(),
+    Start = "pitesti",
+    Destination = "sibiu",
+    SeatPrice = 50,
+    TimeTable = new TimeTable
+    {
+        DepartureDate = new DateTime(2022, 5, 12, 15, 21, 0),
+        ArivvalDate = new DateTime(2022, 5, 12, 18, 51, 0),
+        Duration = new TimeSpan(3, 30, 0)
+    },
+};
 var appDBContext = new AppDBContext();
 IUnitOfWork unitOfWork = new UnitOfWork(appDBContext);
 unitOfWork.BusRepository.AddBus(
@@ -31,15 +44,30 @@ unitOfWork.BusRepository.AddBus(
         Capacity = 10,
         Name = "GigelTransports"
     });
+
+var testReservation = new Reservation(user, route1, new StudentSeat(1));
+
+
 //unitOfWork.UserRepository.AddUser(user);
 
 //var users = unitOfWork.UserRepository.GetAllUsers();
 //var reservations = unitOfWork.ReservationRepository.GetAllReservations();
 //unitOfWork.UserRepository.CreateLocalBackup("users.csv");
 
-var addBusCommand = new AddBusCommand() { Bus = bus };
-var addBusCommandHandler = new AddBusCommandHandler(unitOfWork);
-await addBusCommandHandler.Handle(addBusCommand, new CancellationToken());
+//var addBusCommand = new AddBusCommand() { Bus = bus };
+//var addBusCommandHandler = new AddBusCommandHandler(unitOfWork);
+//await addBusCommandHandler.Handle(addBusCommand, new CancellationToken());
+
+//var addBusToDrivenRouteCommand = new AddBusToDrivenRouteCommand() { Bus = bus, DrivenRoute = route1 };
+//var addBusToDrivenRouteCommandHandler = new AddBusToDrivenRouteCommandHandler(unitOfWork);
+//await addBusToDrivenRouteCommandHandler.Handle(addBusToDrivenRouteCommand, new CancellationToken());
+
+var createReservationCommand = new AddReservationCommand()
+{
+    Reservation = testReservation,
+};
+var createReservationCommandHandler = new AddReservationCommandHandler(unitOfWork);
+await createReservationCommandHandler.Handle(createReservationCommand, new CancellationToken());
 
 //var busQuery = new GetBusByIDQuery() { BusID = bus.Id };
 //var queryHandler = new GetBusByIDQueryHandler(unitOfWork);

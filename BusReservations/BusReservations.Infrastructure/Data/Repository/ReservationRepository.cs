@@ -1,4 +1,5 @@
-﻿using BusReservations.Core;
+﻿using Azure.Core;
+using BusReservations.Core;
 using BusReservations.Core.Abstract.Repository;
 using BusReservations.Core.Domain;
 
@@ -32,7 +33,7 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public IEnumerable<Reservation> getCustomerReservations(Guid customerId, int pageIndex = 1)
         {
-            return _appDBContext.Reservations.Where(item => item.CustomerId == customerId).ToPagedList(pageIndex);
+            return _appDBContext.Reservations.Where(item => item.User.Id == customerId).ToPagedList(pageIndex);
         }
 
         public Reservation GetReservationById(Guid id)

@@ -5,5 +5,6 @@
         public Guid Id { get; set; }
         public string Name { get; set; }
         public int Capacity { get; set; }
+        public ICollection<BusDrivenRoute> BusDrivenRoutes { get; set; }
     }
 }

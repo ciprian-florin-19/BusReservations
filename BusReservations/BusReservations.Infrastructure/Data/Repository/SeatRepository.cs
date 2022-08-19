@@ -15,7 +15,7 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public SeatRepository(AppDBContext appDBContext)
         {
-            _appDBContext = appDBContext;
+            _appDBContext = appDBContext ?? throw new ArgumentNullException(nameof(appDBContext));
         }
 
         public void AddSeat(Seat seat)

@@ -1,6 +1,7 @@
 ﻿using BusReservations.Core.Abstract.Repository;
 using BusReservations.Core.Queries;
 using BusReservations.Core.QueryHandlers;
+using BusReservations.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;

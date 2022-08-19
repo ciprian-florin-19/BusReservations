@@ -1,12 +1,12 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 #nullable disable
 
 namespace BusReservations.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateDB : Migration
+    public partial class AddDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,7 +25,7 @@ namespace BusReservations.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TimeTable",
+                name: "TimeTables",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -35,7 +35,7 @@ namespace BusReservations.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TimeTable", x => x.Id);
+                    table.PrimaryKey("PK_TimeTables", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -58,7 +58,6 @@ namespace BusReservations.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Start = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Destination = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SeatPrice = table.Column<float>(type: "real", nullable: false),
@@ -68,15 +67,9 @@ namespace BusReservations.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_DrivenRoutes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DrivenRoutes_Buses_BusId",
-                        column: x => x.BusId,
-                        principalTable: "Buses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DrivenRoutes_TimeTable_TimeTableId",
+                        name: "FK_DrivenRoutes_TimeTables_TimeTableId",
                         column: x => x.TimeTableId,
-                        principalTable: "TimeTable",
+                        principalTable: "TimeTables",
                         principalColumn: "Id");
                 });
 
@@ -100,10 +93,35 @@ namespace BusReservations.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Seat",
+                name: "BusDrivenRoutes",
                 columns: table => new
                 {
-                    SeatId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DrivenRouteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BusDrivenRoutes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BusDrivenRoutes_Buses_BusId",
+                        column: x => x.BusId,
+                        principalTable: "Buses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BusDrivenRoutes_DrivenRoutes_DrivenRouteId",
+                        column: x => x.DrivenRouteId,
+                        principalTable: "DrivenRoutes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Seats",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
                     Discount = table.Column<float>(type: "real", nullable: false),
                     SeatNumber = table.Column<int>(type: "int", nullable: false),
@@ -111,9 +129,9 @@ namespace BusReservations.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Seat", x => x.SeatId);
+                    table.PrimaryKey("PK_Seats", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Seat_DrivenRoutes_DrivenRouteId",
+                        name: "FK_Seats_DrivenRoutes_DrivenRouteId",
                         column: x => x.DrivenRouteId,
                         principalTable: "DrivenRoutes",
                         principalColumn: "Id");
@@ -124,10 +142,9 @@ namespace BusReservations.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DrivenRouteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SeatInfoSeatId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SeatId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FinalSeatPrice = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
@@ -140,10 +157,10 @@ namespace BusReservations.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Reservations_Seat_SeatInfoSeatId",
-                        column: x => x.SeatInfoSeatId,
-                        principalTable: "Seat",
-                        principalColumn: "SeatId",
+                        name: "FK_Reservations_Seats_SeatId",
+                        column: x => x.SeatId,
+                        principalTable: "Seats",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reservations_Users_UserId",
@@ -159,9 +176,14 @@ namespace BusReservations.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DrivenRoutes_BusId",
-                table: "DrivenRoutes",
+                name: "IX_BusDrivenRoutes_BusId",
+                table: "BusDrivenRoutes",
                 column: "BusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BusDrivenRoutes_DrivenRouteId",
+                table: "BusDrivenRoutes",
+                column: "DrivenRouteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DrivenRoutes_TimeTableId",
@@ -174,9 +196,9 @@ namespace BusReservations.Infrastructure.Migrations
                 column: "DrivenRouteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservations_SeatInfoSeatId",
+                name: "IX_Reservations_SeatId",
                 table: "Reservations",
-                column: "SeatInfoSeatId");
+                column: "SeatId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_UserId",
@@ -184,8 +206,8 @@ namespace BusReservations.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Seat_DrivenRouteId",
-                table: "Seat",
+                name: "IX_Seats_DrivenRouteId",
+                table: "Seats",
                 column: "DrivenRouteId");
         }
 
@@ -196,10 +218,16 @@ namespace BusReservations.Infrastructure.Migrations
                 name: "Accounts");
 
             migrationBuilder.DropTable(
+                name: "BusDrivenRoutes");
+
+            migrationBuilder.DropTable(
                 name: "Reservations");
 
             migrationBuilder.DropTable(
-                name: "Seat");
+                name: "Buses");
+
+            migrationBuilder.DropTable(
+                name: "Seats");
 
             migrationBuilder.DropTable(
                 name: "Users");
@@ -208,10 +236,7 @@ namespace BusReservations.Infrastructure.Migrations
                 name: "DrivenRoutes");
 
             migrationBuilder.DropTable(
-                name: "Buses");
-
-            migrationBuilder.DropTable(
-                name: "TimeTable");
+                name: "TimeTables");
         }
     }
 }

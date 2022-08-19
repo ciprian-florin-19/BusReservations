@@ -6,7 +6,6 @@ namespace BusReservations.Core.Domain
     {
 
         public Guid Id { get; set; }
-        public Guid CustomerId { get; set; }
         public User User { get; set; }
         public DrivenRoute DrivenRoute { get; set; }
         public Seat Seat { get; set; }
@@ -15,14 +14,14 @@ namespace BusReservations.Core.Domain
 
         public Reservation() { }
 
-        public Reservation(User user, Guid customerId, DrivenRoute drivenRoute, Seat seatInfo)
+        public Reservation(User user, DrivenRoute drivenRoute, Seat seat)
         {
             Id = Guid.NewGuid();
-            CustomerId = customerId;
             User = user;
             DrivenRoute = drivenRoute;
-            Seat = seatInfo;
+            Seat = seat;
             FinalSeatPrice = DrivenRoute.SeatPrice - (DrivenRoute.SeatPrice * (Seat.Discount / 100));
+            drivenRoute.OccupiedSeats.Add(seat);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public AccountRepository(AppDBContext appDBContext)
         {
-            _appDBContext = appDBContext;
+            _appDBContext = appDBContext ?? throw new ArgumentNullException(nameof(appDBContext));
         }
 
         public void AddAccount(Account account)

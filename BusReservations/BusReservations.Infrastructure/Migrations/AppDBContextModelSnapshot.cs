@@ -59,13 +59,31 @@ namespace BusReservations.Infrastructure.Migrations
                     b.ToTable("Buses");
                 });
 
-            modelBuilder.Entity("BusReservations.Core.Domain.DrivenRoute", b =>
+            modelBuilder.Entity("BusReservations.Core.Domain.BusDrivenRoute", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("BusId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("DrivenRouteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BusId");
+
+                    b.HasIndex("DrivenRouteId");
+
+                    b.ToTable("BusDrivenRoutes");
+                });
+
+            modelBuilder.Entity("BusReservations.Core.Domain.DrivenRoute", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Destination")
@@ -82,8 +100,6 @@ namespace BusReservations.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BusId");
-
                     b.HasIndex("TimeTableId");
 
                     b.ToTable("DrivenRoutes");
@@ -93,9 +109,6 @@ namespace BusReservations.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("DrivenRouteId")
@@ -163,7 +176,7 @@ namespace BusReservations.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TimeTable");
+                    b.ToTable("TimeTables");
                 });
 
             modelBuilder.Entity("BusReservations.Core.Domain.User", b =>
@@ -200,19 +213,30 @@ namespace BusReservations.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("BusReservations.Core.Domain.DrivenRoute", b =>
+            modelBuilder.Entity("BusReservations.Core.Domain.BusDrivenRoute", b =>
                 {
                     b.HasOne("BusReservations.Core.Domain.Bus", "Bus")
-                        .WithMany()
+                        .WithMany("BusDrivenRoutes")
                         .HasForeignKey("BusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BusReservations.Core.Domain.DrivenRoute", "DrivenRoute")
+                        .WithMany("BusDrivenRoutes")
+                        .HasForeignKey("DrivenRouteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bus");
+
+                    b.Navigation("DrivenRoute");
+                });
+
+            modelBuilder.Entity("BusReservations.Core.Domain.DrivenRoute", b =>
+                {
                     b.HasOne("BusReservations.Core.Domain.TimeTable", "TimeTable")
                         .WithMany()
                         .HasForeignKey("TimeTableId");
-
-                    b.Navigation("Bus");
 
                     b.Navigation("TimeTable");
                 });
@@ -251,8 +275,15 @@ namespace BusReservations.Infrastructure.Migrations
                         .HasForeignKey("DrivenRouteId");
                 });
 
+            modelBuilder.Entity("BusReservations.Core.Domain.Bus", b =>
+                {
+                    b.Navigation("BusDrivenRoutes");
+                });
+
             modelBuilder.Entity("BusReservations.Core.Domain.DrivenRoute", b =>
                 {
+                    b.Navigation("BusDrivenRoutes");
+
                     b.Navigation("OccupiedSeats");
                 });
 #pragma warning restore 612, 618

@@ -4,9 +4,8 @@
     {
         public RegularSeat(int seatNumber) : base(seatNumber)
         {
+            Type = Status.regular;
+            Discount = 0;
         }
-
-        public override Status Type { get => Status.regular; set => base.Type = value; }
-        public override float Discount { get => 0; set => base.Discount = value; }
     }
 }

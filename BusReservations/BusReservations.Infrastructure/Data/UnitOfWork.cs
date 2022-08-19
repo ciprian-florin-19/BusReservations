@@ -12,6 +12,7 @@ namespace BusReservations.Infrastructure.Data
         private IReservationRepository? _reservationRepository;
         private IDrivenRouteRepository? _routeRepository;
         private IAccountRepository? _accountRepository;
+        private IBusDrivenRouteRepository _busDrivenRouteRepository;
 
         public UnitOfWork(AppDBContext dbContext)
         {
@@ -88,6 +89,19 @@ namespace BusReservations.Infrastructure.Data
             set
             {
                 _accountRepository = value;
+            }
+        }
+        public IBusDrivenRouteRepository BusDrivenRoutesRepository
+        {
+            get
+            {
+                if (_busDrivenRouteRepository == null)
+                    _busDrivenRouteRepository = new BusDrivenRouteRepository(_dbContext);
+                return _busDrivenRouteRepository;
+            }
+            set
+            {
+                _busDrivenRouteRepository = value;
             }
         }
     }

@@ -4,9 +4,8 @@
     {
         public ElderlySeat(int seatNumber) : base(seatNumber)
         {
+            Type = Status.elderly;
+            Discount = 50;
         }
-
-        public override Status Type { get => Status.student; set => base.Type = value; }
-        public override float Discount { get => 50; set => base.Discount = value; }
     }
 }
