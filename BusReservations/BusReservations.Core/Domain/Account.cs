@@ -11,7 +11,7 @@ namespace BusReservations.Core.Domain
         public Guid Id { get; set; }
         public User User { get; set; }
         public bool HasAdminPrivileges { get; set; }
-        public string Username { get; }
-        public string Password { get; }
+        public string Username { get; set; }
+        public string Password { get; set; }
     }
 }
