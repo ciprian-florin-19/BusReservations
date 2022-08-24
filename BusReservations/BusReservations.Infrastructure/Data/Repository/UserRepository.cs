@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BusReservations.Infrastructure.Data.Repository
 {
-    internal class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly AppDBContext _appDBContext;
 

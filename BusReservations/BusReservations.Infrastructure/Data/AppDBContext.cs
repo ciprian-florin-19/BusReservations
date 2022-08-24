@@ -2,13 +2,17 @@
 using BusReservations.Core.Domain;
 using BusReservations.Core.Domain.SeatModel;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace BusReservations.Infrastructure.Data
 {
     public class AppDBContext : DbContext
     {
         public AppDBContext() { }
-
+        public AppDBContext(DbContextOptions<AppDBContext> options)
+        : base(options)
+        {
+        }
         public DbSet<Bus> Buses { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Account> Accounts { get; set; }

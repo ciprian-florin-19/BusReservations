@@ -39,6 +39,7 @@ var appDBContext = new AppDBContext();
 IUnitOfWork unitOfWork = new UnitOfWork(appDBContext);
 
 var testReservation = new Reservation(user, route1, new StudentSeat(1));
+Console.WriteLine(typeof(Bus).Assembly);
 //unitOfWork.UserRepository.AddUser(user);
 
 //var users = unitOfWork.UserRepository.GetAllUsers();

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BusReservations.Infrastructure.Data.Repository
 {
-    internal class ReservationRepository : IReservationRepository
+    public class ReservationRepository : IReservationRepository
     {
         private AppDBContext _appDBContext;
 

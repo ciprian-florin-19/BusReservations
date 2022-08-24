@@ -1,3 +1,13 @@
+using BusReservations.Core.Abstract;
+using BusReservations.Core.Abstract.Repository;
+using BusReservations.Core.Commands;
+using BusReservations.Core.Domain;
+using BusReservations.Infrastructure.Data;
+using BusReservations.Infrastructure.Data.Repository;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,7 +16,20 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection")));
 
+//add external services
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IBusDrivenRouteRepository, BusDrivenRouteRepository>();
+builder.Services.AddScoped<IBusRepository, BusRepository>();
+builder.Services.AddScoped<IDrivenRouteRepository, DrivenRouteRepository>();
+builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
+builder.Services.AddScoped<ITimeTableRepository, TimeTableRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddMediatR(typeof(Bus).Assembly);
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,3 +46,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
