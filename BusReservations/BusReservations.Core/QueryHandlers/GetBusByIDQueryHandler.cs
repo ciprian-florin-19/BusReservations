@@ -16,7 +16,7 @@ namespace BusReservations.Core.QueryHandlers
 
         public async Task<Bus> Handle(GetBusByIDQuery request, CancellationToken cancellationToken)
         {
-            return _unitOfWork.BusRepository.GetBusByID(request.BusID);
+            return await _unitOfWork.BusRepository.GetBusByID(request.BusID);
         }
     }
 }

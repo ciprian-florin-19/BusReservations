@@ -2,6 +2,7 @@
 using BusReservations.Core.Abstract;
 using BusReservations.Core.Abstract.Repository;
 using BusReservations.Core.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,33 +23,27 @@ namespace BusReservations.Infrastructure.Data.Repository
         public void AddTimeTable(TimeTable timeTable)
         {
             _appDBContext.TimeTables.Add(timeTable);
-            _appDBContext.SaveChanges();
         }
 
-        public void DeleteTimeTable(Guid id)
+        public void DeleteTimeTable(TimeTable timeTable)
         {
-            _appDBContext.Remove(GetTimeTableByID(id));
-            _appDBContext.SaveChanges();
+            _appDBContext.Remove(timeTable);
         }
 
-        public IEnumerable<TimeTable> GetAllTimeTables(int pageIndex = 1)
+        public async Task<IEnumerable<TimeTable>> GetAllTimeTables(int pageIndex = 1)
         {
-            return _appDBContext.TimeTables.ToPagedList(pageIndex);
+            return await _appDBContext.TimeTables.ToPagedListAsync(pageIndex);
         }
 
-        public TimeTable GetTimeTableByID(Guid id)
+        public async Task<TimeTable> GetTimeTableByID(Guid id)
         {
-            return _appDBContext.TimeTables.FirstOrDefault(timetable => timetable.Id == id);
+            var timeTable = await _appDBContext.TimeTables.SingleOrDefaultAsync(timetable => timetable.Id == id);
+            return timeTable;
         }
 
-        public void UpdateTimeTable(Guid id, TimeTable newTimeTable)
+        public void UpdateTimeTable(TimeTable timeTable)
         {
-            var timeTable = GetTimeTableByID(id);
-            if (timeTable != null)
-            {
-                timeTable = newTimeTable;
-                _appDBContext.SaveChanges();
-            }
+            _appDBContext.Update(timeTable);
         }
     }
 }

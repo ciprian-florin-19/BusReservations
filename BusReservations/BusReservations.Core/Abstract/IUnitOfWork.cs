@@ -10,5 +10,6 @@ namespace BusReservations.Core.Abstract
         IDrivenRouteRepository RouteRepository { get; set; }
         IAccountRepository AccountRepository { get; set; }
         IBusDrivenRouteRepository BusDrivenRoutesRepository { get; set; }
+        Task SaveChangesAsync();
     }
 }

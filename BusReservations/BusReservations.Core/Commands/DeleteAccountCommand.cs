@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using BusReservations.Core.Domain;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace BusReservations.Core.Commands
 {
     public class DeleteAccountCommand : IRequest
     {
-        public Guid Id { get; set; }
+        public Account Account { get; set; }
     }
 }

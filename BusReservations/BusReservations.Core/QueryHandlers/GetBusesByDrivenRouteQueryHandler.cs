@@ -21,7 +21,7 @@ namespace BusReservations.Core.QueryHandlers
 
         public async Task<ICollection<Bus>> Handle(GetBusesByDrivenRouteQuery request, CancellationToken cancellationToken)
         {
-            return _unitOfWork.BusDrivenRoutesRepository.GetBusesByDrivenRoute(request.RouteId);
+            return await _unitOfWork.BusDrivenRoutesRepository.GetBusesByDrivenRoute(request.RouteId);
         }
     }
 }

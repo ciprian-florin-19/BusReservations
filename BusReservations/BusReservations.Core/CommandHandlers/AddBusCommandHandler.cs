@@ -17,6 +17,7 @@ namespace BusReservations.Core.CommandHandlers
         {
             var bus = request.Bus;
             _unitOfWork.BusRepository.AddBus(bus);
+            await _unitOfWork.SaveChangesAsync();
             return Unit.Value;
         }
     }

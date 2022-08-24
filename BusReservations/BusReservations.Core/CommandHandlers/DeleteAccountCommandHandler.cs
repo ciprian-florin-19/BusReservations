@@ -20,7 +20,8 @@ namespace BusReservations.Core.CommandHandlers
 
         public async Task<Unit> Handle(DeleteAccountCommand request, CancellationToken cancellationToken)
         {
-            _unitOfWork.AccountRepository.DeleteAccount(request.Id);
+            _unitOfWork.AccountRepository.DeleteAccount(request.Account);
+            await _unitOfWork.SaveChangesAsync();
             return Unit.Value;
         }
     }

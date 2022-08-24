@@ -2,6 +2,7 @@
 using BusReservations.Core;
 using BusReservations.Core.Abstract.Repository;
 using BusReservations.Core.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace BusReservations.Infrastructure.Data.Repository
 {
@@ -17,38 +18,32 @@ namespace BusReservations.Infrastructure.Data.Repository
         public void AddReservation(Reservation reservation)
         {
             _appDBContext.Reservations.Add(reservation);
-            _appDBContext.SaveChanges();
         }
 
-        public void DeleteReservation(Guid id)
+        public void DeleteReservation(Reservation reservation)
         {
-            _appDBContext.Reservations.Remove(GetReservationById(id));
-            _appDBContext.SaveChanges();
+            _appDBContext.Reservations.Remove(reservation);
         }
 
-        public IEnumerable<Reservation> GetAllReservations(int pageIndex = 1)
+        public async Task<IEnumerable<Reservation>> GetAllReservations(int pageIndex = 1)
         {
-            return _appDBContext.Reservations.ToPagedList(pageIndex);
+            return await _appDBContext.Reservations.ToPagedListAsync(pageIndex);
         }
 
-        public IEnumerable<Reservation> getCustomerReservations(Guid customerId, int pageIndex = 1)
+        public async Task<IEnumerable<Reservation>> getCustomerReservations(Guid customerId, int pageIndex = 1)
         {
-            return _appDBContext.Reservations.Where(item => item.User.Id == customerId).ToPagedList(pageIndex);
+            return await _appDBContext.Reservations.Where(item => item.User.Id == customerId).ToPagedListAsync(pageIndex);
         }
 
-        public Reservation GetReservationById(Guid id)
+        public async Task<Reservation> GetReservationById(Guid id)
         {
-            return _appDBContext.Reservations.FirstOrDefault(reservation => reservation.Id == id);
+            var reservation = await _appDBContext.Reservations.SingleOrDefaultAsync(reservation => reservation.Id == id);
+            return reservation;
         }
 
-        public void UpdateReservation(Guid id, Reservation newReservation)
+        public void UpdateReservation(Reservation reservation)
         {
-            var reservation = GetReservationById(id);
-            if (reservation != null)
-            {
-                reservation = newReservation;
-                _appDBContext.SaveChanges();
-            }
+            _appDBContext.Update(reservation);
         }
     }
 }

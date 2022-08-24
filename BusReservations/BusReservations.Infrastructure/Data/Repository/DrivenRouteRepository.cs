@@ -1,6 +1,7 @@
 ﻿using BusReservations.Core;
 using BusReservations.Core.Abstract.Repository;
 using BusReservations.Core.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace BusReservations.Infrastructure.Data.Repository
 {
@@ -16,33 +17,27 @@ namespace BusReservations.Infrastructure.Data.Repository
         public void AddDrivenRoute(DrivenRoute route)
         {
             _appDBContext.DrivenRoutes.Add(route);
-            _appDBContext.SaveChanges();
         }
 
-        public void DeleteDrivenRoute(Guid id)
+        public void DeleteDrivenRoute(DrivenRoute route)
         {
-            _appDBContext.DrivenRoutes.Remove(GetDrivenRouteById(id));
-            _appDBContext.SaveChanges();
+            _appDBContext.DrivenRoutes.Remove(route);
         }
 
-        public IEnumerable<DrivenRoute> GetAllDrivenRoutes()
+        public async Task<IEnumerable<DrivenRoute>> GetAllDrivenRoutes()
         {
-            return _appDBContext.DrivenRoutes.ToPagedList();
+            return await _appDBContext.DrivenRoutes.ToPagedListAsync();
         }
 
-        public DrivenRoute GetDrivenRouteById(Guid id)
+        public async Task<DrivenRoute> GetDrivenRouteById(Guid id)
         {
-            return _appDBContext.DrivenRoutes.FirstOrDefault(route => route.Id == id);
+            var route = await _appDBContext.DrivenRoutes.SingleOrDefaultAsync(route => route.Id == id);
+            return route;
         }
 
-        public void UpdateDrivenRoute(Guid id, DrivenRoute newRoute)
+        public void UpdateDrivenRoute(DrivenRoute route)
         {
-            var route = GetDrivenRouteById(id);
-            if (route != null)
-            {
-                route = newRoute;
-                _appDBContext.SaveChanges();
-            }
+            _appDBContext.Update(route);
         }
     }
 }

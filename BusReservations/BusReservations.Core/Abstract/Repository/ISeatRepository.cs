@@ -11,9 +11,9 @@ namespace SeatReservations.Core.Abstract.Repository
     public interface ISeatRepository
     {
         void AddSeat(Seat seat);
-        IEnumerable<Seat> GetAllSeats(int pageIndex = 1);
-        Seat GetSeatByID(Guid SeatId);
-        void UpdateSeat(Guid id, Seat newSeat);
-        void DeleteSeat(Guid id);
+        Task<IEnumerable<Seat>> GetAllSeats(int pageIndex = 1);
+        Task<Seat> GetSeatByID(Guid SeatId);
+        void UpdateSeat(Seat seat);
+        void DeleteSeat(Seat seat);
     }
 }

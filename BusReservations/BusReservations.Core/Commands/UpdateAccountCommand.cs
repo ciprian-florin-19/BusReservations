@@ -10,7 +10,6 @@ namespace BusReservations.Core.Commands
 {
     internal class UpdateAccountCommand : IRequest
     {
-        public Guid Id { get; set; }
         public Account Account { get; set; }
     }
 }

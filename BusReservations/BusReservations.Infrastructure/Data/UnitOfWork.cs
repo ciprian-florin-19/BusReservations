@@ -104,5 +104,10 @@ namespace BusReservations.Infrastructure.Data
                 _busDrivenRouteRepository = value;
             }
         }
+
+        public async Task SaveChangesAsync()
+        {
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

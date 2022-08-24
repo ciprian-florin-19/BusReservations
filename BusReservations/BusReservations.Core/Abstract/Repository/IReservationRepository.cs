@@ -5,10 +5,10 @@ namespace BusReservations.Core.Abstract.Repository
     public interface IReservationRepository
     {
         void AddReservation(Reservation reservation);
-        IEnumerable<Reservation> GetAllReservations(int pageIndex = 1);
-        Reservation GetReservationById(Guid id);
-        void UpdateReservation(Guid reservationId, Reservation newReservation);
-        void DeleteReservation(Guid reservationId);
-        IEnumerable<Reservation> getCustomerReservations(Guid customerId, int pageIndex = 1);
+        Task<IEnumerable<Reservation>> GetAllReservations(int pageIndex = 1);
+        Task<Reservation> GetReservationById(Guid id);
+        void UpdateReservation(Reservation reservation);
+        void DeleteReservation(Reservation reservation);
+        Task<IEnumerable<Reservation>> getCustomerReservations(Guid customerId, int pageIndex = 1);
     }
 }

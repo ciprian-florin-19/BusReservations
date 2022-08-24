@@ -21,7 +21,9 @@ namespace BusReservations.Core.CommandHandlers
         public async Task<Unit> Handle(AddAccountCommand request, CancellationToken cancellationToken)
         {
             _unitOfWork.AccountRepository.AddAccount(request.Account);
+            await _unitOfWork.SaveChangesAsync();
             return Unit.Value;
+
         }
     }
 }

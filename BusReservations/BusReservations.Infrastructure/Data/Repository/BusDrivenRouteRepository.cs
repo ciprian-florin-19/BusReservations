@@ -1,6 +1,7 @@
 ﻿using BusReservations.Core;
 using BusReservations.Core.Abstract.Repository;
 using BusReservations.Core.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,48 +22,42 @@ namespace BusReservations.Infrastructure.Data.Repository
         public void AddBusDrivenRoute(BusDrivenRoute busDrivenRoutes)
         {
             _appDBContext.BusDrivenRoutes.Add(busDrivenRoutes);
-            _appDBContext.SaveChanges();
         }
 
-        public void DeleteBusDrivenRoute(Guid id)
+        public void DeleteBusDrivenRoute(BusDrivenRoute busDrivenRoute)
         {
-            _appDBContext.BusDrivenRoutes.Remove(GetBusDrivenRouteByID(id));
-            _appDBContext.SaveChanges();
+            _appDBContext.BusDrivenRoutes.Remove(busDrivenRoute);
         }
 
-        public IEnumerable<BusDrivenRoute> GetAllBusDrivenRoutes(int pageIndex = 1)
+        public async Task<IEnumerable<BusDrivenRoute>> GetAllBusDrivenRoutes(int pageIndex = 1)
         {
-            return _appDBContext.BusDrivenRoutes.ToPagedList(pageIndex);
+            return await _appDBContext.BusDrivenRoutes.ToPagedListAsync(pageIndex);
         }
 
-        public BusDrivenRoute GetBusDrivenRouteByID(Guid id)
+        public async Task<BusDrivenRoute> GetBusDrivenRouteByID(Guid id)
         {
-            return _appDBContext.BusDrivenRoutes.FirstOrDefault(bdr => bdr.Id == id);
+            var bdr = await _appDBContext.BusDrivenRoutes.SingleOrDefaultAsync(bdr => bdr.Id == id);
+            return bdr;
         }
 
-        public void UpdateBusDrivenRoute(Guid id, BusDrivenRoute newBusDrivenRoutes)
+        public void UpdateBusDrivenRoute(BusDrivenRoute busDrivenRoute)
         {
-            var bdr = GetBusDrivenRouteByID(id);
-            if (bdr != null)
-            {
-                bdr = newBusDrivenRoutes;
-                _appDBContext.SaveChanges();
-            }
+            _appDBContext.Update(busDrivenRoute);
         }
 
-        public IEnumerable<BusDrivenRoute> GetAvailableRides(string start, string destination, DateTime departureDate, int pageIndex = 1)
+        public async Task<IEnumerable<BusDrivenRoute>> GetAvailableRides(string start, string destination, DateTime departureDate, int pageIndex = 1)
         {
-            return _appDBContext.BusDrivenRoutes.Where(bdr => bdr.Bus.Capacity > bdr.DrivenRoute.OccupiedSeats.Count && bdr.DrivenRoute.TimeTable.DepartureDate.Date == departureDate.Date).ToPagedList(pageIndex);
+            return await _appDBContext.BusDrivenRoutes.Where(bdr => bdr.Bus.Capacity > bdr.DrivenRoute.OccupiedSeats.Count && bdr.DrivenRoute.TimeTable.DepartureDate.Date == departureDate.Date).ToPagedListAsync(pageIndex);
         }
 
-        public IEnumerable<DrivenRoute> GetDrivenRoutesByBus(Guid busId)
+        public async Task<IEnumerable<DrivenRoute>> GetDrivenRoutesByBus(Guid busId)
         {
-            return _appDBContext.BusDrivenRoutes.Where(bdr => bdr.BusId == busId).Select(bdr => bdr.DrivenRoute).ToPagedList();
+            return await _appDBContext.BusDrivenRoutes.Where(bdr => bdr.BusId == busId).Select(bdr => bdr.DrivenRoute).ToPagedListAsync();
         }
 
-        public ICollection<Bus> GetBusesByDrivenRoute(Guid RouteId)
+        public async Task<ICollection<Bus>> GetBusesByDrivenRoute(Guid RouteId)
         {
-            return _appDBContext.BusDrivenRoutes.Where(bdr => bdr.DrivenRouteId == RouteId).Select(bdr => bdr.Bus).ToPagedList();
+            return await _appDBContext.BusDrivenRoutes.Where(bdr => bdr.DrivenRouteId == RouteId).Select(bdr => bdr.Bus).ToPagedListAsync();
 
         }
     }

@@ -14,7 +14,8 @@ namespace BusReservations.Core.CommandHandlers
 
         public async Task<Unit> Handle(CancelReservationCommand request, CancellationToken cancellationToken)
         {
-            _unitOfWork.ReservationRepository.DeleteReservation(request.ReservationId);
+            _unitOfWork.ReservationRepository.DeleteReservation(request.Reservation);
+            await _unitOfWork.SaveChangesAsync();
             return Unit.Value;
         }
     }

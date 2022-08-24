@@ -1,6 +1,7 @@
 ﻿using BusReservations.Core;
 using BusReservations.Core.Abstract.Repository;
 using BusReservations.Core.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,33 +22,27 @@ namespace BusReservations.Infrastructure.Data.Repository
         public void AddAccount(Account account)
         {
             _appDBContext.Accounts.Add(account);
-            _appDBContext.SaveChanges();
         }
 
-        public void DeleteAccount(Guid id)
+        public void DeleteAccount(Account account)
         {
-            _appDBContext.Accounts.Remove(GetAccountById(id));
-            _appDBContext.SaveChanges();
+            _appDBContext.Accounts.Remove(account);
         }
 
-        public Account GetAccountById(Guid id)
+        public async Task<Account> GetAccountById(Guid id)
         {
-            return _appDBContext.Accounts.FirstOrDefault(account => account.Id == id);
+            var account = await _appDBContext.Accounts.SingleOrDefaultAsync(account => account.Id == id);
+            return account;
         }
 
-        public IEnumerable<Account> GetAllAccounts(int pageIndex = 1)
+        public async Task<IEnumerable<Account>> GetAllAccounts(int pageIndex = 1)
         {
-            return _appDBContext.Accounts.ToPagedList(pageIndex);
+            return await _appDBContext.Accounts.ToPagedListAsync(pageIndex);
         }
 
-        public void UpdateAccount(Guid id, Account newAccount)
+        public void UpdateAccount(Account account)
         {
-            var account = GetAccountById(id);
-            if (account != null)
-            {
-                account = newAccount;
-                _appDBContext.SaveChanges();
-            }
+            _appDBContext.Update(account);
         }
     }
 }

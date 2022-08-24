@@ -1,6 +1,7 @@
 ﻿using BusReservations.Core;
 using BusReservations.Core.Abstract.Repository;
 using BusReservations.Core.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace BusReservations.Infrastructure.Data.Repository
 {
@@ -18,7 +19,6 @@ namespace BusReservations.Infrastructure.Data.Repository
         public void AddUser(User user)
         {
             _appDBContext.Users.Add(user);
-            _appDBContext.SaveChanges();
         }
 
         public void CreateLocalBackup(string fileName)
@@ -29,30 +29,25 @@ namespace BusReservations.Infrastructure.Data.Repository
             IsBackedUp = true;
         }
 
-        public void DeleteUser(Guid id)
+        public void DeleteUser(User user)
         {
-            _appDBContext.Users.Remove(GetUserById(id));
-            _appDBContext.SaveChanges();
+            _appDBContext.Users.Remove(user);
         }
 
-        public IEnumerable<User> GetAllUsers()
+        public async Task<IEnumerable<User>> GetAllUsers()
         {
-            return _appDBContext.Users.ToPagedList();
+            return await _appDBContext.Users.ToPagedListAsync();
         }
 
-        public User GetUserById(Guid id)
+        public async Task<User> GetUserById(Guid id)
         {
-            return _appDBContext.Users.FirstOrDefault(User => User.Id == id);
+            var user = await _appDBContext.Users.SingleOrDefaultAsync(User => User.Id == id);
+            return user;
         }
 
-        public void UpdateUser(Guid id, User newUser)
+        public void UpdateUser(User user)
         {
-            var user = GetUserById(id);
-            if (user != null)
-            {
-                user = newUser;
-                _appDBContext.SaveChanges();
-            }
+            _appDBContext.Update(user);
         }
     }
 }

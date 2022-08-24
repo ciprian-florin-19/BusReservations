@@ -1,5 +1,6 @@
 ﻿using BusReservations.Core;
 using BusReservations.Core.Domain.SeatModel;
+using Microsoft.EntityFrameworkCore;
 using SeatReservations.Core.Abstract.Repository;
 using System;
 using System.Collections.Generic;
@@ -21,33 +22,27 @@ namespace BusReservations.Infrastructure.Data.Repository
         public void AddSeat(Seat seat)
         {
             _appDBContext.Seats.Add(seat);
-            _appDBContext.SaveChanges();
         }
 
-        public void DeleteSeat(Guid id)
+        public void DeleteSeat(Seat seat)
         {
-            _appDBContext.Seats.Remove(GetSeatByID(id));
-            _appDBContext.SaveChanges();
+            _appDBContext.Seats.Remove(seat);
         }
 
-        public IEnumerable<Seat> GetAllSeats(int pageIndex = 1)
+        public async Task<IEnumerable<Seat>> GetAllSeats(int pageIndex = 1)
         {
-            return _appDBContext.Seats.ToPagedList();
+            return await _appDBContext.Seats.ToPagedListAsync();
         }
 
-        public Seat GetSeatByID(Guid id)
+        public async Task<Seat> GetSeatByID(Guid id)
         {
-            return _appDBContext.Seats.FirstOrDefault(seat => seat.Id == id);
+            var seat = await _appDBContext.Seats.SingleOrDefaultAsync(seat => seat.Id == id);
+            return seat;
         }
 
-        public void UpdateSeat(Guid id, Seat newSeat)
+        public void UpdateSeat(Seat seat)
         {
-            var seat = GetSeatByID(id);
-            if (seat != null)
-            {
-                seat = newSeat;
-                _appDBContext.SaveChanges();
-            }
+            _appDBContext.Update(seat);
         }
     }
 }

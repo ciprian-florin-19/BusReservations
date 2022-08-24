@@ -31,6 +31,7 @@ namespace BusReservations.Core.CommandHandlers
                     DrivenRouteId = request.DrivenRoute.Id
                 }
                 );
+            await _unitOfWork.SaveChangesAsync();
             return Unit.Value;
         }
     }

@@ -2,6 +2,7 @@
 using BusReservations.Core.Abstract;
 using BusReservations.Core.Abstract.Repository;
 using BusReservations.Core.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace BusReservations.Infrastructure.Data.Repository
 {
@@ -16,39 +17,33 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public void AddBus(Bus bus)
         {
-            _appDBContext.Buses?.Add(bus);
-            _appDBContext.SaveChanges();
+            _appDBContext.Buses.Add(bus);
         }
 
-        public void DeleteBus(Guid id)
+        public void DeleteBus(Bus bus)
         {
-            _appDBContext.Buses.Remove(GetBusByID(id));
-            _appDBContext.SaveChanges();
+            _appDBContext.Buses.Remove(bus);
         }
 
-        public IEnumerable<Bus> GetAllBuses(int pageIndex = 1)
+        public async Task<IEnumerable<Bus>> GetAllBuses(int pageIndex = 1)
         {
-            return _appDBContext.Buses.ToPagedList(pageIndex);
+            return await _appDBContext.Buses.ToPagedListAsync(pageIndex);
         }
 
-        public Bus GetBusByID(Guid id)
+        public async Task<Bus> GetBusByID(Guid id)
         {
-            return _appDBContext.Buses.FirstOrDefault(bus => bus.Id == id);
+            var bus = await _appDBContext.Buses.SingleOrDefaultAsync(bus => bus.Id == id);
+            return bus;
         }
 
-        public IEnumerable<Bus> GetBusesByName(string name, int pageIndex = 1)
+        public async Task<IEnumerable<Bus>> GetBusesByName(string name, int pageIndex = 1)
         {
-            return _appDBContext.Buses.Where(bus => bus.Name == name).ToPagedList(pageIndex);
+            return await _appDBContext.Buses.Where(bus => bus.Name == name).ToPagedListAsync(pageIndex);
         }
 
-        public void UpdateBus(Guid id, Bus newBus)
+        public void UpdateBus(Bus bus)
         {
-            var bus = GetBusByID(id);
-            if (bus != null)
-            {
-                bus = newBus;
-                _appDBContext.SaveChanges();
-            }
+            _appDBContext.Update(bus);
         }
     }
 }

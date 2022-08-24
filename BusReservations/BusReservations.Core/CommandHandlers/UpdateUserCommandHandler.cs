@@ -20,7 +20,8 @@ namespace BusReservations.Core.CommandHandlers
 
         public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            _unitOfWork.UserRepository.UpdateUser(request.Id, request.NewUser);
+            _unitOfWork.UserRepository.UpdateUser(request.User);
+            await _unitOfWork.SaveChangesAsync();
             return Unit.Value;
         }
     }

@@ -15,7 +15,8 @@ namespace BusReservations.Core.CommandHandlers
 
         public async Task<Unit> Handle(UpdateRouteCommand request, CancellationToken cancellationToken)
         {
-            _unitOfWork.RouteRepository.UpdateDrivenRoute(request.Id, request.NewRoute);
+            _unitOfWork.RouteRepository.UpdateDrivenRoute(request.Route);
+            await _unitOfWork.SaveChangesAsync();
             return Unit.Value;
         }
     }

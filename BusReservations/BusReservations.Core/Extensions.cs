@@ -16,5 +16,9 @@ namespace BusReservations.Core
         {
             return new PagedList<T>(values, new PaginationParameters() { PageIndex = pageIndex });
         }
+        public static async Task<PagedList<T>> ToPagedListAsync<T>(this IEnumerable<T> values, int pageIndex = 1)
+        {
+            return await PagedList<T>.Create(values, new PaginationParameters() { PageIndex = pageIndex });
+        }
     }
 }

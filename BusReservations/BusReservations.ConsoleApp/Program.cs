@@ -37,17 +37,8 @@ var route1 = new DrivenRoute
 };
 var appDBContext = new AppDBContext();
 IUnitOfWork unitOfWork = new UnitOfWork(appDBContext);
-unitOfWork.BusRepository.AddBus(
-    new Bus
-    {
-        Id = Guid.NewGuid(),
-        Capacity = 10,
-        Name = "GigelTransports"
-    });
 
 var testReservation = new Reservation(user, route1, new StudentSeat(1));
-
-
 //unitOfWork.UserRepository.AddUser(user);
 
 //var users = unitOfWork.UserRepository.GetAllUsers();
@@ -62,12 +53,12 @@ var testReservation = new Reservation(user, route1, new StudentSeat(1));
 //var addBusToDrivenRouteCommandHandler = new AddBusToDrivenRouteCommandHandler(unitOfWork);
 //await addBusToDrivenRouteCommandHandler.Handle(addBusToDrivenRouteCommand, new CancellationToken());
 
-var createReservationCommand = new AddReservationCommand()
-{
-    Reservation = testReservation,
-};
-var createReservationCommandHandler = new AddReservationCommandHandler(unitOfWork);
-await createReservationCommandHandler.Handle(createReservationCommand, new CancellationToken());
+//var createReservationCommand = new AddReservationCommand()
+//{
+//    Reservation = testReservation,
+//};
+//var createReservationCommandHandler = new AddReservationCommandHandler(unitOfWork);
+//await createReservationCommandHandler.Handle(createReservationCommand, new CancellationToken());
 
 //var busQuery = new GetBusByIDQuery() { BusID = bus.Id };
 //var queryHandler = new GetBusByIDQueryHandler(unitOfWork);
