@@ -36,8 +36,14 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "BusReservations.WebAPI");
+        c.InjectStylesheet("/swagger-ui/SwaggerDark.css");
+    });
 }
+
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
