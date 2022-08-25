@@ -24,6 +24,11 @@ namespace BusReservations.Infrastructure.Data.Repository
             _appDBContext.Accounts.Add(account);
         }
 
+        public void AddRange(IEnumerable<Account> accounts)
+        {
+            _appDBContext.Accounts.AddRange(accounts);
+        }
+
         public void DeleteAccount(Account account)
         {
             _appDBContext.Accounts.Remove(account);

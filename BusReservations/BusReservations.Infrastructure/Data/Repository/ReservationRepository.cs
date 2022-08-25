@@ -15,6 +15,11 @@ namespace BusReservations.Infrastructure.Data.Repository
             _appDBContext = addDBContext ?? throw new ArgumentNullException(nameof(AppDBContext));
         }
 
+        public void AddRange(IEnumerable<Reservation> reservations)
+        {
+            _appDBContext.Reservations.AddRange(reservations);
+        }
+
         public void AddReservation(Reservation reservation)
         {
             _appDBContext.Reservations.Add(reservation);

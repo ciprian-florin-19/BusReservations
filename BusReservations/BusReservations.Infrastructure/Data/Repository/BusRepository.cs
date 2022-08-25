@@ -20,6 +20,11 @@ namespace BusReservations.Infrastructure.Data.Repository
             _appDBContext.Buses.Add(bus);
         }
 
+        public void AddRange(IEnumerable<Bus> buses)
+        {
+            _appDBContext.Buses.AddRange(buses);
+        }
+
         public void DeleteBus(Bus bus)
         {
             _appDBContext.Buses.Remove(bus);

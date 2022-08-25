@@ -19,6 +19,11 @@ namespace BusReservations.Infrastructure.Data.Repository
             _appDBContext.DrivenRoutes.Add(route);
         }
 
+        public void AddRange(IEnumerable<DrivenRoute> routes)
+        {
+            _appDBContext.AddRange(routes);
+        }
+
         public void DeleteDrivenRoute(DrivenRoute route)
         {
             _appDBContext.DrivenRoutes.Remove(route);

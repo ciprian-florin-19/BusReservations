@@ -11,5 +11,6 @@ namespace BusReservations.Core.Abstract.Repository
         bool IsBackedUp { get; }
         void UpdateUser(User user);
         void DeleteUser(User user);
+        void AddRange(IEnumerable<User> users);
     }
 }

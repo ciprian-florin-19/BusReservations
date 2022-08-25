@@ -9,5 +9,6 @@ namespace BusReservations.Core.Abstract.Repository
         Task<IEnumerable<DrivenRoute>> GetAllDrivenRoutes();
         void UpdateDrivenRoute(DrivenRoute route);
         void DeleteDrivenRoute(DrivenRoute route);
+        void AddRange(IEnumerable<DrivenRoute> routes);
     }
 }

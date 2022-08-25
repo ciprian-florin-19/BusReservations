@@ -9,5 +9,6 @@ namespace BusReservations.Core.Abstract.Repository
         Task<Account> GetAccountById(Guid id);
         void UpdateAccount(Account account);
         void DeleteAccount(Account account);
+        void AddRange(IEnumerable<Account> accounts);
     }
 }

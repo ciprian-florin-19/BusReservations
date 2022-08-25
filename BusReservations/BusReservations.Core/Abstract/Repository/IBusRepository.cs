@@ -10,5 +10,6 @@ namespace BusReservations.Core.Abstract.Repository
         Task<IEnumerable<Bus>> GetBusesByName(string name, int pageIndex = 1);
         void UpdateBus(Bus bus);
         void DeleteBus(Bus bus);
+        void AddRange(IEnumerable<Bus> buses);
     }
 }

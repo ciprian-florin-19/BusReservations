@@ -60,5 +60,10 @@ namespace BusReservations.Infrastructure.Data.Repository
             return await _appDBContext.BusDrivenRoutes.Where(bdr => bdr.DrivenRouteId == RouteId).Select(bdr => bdr.Bus).ToPagedListAsync();
 
         }
+
+        public void AddRange(IEnumerable<BusDrivenRoute> routes)
+        {
+            _appDBContext.AddRange(routes);
+        }
     }
 }

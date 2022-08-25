@@ -10,5 +10,6 @@ namespace BusReservations.Core.Abstract.Repository
         void UpdateReservation(Reservation reservation);
         void DeleteReservation(Reservation reservation);
         Task<IEnumerable<Reservation>> getCustomerReservations(Guid customerId, int pageIndex = 1);
+        void AddRange(IEnumerable<Reservation> reservations);
     }
 }

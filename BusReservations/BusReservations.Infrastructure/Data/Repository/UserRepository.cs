@@ -16,6 +16,11 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public bool IsBackedUp { get; private set; } = false;
 
+        public void AddRange(IEnumerable<User> users)
+        {
+            _appDBContext.Users.AddRange(users);
+        }
+
         public void AddUser(User user)
         {
             _appDBContext.Users.Add(user);
