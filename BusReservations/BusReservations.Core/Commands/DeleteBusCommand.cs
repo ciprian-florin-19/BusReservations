@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace BusReservations.Core.Commands
 {
-    public class AddBusToDrivenRouteCommand : IRequest<BusDrivenRoute>
+    public class DeleteBusCommand : IRequest<Bus>
     {
-        public Guid DrivenRouteId { get; set; }
-        public Guid BusId { get; set; }
+        public Guid Id { get; set; }
     }
 }

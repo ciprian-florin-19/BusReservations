@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace BusReservations.Core.Commands
 {
-    public class AddBusToDrivenRouteCommand : IRequest<BusDrivenRoute>
+    public class UpdateBusCommand : IRequest<Bus>
     {
-        public Guid DrivenRouteId { get; set; }
-        public Guid BusId { get; set; }
+        public Guid Id { get; set; }
+        public Bus NewBus { get; set; }
     }
 }

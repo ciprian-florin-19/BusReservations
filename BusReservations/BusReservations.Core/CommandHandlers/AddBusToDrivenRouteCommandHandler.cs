@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BusReservations.Core.CommandHandlers
 {
-    public class AddBusToDrivenRouteCommandHandler : IRequestHandler<AddBusToDrivenRouteCommand>
+    public class AddBusToDrivenRouteCommandHandler : IRequestHandler<AddBusToDrivenRouteCommand, BusDrivenRoute>
     {
         private IUnitOfWork _unitOfWork;
 
@@ -19,20 +19,23 @@ namespace BusReservations.Core.CommandHandlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Unit> Handle(AddBusToDrivenRouteCommand request, CancellationToken cancellationToken)
+        public async Task<BusDrivenRoute> Handle(AddBusToDrivenRouteCommand request, CancellationToken cancellationToken)
         {
-            _unitOfWork.BusDrivenRoutesRepository.AddBusDrivenRoute(
-                new BusDrivenRoute()
-                {
-                    Id = Guid.NewGuid(),
-                    Bus = request.Bus,
-                    BusId = request.Bus.Id,
-                    DrivenRoute = request.DrivenRoute,
-                    DrivenRouteId = request.DrivenRoute.Id
-                }
-                );
+            var bus = await _unitOfWork.BusRepository.GetBusByID(request.BusId);
+            var route = await _unitOfWork.RouteRepository.GetDrivenRouteById(request.DrivenRouteId);
+            if (bus == null || route == null)
+                return null;
+            var busDrivenRoute = new BusDrivenRoute()
+            {
+                Id = Guid.NewGuid(),
+                Bus = bus,
+                BusId = request.BusId,
+                DrivenRoute = route,
+                DrivenRouteId = request.DrivenRouteId
+            };
+            _unitOfWork.BusDrivenRoutesRepository.AddBusDrivenRoute(busDrivenRoute);
             await _unitOfWork.SaveChangesAsync();
-            return Unit.Value;
+            return busDrivenRoute;
         }
     }
 }

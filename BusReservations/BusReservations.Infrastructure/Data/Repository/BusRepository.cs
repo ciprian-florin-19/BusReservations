@@ -32,12 +32,27 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public async Task<IEnumerable<Bus>> GetAllBuses(int pageIndex = 1)
         {
-            return await _appDBContext.Buses.ToPagedListAsync(pageIndex);
+            return await _appDBContext.Buses
+                .Include(x => x.BusDrivenRoutes)
+                .ThenInclude(x => x.DrivenRoute)
+                .ThenInclude(dr => dr.TimeTable)
+                .Include(x => x.BusDrivenRoutes)
+                .ThenInclude(x => x.DrivenRoute)
+                .ThenInclude(x => x.OccupiedSeats)
+                .ToPagedListAsync(pageIndex);
         }
 
         public async Task<Bus> GetBusByID(Guid id)
         {
-            var bus = await _appDBContext.Buses.SingleOrDefaultAsync(bus => bus.Id == id);
+            var bus = await _appDBContext.Buses
+                .Include(x => x.BusDrivenRoutes)
+                .ThenInclude(x => x.DrivenRoute)
+                .ThenInclude(dr => dr.TimeTable)
+                .Include(x => x.BusDrivenRoutes)
+                .ThenInclude(x => x.DrivenRoute)
+                .ThenInclude(x => x.OccupiedSeats)
+                .SingleOrDefaultAsync(bus => bus.Id == id);
+
             return bus;
         }
 

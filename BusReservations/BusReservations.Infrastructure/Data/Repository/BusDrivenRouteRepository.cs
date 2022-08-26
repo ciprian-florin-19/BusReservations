@@ -36,7 +36,10 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public async Task<BusDrivenRoute> GetBusDrivenRouteByID(Guid id)
         {
-            var bdr = await _appDBContext.BusDrivenRoutes.SingleOrDefaultAsync(bdr => bdr.Id == id);
+            var bdr = await _appDBContext.BusDrivenRoutes
+                .Include(bdr => bdr.DrivenRoute)
+                .Include(bdr => bdr.Bus)
+                .SingleOrDefaultAsync(bdr => bdr.Id == id);
             return bdr;
         }
 
