@@ -6,11 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusReservations.Core.Commands
+namespace BusReservations.Core.Queries
 {
-    public class UpdateUserCommand : IRequest<User>
+    public class GetAllUsersQuery : IRequest<IEnumerable<User>>
     {
-        public Guid Id { get; set; }
-        public User User { get; set; }
+        public int Index { get; set; }
     }
 }

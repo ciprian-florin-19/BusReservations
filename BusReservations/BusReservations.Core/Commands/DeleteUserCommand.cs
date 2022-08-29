@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace BusReservations.Core.Commands
 {
-    public class UpdateUserCommand : IRequest<User>
+    public class DeleteUserCommand : IRequest<User>
     {
         public Guid Id { get; set; }
-        public User User { get; set; }
     }
 }

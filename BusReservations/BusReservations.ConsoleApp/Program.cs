@@ -29,12 +29,12 @@ using BusReservations.Infrastructure.Data;
 //    .RuleFor(r => r.TimeTable, f => f.PickRandom(timeTables))
 //    .Generate(10);
 
-//var users = new Faker<User>("ro")
-//    .RuleFor(u => u.Id, Guid.NewGuid)
-//    .RuleFor(u => u.Name, f => f.Name.FullName())
-//    .RuleFor(u => u.PhoneNumber, f => f.Phone.PhoneNumber())
-//    .RuleFor(u => u.Email, f => f.Internet.Email())
-//    .RuleFor(u => u.Status, f => f.PickRandom<Status>()).Generate(10);
+var users = new Faker<User>("ro")
+    .RuleFor(u => u.Id, Guid.NewGuid)
+    .RuleFor(u => u.Name, f => f.Name.FullName())
+    .RuleFor(u => u.PhoneNumber, f => f.Phone.PhoneNumber())
+    .RuleFor(u => u.Email, f => f.Internet.Email())
+    .RuleFor(u => u.Status, f => f.PickRandom<Status>()).Generate(10);
 
 //var bdr = new Faker<BusDrivenRoute>("ro")
 //    .RuleFor(bdr => bdr.Id, Guid.NewGuid)
@@ -54,29 +54,20 @@ using BusReservations.Infrastructure.Data;
 //    .RuleFor(s => s.SeatNumber, f => f.Random.Number(f.PickRandom(buses).Capacity))
 //    .RuleFor(s => s.Type, f => f.PickRandom<Status>()).Generate(10);
 //var reservations = new Faker<Reservation>().CustomInstantiator(f => new Reservation(f.PickRandom(users), f.PickRandom(routes), f.PickRandom(seats))).Generate(10);
-//var dbContext = new AppDBContext();
+var dbContext = new AppDBContext();
 
 ////dbContext.Database.EnsureDeleted();
 ////dbContext.Database.EnsureCreated();
 
-//var unitOfWork = new UnitOfWork(dbContext);
-//unitOfWork.UserRepository.AddRange(users);
+var unitOfWork = new UnitOfWork(dbContext);
+unitOfWork.UserRepository.AddRange(users);
 //unitOfWork.BusRepository.AddRange(buses);
 //unitOfWork.RouteRepository.AddRange(routes);
 //unitOfWork.BusDrivenRoutesRepository.AddRange(bdr);
 //unitOfWork.AccountRepository.AddRange(accounts);
 //unitOfWork.ReservationRepository.AddRange(reservations);
-//await unitOfWork.SaveChangesAsync();
+await unitOfWork.SaveChangesAsync();
 
 //Console.WriteLine();
-var dbContext = new AppDBContext();
-var unitOfWork = new UnitOfWork(dbContext);
-var bus = await unitOfWork.BusRepository.GetBusByID(new Guid("01A0B896-13EF-418B-BC9C-1B63474D2745"));
-var route = await unitOfWork.RouteRepository.GetDrivenRouteById(new Guid("E52F70C3-C84C-432D-9717-1BE5658C85C5"));
-var command = new AddBusToDrivenRouteCommand() { BusId = bus.Id, DrivenRouteId = route.Id };
-var handler = new AddBusToDrivenRouteCommandHandler(unitOfWork);
-await handler.Handle(command, new CancellationToken());
-var bus2 = await unitOfWork.BusRepository.GetBusByID(new Guid("01A0B896-13EF-418B-BC9C-1B63474D2745"));
-var route2 = await unitOfWork.RouteRepository.GetDrivenRouteById(new Guid("E52F70C3-C84C-432D-9717-1BE5658C85C5"));
 
 Console.WriteLine();

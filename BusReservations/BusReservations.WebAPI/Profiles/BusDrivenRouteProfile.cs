@@ -9,6 +9,7 @@ namespace BusReservations.WebAPI.Profiles
         public BusDrivenRouteProfile()
         {
             CreateMap<BusDrivenRoute, BusDrivenRouteGetDto>();
+            CreateMap<BusDrivenRoutePutPostDto, BusDrivenRoute>();
         }
     }
 }

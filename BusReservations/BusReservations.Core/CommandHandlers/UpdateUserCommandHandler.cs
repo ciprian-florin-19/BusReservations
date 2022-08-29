@@ -1,5 +1,6 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Commands;
+using BusReservations.Core.Domain;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BusReservations.Core.CommandHandlers
 {
-    internal class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand>
+    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, User>
     {
         private IUnitOfWork _unitOfWork;
 
@@ -18,11 +19,18 @@ namespace BusReservations.Core.CommandHandlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        public async Task<User> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            _unitOfWork.UserRepository.UpdateUser(request.User);
+            var toUpdate = await _unitOfWork.UserRepository.GetUserById(request.Id);
+            if (toUpdate == null)
+                return null;
+            toUpdate.Name = request.User.Name;
+            toUpdate.PhoneNumber = request.User.PhoneNumber;
+            toUpdate.Email = request.User.Email;
+            toUpdate.Status = request.User.Status;
+            _unitOfWork.UserRepository.UpdateUser(toUpdate);
             await _unitOfWork.SaveChangesAsync();
-            return Unit.Value;
+            return toUpdate;
         }
     }
 }

@@ -21,15 +21,16 @@ namespace BusReservations.Core.CommandHandlers
 
         public async Task<Bus> Handle(UpdateBusCommand request, CancellationToken cancellationToken)
         {
-            var toUpdate = _unitOfWork.BusRepository.GetBusByID(request.Id);
+            var toUpdate = await _unitOfWork.BusRepository.GetBusByID(request.Id);
             if (toUpdate == null)
             {
                 return null;
             }
-            request.NewBus.Id = request.Id;
-            _unitOfWork.BusRepository.UpdateBus(request.NewBus);
+            toUpdate.Name = request.NewBus.Name;
+            toUpdate.Capacity = request.NewBus.Capacity;
+            _unitOfWork.BusRepository.UpdateBus(toUpdate);
             await _unitOfWork.SaveChangesAsync();
-            return request.NewBus;
+            return toUpdate;
         }
     }
 }

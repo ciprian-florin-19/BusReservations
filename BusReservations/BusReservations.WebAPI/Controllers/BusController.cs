@@ -10,7 +10,7 @@ using System.Collections;
 
 namespace BusReservations.WebAPI.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/v1/buses")]
     [ApiController]
     public class BusController : ControllerBase
     {
@@ -22,8 +22,8 @@ namespace BusReservations.WebAPI.Controllers
             _mediator = mediator;
             _mapper = mapper;
         }
-        [HttpGet]
-        [Route("{id}")]
+
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetBusById(Guid id)
         {
             var bus = await _mediator.Send(new GetBusByIDQuery { BusID = id });
@@ -32,13 +32,15 @@ namespace BusReservations.WebAPI.Controllers
             var result = _mapper.Map<BusGetDto>(bus);
             return Ok(result);
         }
+
         [HttpGet]
-        public async Task<IActionResult> GetAllBuses([FromQuery] int pageIndex = 1)
+        public async Task<IActionResult> GetAllBuses([FromQuery] int index = 1)
         {
-            var result = await _mediator.Send(new GetAllBusesQuery() { PageIndex = pageIndex });
+            var result = await _mediator.Send(new GetAllBusesQuery() { PageIndex = index });
             var mappedResult = _mapper.Map<IEnumerable<BusGetDto>>(result);
             return Ok(mappedResult);
         }
+
         [HttpPost]
         public async Task<IActionResult> AddBus([FromBody] BusPutPostDto busDto)
         {
@@ -47,8 +49,7 @@ namespace BusReservations.WebAPI.Controllers
             return CreatedAtAction(nameof(GetBusById), new { Id = result.Id }, result);
         }
 
-        [HttpPut]
-        [Route("{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBus(Guid id, [FromBody] BusPutPostDto newBus)
         {
             var bus = _mapper.Map<Bus>(newBus);
@@ -57,14 +58,24 @@ namespace BusReservations.WebAPI.Controllers
                 return NotFound();
             return NoContent();
         }
-        [HttpDelete]
-        [Route("{id}")]
+
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBus(Guid id)
         {
             var result = await _mediator.Send(new DeleteBusCommand() { Id = id });
             if (result == null)
                 return NotFound();
             return NoContent();
+        }
+
+        [HttpGet("{id}/driven-routes")]
+        public async Task<IActionResult> GetDrivenRoutesByBus(Guid id)
+        {
+            var result = await _mediator.Send(new GetDrivenRoutesByBusQuery { BusId = id });
+            if (result == null)
+                return NoContent();
+            var mappedResult = _mapper.Map<ICollection<DrivenRouteGetDto>>(result);
+            return Ok(mappedResult);
         }
     }
 }

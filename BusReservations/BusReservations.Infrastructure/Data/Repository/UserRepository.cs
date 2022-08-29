@@ -39,15 +39,20 @@ namespace BusReservations.Infrastructure.Data.Repository
             _appDBContext.Users.Remove(user);
         }
 
-        public async Task<IEnumerable<User>> GetAllUsers()
+        public async Task<IEnumerable<User>> GetAllUsers(int index = 1)
         {
-            return await _appDBContext.Users.ToPagedListAsync();
+            return await _appDBContext.Users.ToPagedListAsync(index);
         }
 
         public async Task<User> GetUserById(Guid id)
         {
             var user = await _appDBContext.Users.SingleOrDefaultAsync(User => User.Id == id);
             return user;
+        }
+
+        public async Task<IEnumerable<User>> GetUsersByStatus(Status status, int index = 1)
+        {
+            return await _appDBContext.Users.Where(u => u.Status == status).ToPagedListAsync(index);
         }
 
         public void UpdateUser(User user)
