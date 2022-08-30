@@ -78,5 +78,14 @@ namespace BusReservations.WebAPI.Controllers
             var mappedUser = _mapper.Map<IEnumerable<UserGetDto>>(result);
             return Ok(mappedUser);
         }
+        [HttpGet("{id}/reservations")]
+        public async Task<IActionResult> GetUserReservations(Guid id, [FromQuery] int index = 1)
+        {
+            var result = await _mediator.Send(new GetCustomerReservationsQuery { CustomerId = id, PageIndex = index });
+            if (result == null)
+                return NoContent();
+            var mappedResult = _mapper.Map<IEnumerable<ReservationSimpleGetDto>>(result);
+            return Ok(mappedResult);
+        }
     }
 }

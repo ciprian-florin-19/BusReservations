@@ -1,5 +1,6 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Commands;
+using BusReservations.Core.Domain;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BusReservations.Core.CommandHandlers
 {
-    public class AddAccountCommandHandler : IRequestHandler<AddAccountCommand>
+    public class AddAccountCommandHandler : IRequestHandler<AddAccountCommand, Account>
     {
         private IUnitOfWork _unitOfWork;
 
@@ -18,11 +19,11 @@ namespace BusReservations.Core.CommandHandlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Unit> Handle(AddAccountCommand request, CancellationToken cancellationToken)
+        public async Task<Account> Handle(AddAccountCommand request, CancellationToken cancellationToken)
         {
             _unitOfWork.AccountRepository.AddAccount(request.Account);
             await _unitOfWork.SaveChangesAsync();
-            return Unit.Value;
+            return request.Account;
 
         }
     }

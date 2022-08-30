@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace BusReservations.Core.Commands
 {
-    internal class UpdateAccountCommand : IRequest
+    public class UpdateAccountCommand : IRequest<Account>
     {
+        public Guid Id { get; set; }
         public Account Account { get; set; }
     }
 }

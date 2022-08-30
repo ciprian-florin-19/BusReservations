@@ -6,6 +6,6 @@ namespace BusReservations.WebAPI.DTOs
     {
         public string Name { get; set; }
         public int Capacity { get; set; }
-        public ICollection<DrivenRouteGetDto> DrivenRoutes { get; set; }
+        public ICollection<DrivenRouteSimpleDto> DrivenRoutes { get; set; }
     }
 }

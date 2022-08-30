@@ -1,10 +1,11 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Commands;
+using BusReservations.Core.Domain;
 using MediatR;
 
 namespace BusReservations.Core.CommandHandlers
 {
-    public class CancelReservationCommandHandler : IRequestHandler<CancelReservationCommand>
+    public class CancelReservationCommandHandler : IRequestHandler<CancelReservationCommand, Reservation>
     {
         private IUnitOfWork _unitOfWork;
         public CancelReservationCommandHandler(IUnitOfWork unitOfWork)
@@ -12,11 +13,14 @@ namespace BusReservations.Core.CommandHandlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Unit> Handle(CancelReservationCommand request, CancellationToken cancellationToken)
+        public async Task<Reservation> Handle(CancelReservationCommand request, CancellationToken cancellationToken)
         {
-            _unitOfWork.ReservationRepository.DeleteReservation(request.Reservation);
+            var toDelete = await _unitOfWork.ReservationRepository.GetReservationById(request.Id);
+            if (toDelete == null)
+                return null;
+            _unitOfWork.ReservationRepository.DeleteReservation(toDelete);
             await _unitOfWork.SaveChangesAsync();
-            return Unit.Value;
+            return toDelete;
         }
     }
 }

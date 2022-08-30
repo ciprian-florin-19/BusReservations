@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusReservations.Core.Commands
 {
-    public class AddAccountCommand : IRequest
+    public class AddAccountCommand : IRequest<Account>
     {
         public Account Account { get; set; }
     }

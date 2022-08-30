@@ -1,5 +1,6 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Domain;
+using BusReservations.Core.Queries;
 using MediatR;
 using System;
 using System.Collections.Generic;

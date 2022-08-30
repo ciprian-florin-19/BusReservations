@@ -10,6 +10,5 @@ namespace BusReservations.Core.Domain
         public string? Destination { get; set; }
         public float SeatPrice { get; set; }
         public TimeTable? TimeTable { get; set; }
-        public ICollection<Seat> OccupiedSeats { get; set; } = new List<Seat>();
     }
 }

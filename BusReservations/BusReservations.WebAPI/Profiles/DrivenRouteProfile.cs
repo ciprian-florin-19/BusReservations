@@ -9,9 +9,13 @@ namespace BusReservations.WebAPI.Profiles
     {
         public DrivenRouteProfile()
         {
-            CreateMap<DrivenRoute, DrivenRouteGetDto>();
+            CreateMap<DrivenRoute, DrivenRouteGetDto>()
+                .ForMember(dr => dr.Buses,
+                b => b.MapFrom(dr => dr.BusDrivenRoutes
+                .Select(bdr => bdr.Bus)));
+            CreateMap<DrivenRoutePutPostDto, DrivenRoute>();
+            CreateMap<DrivenRoute, DrivenRouteSimpleDto>();
             CreateMap<TimeTable, TimeTableDto>();
-            CreateMap<Seat, SeatDto>();
         }
     }
 }

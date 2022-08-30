@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusReservations.Core.Domain;
+using BusReservations.Core.Domain.SeatModel;
 using BusReservations.WebAPI.DTOs;
 
 namespace BusReservations.WebAPI.Profiles
@@ -10,6 +11,8 @@ namespace BusReservations.WebAPI.Profiles
         {
             CreateMap<BusDrivenRoute, BusDrivenRouteGetDto>();
             CreateMap<BusDrivenRoutePutPostDto, BusDrivenRoute>();
+            CreateMap<Seat, SeatDto>();
+            CreateMap<SeatDto, Seat>();
         }
     }
 }

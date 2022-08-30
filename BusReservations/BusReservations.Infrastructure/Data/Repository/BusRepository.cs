@@ -37,7 +37,6 @@ namespace BusReservations.Infrastructure.Data.Repository
                 .ThenInclude(x => x.DrivenRoute)
                 .ThenInclude(dr => dr.TimeTable)
                 .Include(x => x.BusDrivenRoutes)
-                .ThenInclude(x => x.DrivenRoute)
                 .ThenInclude(x => x.OccupiedSeats)
                 .ToPagedListAsync(pageIndex);
         }
@@ -49,7 +48,6 @@ namespace BusReservations.Infrastructure.Data.Repository
                 .ThenInclude(x => x.DrivenRoute)
                 .ThenInclude(dr => dr.TimeTable)
                 .Include(x => x.BusDrivenRoutes)
-                .ThenInclude(x => x.DrivenRoute)
                 .ThenInclude(x => x.OccupiedSeats)
                 .SingleOrDefaultAsync(bus => bus.Id == id);
 

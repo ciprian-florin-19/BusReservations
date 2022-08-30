@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace BusReservations.Core.Commands
 {
-    public class DeleteAccountCommand : IRequest
+    public class DeleteAccountCommand : IRequest<Account>
     {
-        public Account Account { get; set; }
+        public Guid Id { get; set; }
     }
 }

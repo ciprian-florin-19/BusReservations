@@ -1,5 +1,6 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Commands;
+using BusReservations.Core.Domain;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BusReservations.Core.CommandHandlers
 {
-    internal class DeleteAccountCommandHandler : IRequestHandler<DeleteAccountCommand>
+    internal class DeleteAccountCommandHandler : IRequestHandler<DeleteAccountCommand, Account>
     {
         private IUnitOfWork _unitOfWork;
 
@@ -18,11 +19,15 @@ namespace BusReservations.Core.CommandHandlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Unit> Handle(DeleteAccountCommand request, CancellationToken cancellationToken)
+        public async Task<Account> Handle(DeleteAccountCommand request, CancellationToken cancellationToken)
         {
-            _unitOfWork.AccountRepository.DeleteAccount(request.Account);
+            var toDelete = await _unitOfWork.AccountRepository.GetAccountById(request.Id);
+            if (toDelete == null)
+                return null;
+            _unitOfWork.AccountRepository.DeleteAccount(toDelete);
+            _unitOfWork.UserRepository.DeleteUser(toDelete.User);
             await _unitOfWork.SaveChangesAsync();
-            return Unit.Value;
+            return toDelete;
         }
     }
 }

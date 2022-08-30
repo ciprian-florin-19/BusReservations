@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusReservations.Core.Domain.SeatModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,7 @@ namespace BusReservations.Core.Domain
         public Guid BusId { get; set; }
         public DrivenRoute DrivenRoute { get; set; }
         public Guid DrivenRouteId { get; set; }
+        public IEnumerable<Seat> OccupiedSeats { get; set; }
+
     }
 }

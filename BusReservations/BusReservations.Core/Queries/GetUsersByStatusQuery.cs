@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusReservations.Core.QueryHandlers
+namespace BusReservations.Core.Queries
 {
     public class GetUsersByStatusQuery : IRequest<IEnumerable<User>>
     {

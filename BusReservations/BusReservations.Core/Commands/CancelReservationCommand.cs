@@ -3,8 +3,8 @@ using MediatR;
 
 namespace BusReservations.Core.Commands
 {
-    public class CancelReservationCommand : IRequest
+    public class CancelReservationCommand : IRequest<Reservation>
     {
-        public Reservation Reservation { get; set; }
+        public Guid Id { get; set; }
     }
 }

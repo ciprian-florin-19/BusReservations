@@ -32,17 +32,43 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public async Task<IEnumerable<Reservation>> GetAllReservations(int pageIndex = 1)
         {
-            return await _appDBContext.Reservations.ToPagedListAsync(pageIndex);
+            return await _appDBContext.Reservations
+                .Include(r => r.User)
+                .Include(r => r.BusDrivenRoute)
+                .ThenInclude(bdr => bdr.Bus)
+                .Include(r => r.BusDrivenRoute)
+                .ThenInclude(bdr => bdr.DrivenRoute)
+                .Include(r => r.Seat)
+                .Include(r => r.BusDrivenRoute)
+                .ThenInclude(r => r.DrivenRoute.TimeTable)
+                .ToPagedListAsync(pageIndex);
         }
 
         public async Task<IEnumerable<Reservation>> getCustomerReservations(Guid customerId, int pageIndex = 1)
         {
-            return await _appDBContext.Reservations.Where(item => item.User.Id == customerId).ToPagedListAsync(pageIndex);
+            return await _appDBContext.Reservations
+                .Include(r => r.BusDrivenRoute)
+                .ThenInclude(bdr => bdr.Bus)
+                .Include(r => r.BusDrivenRoute)
+                .ThenInclude(bdr => bdr.DrivenRoute)
+                .Include(r => r.Seat)
+                .Include(r => r.BusDrivenRoute)
+                .ThenInclude(r => r.DrivenRoute.TimeTable)
+                .Where(item => item.User.Id == customerId).ToPagedListAsync(pageIndex);
         }
 
         public async Task<Reservation> GetReservationById(Guid id)
         {
-            var reservation = await _appDBContext.Reservations.SingleOrDefaultAsync(reservation => reservation.Id == id);
+            var reservation = await _appDBContext.Reservations
+                .Include(r => r.User)
+                .Include(r => r.BusDrivenRoute)
+                .ThenInclude(bdr => bdr.Bus)
+                .Include(r => r.BusDrivenRoute)
+                .ThenInclude(bdr => bdr.DrivenRoute)
+                .Include(r => r.Seat)
+                .Include(r => r.BusDrivenRoute)
+                .ThenInclude(r => r.DrivenRoute.TimeTable)
+                .SingleOrDefaultAsync(reservation => reservation.Id == id);
             return reservation;
         }
 

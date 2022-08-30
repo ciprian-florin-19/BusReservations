@@ -68,13 +68,13 @@ namespace BusReservations.WebAPI.Controllers
             return NoContent();
         }
 
-        [HttpGet("{id}/driven-routes")]
-        public async Task<IActionResult> GetDrivenRoutesByBus(Guid id)
+        [HttpGet("{busId}/driven-routes")]
+        public async Task<IActionResult> GetDrivenRoutesByBus(Guid busId)
         {
-            var result = await _mediator.Send(new GetDrivenRoutesByBusQuery { BusId = id });
+            var result = await _mediator.Send(new GetDrivenRoutesByBusQuery { BusId = busId });
             if (result == null)
                 return NoContent();
-            var mappedResult = _mapper.Map<ICollection<DrivenRouteGetDto>>(result);
+            var mappedResult = _mapper.Map<ICollection<DrivenRouteSimpleDto>>(result);
             return Ok(mappedResult);
         }
     }

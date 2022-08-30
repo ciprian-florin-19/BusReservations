@@ -31,7 +31,13 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public async Task<IEnumerable<BusDrivenRoute>> GetAllBusDrivenRoutes(int pageIndex = 1)
         {
-            return await _appDBContext.BusDrivenRoutes.ToPagedListAsync(pageIndex);
+            return await _appDBContext.BusDrivenRoutes
+                .Include(bdr => bdr.DrivenRoute)
+                .ThenInclude(dr => dr.TimeTable)
+                .Include(bdr => bdr.Bus)
+                .Include(bdr => bdr.OccupiedSeats)
+                .Include(bdr => bdr.DrivenRoute)
+                .ToPagedListAsync(pageIndex);
         }
 
         public async Task<BusDrivenRoute> GetBusDrivenRouteByID(Guid id)
@@ -40,8 +46,8 @@ namespace BusReservations.Infrastructure.Data.Repository
                 .Include(bdr => bdr.DrivenRoute)
                 .ThenInclude(dr => dr.TimeTable)
                 .Include(bdr => bdr.Bus)
+                .Include(bdr => bdr.OccupiedSeats)
                 .Include(bdr => bdr.DrivenRoute)
-                .ThenInclude(dr => dr.OccupiedSeats)
                 .SingleOrDefaultAsync(bdr => bdr.Id == id);
             return bdr;
         }
@@ -57,9 +63,10 @@ namespace BusReservations.Infrastructure.Data.Repository
                 .Include(bdr => bdr.DrivenRoute)
                 .ThenInclude(dr => dr.TimeTable)
                 .Include(bdr => bdr.DrivenRoute)
-                .ThenInclude(dr => dr.OccupiedSeats)
+                .Include(bdr => bdr.DrivenRoute)
+                .Include(bdr => bdr.OccupiedSeats)
                 .Include(bdr => bdr.Bus)
-                .Where(bdr => bdr.Bus.Capacity > bdr.DrivenRoute.OccupiedSeats.Count
+                .Where(bdr => bdr.Bus.Capacity > bdr.OccupiedSeats.Count()
                 && bdr.DrivenRoute.TimeTable.DepartureDate.Date == departureDate.Date
                 && bdr.DrivenRoute.Start == start
                 && bdr.DrivenRoute.Destination == destination).ToPagedListAsync(pageIndex);
@@ -70,8 +77,6 @@ namespace BusReservations.Infrastructure.Data.Repository
             return await _appDBContext.BusDrivenRoutes
                 .Include(bdr => bdr.DrivenRoute)
                 .ThenInclude(dr => dr.TimeTable)
-                .Include(bdr => bdr.DrivenRoute)
-                .ThenInclude(dr => dr.OccupiedSeats)
                 .Where(bdr => bdr.BusId == busId).Select(bdr => bdr.DrivenRoute).ToPagedListAsync();
         }
 

@@ -36,13 +36,17 @@ namespace BusReservations.Infrastructure.Data.Repository
 
         public async Task<Account> GetAccountById(Guid id)
         {
-            var account = await _appDBContext.Accounts.SingleOrDefaultAsync(account => account.Id == id);
+            var account = await _appDBContext.Accounts
+                .Include(a => a.User)
+                .SingleOrDefaultAsync(account => account.Id == id);
             return account;
         }
 
         public async Task<IEnumerable<Account>> GetAllAccounts(int pageIndex = 1)
         {
-            return await _appDBContext.Accounts.ToPagedListAsync(pageIndex);
+            return await _appDBContext.Accounts
+                .Include(a => a.User)
+                .ToPagedListAsync(pageIndex);
         }
 
         public void UpdateAccount(Account account)

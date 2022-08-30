@@ -10,6 +10,8 @@ namespace BusReservations.WebAPI.Profiles
         {
             CreateMap<User, UserGetDto>();
             CreateMap<UserPutPostDto, User>();
+            CreateMap<Account, AccountGetDto>();
+            CreateMap<AccountPutPostDto, Account>();
         }
     }
 }

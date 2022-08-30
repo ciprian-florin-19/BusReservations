@@ -1,5 +1,6 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Commands;
+using BusReservations.Core.Domain;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BusReservations.Core.CommandHandlers
 {
-    internal class UpdateAccountCommandhandler : IRequestHandler<UpdateAccountCommand>
+    public class UpdateAccountCommandhandler : IRequestHandler<UpdateAccountCommand, Account>
     {
         private IUnitOfWork _unitOfWork;
 
@@ -18,11 +19,21 @@ namespace BusReservations.Core.CommandHandlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Unit> Handle(UpdateAccountCommand request, CancellationToken cancellationToken)
+        public async Task<Account> Handle(UpdateAccountCommand request, CancellationToken cancellationToken)
         {
-            _unitOfWork.AccountRepository.UpdateAccount(request.Account);
+            var toUpdate = await _unitOfWork.AccountRepository.GetAccountById(request.Id);
+            if (toUpdate == null)
+                return null;
+            toUpdate.User.Name = request.Account.User.Name;
+            toUpdate.User.Email = request.Account.User.Email;
+            toUpdate.User.PhoneNumber = request.Account.User.PhoneNumber;
+            toUpdate.User.Status = request.Account.User.Status;
+            toUpdate.Username = request.Account.Username;
+            toUpdate.Password = request.Account.Password;
+            toUpdate.HasAdminPrivileges = request.Account.HasAdminPrivileges;
+            _unitOfWork.AccountRepository.UpdateAccount(toUpdate);
             await _unitOfWork.SaveChangesAsync();
-            return Unit.Value;
+            return toUpdate;
         }
     }
 }

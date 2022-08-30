@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BusReservations.WebAPI.Controllers
 {
-    [Route("api/v1/driven-routes")]
+    [Route("api/v1/bus-driven-routes")]
     [ApiController]
     public class BusDrivenRouteController : ControllerBase
     {
@@ -36,17 +36,7 @@ namespace BusReservations.WebAPI.Controllers
             var mappedResult = _mapper.Map<BusDrivenRouteGetDto>(result);
             if (result == null)
                 return NotFound();
-            return CreatedAtAction(nameof(GetBusDrivenRouteById), new { Id = mappedResult.Id }, mappedResult);
-        }
-
-        [HttpGet("{id}/buses")]
-        public async Task<IActionResult> GetBusesByDrivenRoute(Guid id)
-        {
-            var result = await _mediator.Send(new GetBusesByDrivenRouteQuery { RouteId = id });
-            if (result == null)
-                return NoContent();
-            var mappedResult = _mapper.Map<ICollection<BusSimpleDto>>(result);
-            return Ok(mappedResult);
+            return CreatedAtAction(nameof(GetBusDrivenRouteById), new { Id = result.Id }, result);
         }
 
         [HttpPut("{id}")]

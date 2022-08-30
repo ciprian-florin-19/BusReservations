@@ -29,14 +29,22 @@ namespace BusReservations.Infrastructure.Data.Repository
             _appDBContext.DrivenRoutes.Remove(route);
         }
 
-        public async Task<IEnumerable<DrivenRoute>> GetAllDrivenRoutes()
+        public async Task<IEnumerable<DrivenRoute>> GetAllDrivenRoutes(int index = 1)
         {
-            return await _appDBContext.DrivenRoutes.ToPagedListAsync();
+            return await _appDBContext.DrivenRoutes
+                .Include(dr => dr.TimeTable)
+                .Include(dr => dr.BusDrivenRoutes)
+                .ThenInclude(bdr => bdr.Bus)
+                .ToPagedListAsync(index);
         }
 
         public async Task<DrivenRoute> GetDrivenRouteById(Guid id)
         {
-            var route = await _appDBContext.DrivenRoutes.Include(dr => dr.TimeTable).SingleOrDefaultAsync(route => route.Id == id);
+            var route = await _appDBContext.DrivenRoutes
+                .Include(dr => dr.TimeTable)
+                .Include(dr => dr.BusDrivenRoutes)
+                .ThenInclude(bdr => bdr.Bus)
+                .SingleOrDefaultAsync(route => route.Id == id);
             return route;
         }
 
