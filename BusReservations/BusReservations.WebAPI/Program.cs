@@ -4,7 +4,9 @@ using BusReservations.Core.Commands;
 using BusReservations.Core.Domain;
 using BusReservations.Infrastructure.Data;
 using BusReservations.Infrastructure.Data.Repository;
+using BusReservations.WebAPI.Middleware;
 using MediatR;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -31,6 +33,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddMediatR(typeof(Bus).Assembly);
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddLogging();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -51,6 +55,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<LoggingMiddleware>();
 
 app.Run();
 
