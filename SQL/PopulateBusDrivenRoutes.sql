@@ -1,0 +1,40 @@
+insert into dbo.BusDrivenRoutes
+(BusId,DrivenRouteId)
+values
+('B81BF035-1795-463F-9DF0-CDC411785E73','DB7C5884-8784-474E-9680-4E7809CC3290');
+insert into dbo.BusDrivenRoutes
+(BusId,DrivenRouteId)
+values
+('7BC0E226-904A-46F5-9466-600E857C05C1','D0E82D18-E687-4992-B95F-1830C0DDD5E3');
+insert into dbo.BusDrivenRoutes
+(BusId,DrivenRouteId)
+values
+('888047F1-EFB6-483E-8410-19E69A1D036B','DB7C5884-8784-474E-9680-4E7809CC3290');
+insert into dbo.BusDrivenRoutes
+(BusId,DrivenRouteId)
+values
+('62F7EEFA-24DD-442B-8A3D-EF5AE5D36145','0EC98925-E662-4640-AFAB-811B9DC096C7');
+insert into dbo.BusDrivenRoutes
+(BusId,DrivenRouteId)
+values
+('B81BF035-1795-463F-9DF0-CDC411785E73','DB7C5884-8784-474E-9680-4E7809CC3290');
+insert into dbo.BusDrivenRoutes
+(BusId,DrivenRouteId)
+values
+('9E5BF59E-C843-431C-B9F7-83E093600F1B','A032EE62-C031-43F7-B71F-206B5840F897');
+insert into dbo.BusDrivenRoutes
+(BusId,DrivenRouteId)
+values
+('96D763D2-92E1-4841-896F-D6954625DB14','A032EE62-C031-43F7-B71F-206B5840F897');
+insert into dbo.BusDrivenRoutes
+(BusId,DrivenRouteId)
+values
+('0EC98925-E662-4640-AFAB-811B9DC096C7','DB7C5884-8784-474E-9680-4E7809CC3290');
+insert into dbo.BusDrivenRoutes
+(BusId,DrivenRouteId)
+values
+('0EC98925-E662-4640-AFAB-811B9DC096C7','5FF8DEA2-2370-405A-BF3D-481C8D4FD249');
+insert into dbo.BusDrivenRoutes
+(BusId,DrivenRouteId)
+values
+('888047F1-EFB6-483E-8410-19E69A1D036B','44C74601-4E53-48B9-962C-88C613AE6834');
