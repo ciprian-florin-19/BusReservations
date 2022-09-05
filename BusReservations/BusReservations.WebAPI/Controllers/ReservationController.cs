@@ -25,8 +25,6 @@ namespace BusReservations.WebAPI.Controllers
         public async Task<IActionResult> GetReservationById(Guid id)
         {
             var result = await _mediator.Send(new GetReservationByIdQuery { Id = id });
-            if (result == null)
-                return NotFound();
             var mappedResult = _mapper.Map<ReservationGetDto>(result);
             return Ok(mappedResult);
         }
@@ -34,8 +32,6 @@ namespace BusReservations.WebAPI.Controllers
         public async Task<IActionResult> GetAllReservations([FromQuery] int index = 1)
         {
             var result = await _mediator.Send(new GetAllReservationsQuery { Index = index });
-            if (result == null)
-                return NoContent();
             var mappedResult = _mapper.Map<IEnumerable<ReservationGetDto>>(result);
             return Ok(mappedResult);
         }

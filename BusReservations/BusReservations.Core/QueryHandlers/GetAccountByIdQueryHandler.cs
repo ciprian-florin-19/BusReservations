@@ -1,5 +1,6 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Domain;
+using BusReservations.Core.Exceptions;
 using BusReservations.Core.Queries;
 using MediatR;
 using System;
@@ -21,7 +22,10 @@ namespace BusReservations.Core.QueryHandlers
 
         public async Task<Account> Handle(GetAccountByIdQuery request, CancellationToken cancellationToken)
         {
-            return await _unitOfWork.AccountRepository.GetAccountById(request.Id);
+            var account = await _unitOfWork.AccountRepository.GetAccountById(request.Id);
+            if (account == null)
+                throw new NotFoundException();
+            return account;
         }
     }
 }

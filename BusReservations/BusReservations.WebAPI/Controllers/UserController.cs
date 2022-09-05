@@ -55,8 +55,6 @@ namespace BusReservations.WebAPI.Controllers
         {
             var mappedUser = _mapper.Map<User>(user);
             var result = await _mediator.Send(new UpdateUserCommand { Id = id, User = mappedUser });
-            if (user == null)
-                return NotFound();
             return NoContent();
         }
 
@@ -64,8 +62,6 @@ namespace BusReservations.WebAPI.Controllers
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             var result = await _mediator.Send(new DeleteUserCommand { Id = id });
-            if (result == null)
-                return NotFound();
             return NoContent();
         }
 
@@ -73,8 +69,6 @@ namespace BusReservations.WebAPI.Controllers
         public async Task<IActionResult> GetUsersByStatus(Status status, [FromQuery] int index = 1)
         {
             var result = await _mediator.Send(new GetUsersByStatusQuery { Status = status, Index = index });
-            if (result == null)
-                return NoContent();
             var mappedUser = _mapper.Map<IEnumerable<UserGetDto>>(result);
             return Ok(mappedUser);
         }
@@ -82,8 +76,6 @@ namespace BusReservations.WebAPI.Controllers
         public async Task<IActionResult> GetUserReservations(Guid id, [FromQuery] int index = 1)
         {
             var result = await _mediator.Send(new GetCustomerReservationsQuery { CustomerId = id, PageIndex = index });
-            if (result == null)
-                return NoContent();
             var mappedResult = _mapper.Map<IEnumerable<ReservationSimpleGetDto>>(result);
             return Ok(mappedResult);
         }

@@ -1,5 +1,6 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Domain;
+using BusReservations.Core.Exceptions;
 using BusReservations.Core.Queries;
 using MediatR;
 using System;
@@ -21,7 +22,10 @@ namespace BusReservations.Core.QueryHandlers
 
         public async Task<IEnumerable<Account>> Handle(GetAllAccountsQuery request, CancellationToken cancellationToken)
         {
-            return await _unitOfWork.AccountRepository.GetAllAccounts(request.Index);
+            var accounts = await _unitOfWork.AccountRepository.GetAllAccounts(request.Index);
+            if (accounts == null || accounts.Count() == 0)
+                throw new NoContentException();
+            return accounts;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Domain;
+using BusReservations.Core.Exceptions;
 using BusReservations.Core.Queries;
 using MediatR;
 using System;
@@ -21,7 +22,10 @@ namespace BusReservations.Core.QueryHandlers
 
         public async Task<Reservation> Handle(GetReservationByIdQuery request, CancellationToken cancellationToken)
         {
-            return await _unitOfWork.ReservationRepository.GetReservationById(request.Id);
+            var reservation = await _unitOfWork.ReservationRepository.GetReservationById(request.Id);
+            if (reservation == null)
+                throw new NotFoundException();
+            return reservation;
         }
     }
 }

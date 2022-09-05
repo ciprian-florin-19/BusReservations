@@ -1,5 +1,6 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Domain;
+using BusReservations.Core.Exceptions;
 using BusReservations.Core.Queries;
 using MediatR;
 
@@ -16,8 +17,10 @@ namespace BusReservations.Core.QueryHandlers
 
         public async Task<IEnumerable<BusDrivenRoute>> Handle(GetAvailableRidesQuery request, CancellationToken cancellationToken)
         {
-            return await _unitOfWork.BusDrivenRoutesRepository.GetAvailableRides(request.Start, request.Destination, request.DepartureDate, request.PageIndex);
-
+            var rides = await _unitOfWork.BusDrivenRoutesRepository.GetAvailableRides(request.Start, request.Destination, request.DepartureDate, request.PageIndex);
+            if (rides == null || rides.Count() == 0)
+                throw new NoContentException();
+            return rides;
         }
     }
 }

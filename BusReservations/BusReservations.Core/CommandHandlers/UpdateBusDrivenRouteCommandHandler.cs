@@ -1,6 +1,7 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Commands;
 using BusReservations.Core.Domain;
+using BusReservations.Core.Exceptions;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace BusReservations.Core.CommandHandlers
         {
             var bdr = await _unitOfWork.BusDrivenRoutesRepository.GetBusDrivenRouteByID(request.Id);
             if (bdr == null)
-                return null;
+                throw new NotFoundException();
             bdr.DrivenRouteId = request.newBdr.DrivenRouteId;
             bdr.BusId = request.newBdr.BusId;
             _unitOfWork.BusDrivenRoutesRepository.UpdateBusDrivenRoute(bdr);

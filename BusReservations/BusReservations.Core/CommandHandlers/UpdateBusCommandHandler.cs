@@ -1,6 +1,7 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Commands;
 using BusReservations.Core.Domain;
+using BusReservations.Core.Exceptions;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace BusReservations.Core.CommandHandlers
             var toUpdate = await _unitOfWork.BusRepository.GetBusByID(request.Id);
             if (toUpdate == null)
             {
-                return null;
+                throw new NotFoundException();
             }
             toUpdate.Name = request.NewBus.Name;
             toUpdate.Capacity = request.NewBus.Capacity;

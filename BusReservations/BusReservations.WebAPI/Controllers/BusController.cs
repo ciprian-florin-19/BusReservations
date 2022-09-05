@@ -27,8 +27,6 @@ namespace BusReservations.WebAPI.Controllers
         public async Task<IActionResult> GetBusById(Guid id)
         {
             var bus = await _mediator.Send(new GetBusByIDQuery { BusID = id });
-            if (bus == null)
-                return NotFound();
             var result = _mapper.Map<BusGetDto>(bus);
             return Ok(result);
         }
@@ -54,8 +52,6 @@ namespace BusReservations.WebAPI.Controllers
         {
             var bus = _mapper.Map<Bus>(newBus);
             var result = await _mediator.Send(new UpdateBusCommand() { NewBus = bus, Id = id });
-            if (result == null)
-                return NotFound();
             return NoContent();
         }
 
@@ -63,8 +59,6 @@ namespace BusReservations.WebAPI.Controllers
         public async Task<IActionResult> DeleteBus(Guid id)
         {
             var result = await _mediator.Send(new DeleteBusCommand() { Id = id });
-            if (result == null)
-                return NotFound();
             return NoContent();
         }
 
@@ -72,8 +66,6 @@ namespace BusReservations.WebAPI.Controllers
         public async Task<IActionResult> GetDrivenRoutesByBus(Guid busId)
         {
             var result = await _mediator.Send(new GetDrivenRoutesByBusQuery { BusId = busId });
-            if (result == null)
-                return NoContent();
             var mappedResult = _mapper.Map<ICollection<DrivenRouteSimpleDto>>(result);
             return Ok(mappedResult);
         }

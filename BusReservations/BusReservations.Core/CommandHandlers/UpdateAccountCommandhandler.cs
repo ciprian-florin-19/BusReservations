@@ -1,6 +1,7 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Commands;
 using BusReservations.Core.Domain;
+using BusReservations.Core.Exceptions;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace BusReservations.Core.CommandHandlers
         {
             var toUpdate = await _unitOfWork.AccountRepository.GetAccountById(request.Id);
             if (toUpdate == null)
-                return null;
+                throw new NotFoundException();
             toUpdate.User.Name = request.Account.User.Name;
             toUpdate.User.Email = request.Account.User.Email;
             toUpdate.User.PhoneNumber = request.Account.User.PhoneNumber;

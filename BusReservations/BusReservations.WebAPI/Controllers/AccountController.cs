@@ -53,16 +53,12 @@ namespace BusReservations.WebAPI.Controllers
         {
             var account = _mapper.Map<Account>(accountDto);
             var result = await _mediator.Send(new UpdateAccountCommand { Account = account, Id = id });
-            if (result == null)
-                return NotFound();
             return NoContent();
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAccount(Guid id)
         {
             var result = await _mediator.Send(new DeleteAccountCommand { Id = id });
-            if (result == null)
-                return NotFound();
             return NoContent();
         }
     }

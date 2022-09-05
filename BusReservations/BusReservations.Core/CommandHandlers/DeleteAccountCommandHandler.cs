@@ -1,6 +1,7 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Commands;
 using BusReservations.Core.Domain;
+using BusReservations.Core.Exceptions;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace BusReservations.Core.CommandHandlers
         {
             var toDelete = await _unitOfWork.AccountRepository.GetAccountById(request.Id);
             if (toDelete == null)
-                return null;
+                throw new NotFoundException();
             _unitOfWork.AccountRepository.DeleteAccount(toDelete);
             _unitOfWork.UserRepository.DeleteUser(toDelete.User);
             await _unitOfWork.SaveChangesAsync();
