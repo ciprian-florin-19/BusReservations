@@ -19,7 +19,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
-builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection")));
+builder.Services.AddDbContext<AppDBContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection")));
 
 //add external services
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();

@@ -23,5 +23,11 @@
   <ItemGroup>
     <ProjectReference Include="..\BusReservations.Infrastructure\BusReservations.Infrastructure.csproj" />
   </ItemGroup>
-
+	<ItemGroup>
+		<InternalsVisibleTo Include="BusReservations.WebApi.Tests" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Include="wwwroot\swagger-ui\SwaggerDark.css" />
+	  <None Include="wwwroot\swagger-ui\SwaggerDark.user.css" />
+	</ItemGroup>
 </Project>

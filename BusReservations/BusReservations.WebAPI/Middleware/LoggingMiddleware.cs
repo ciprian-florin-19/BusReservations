@@ -17,17 +17,19 @@ namespace BusReservations.WebAPI.Middleware
         {
             var request = await FormatRequest(context.Request);
 
-            var originalBodyStream = context.Response.Body;
+            //var originalBodyStream = context.Response.Body;
 
-            using var responseBody = new MemoryStream();
-            context.Response.Body = responseBody;
+            //using var responseBody = new MemoryStream();
+            //context.Response.Body = responseBody;
 
             await _next(context);
 
-            var response = await FormatResponse(context.Response);
+            //var response = await FormatResponse(context.Response);
+            //context.Response.Body = originalBodyStream;
 
             _logger.LogInformation(request);
-            _logger.LogInformation(response);
+            _logger.LogInformation($"\nResponse:\n" +
+                $"Status: {context.Response.StatusCode}\n");
         }
 
         private static async Task<string> FormatRequest(HttpRequest request)
@@ -52,17 +54,18 @@ namespace BusReservations.WebAPI.Middleware
                 $"Body: {bodyAsText}\n";
         }
 
-        private static async Task<string> FormatResponse(HttpResponse response)
-        {
-            response.Body.Seek(0, SeekOrigin.Begin);
+        //private static async Task<string> FormatResponse(HttpResponse response)
+        //{
+        //    response.Body.Seek(0, SeekOrigin.Begin);
 
-            string text = await new StreamReader(response.Body).ReadToEndAsync();
+        //    string text = await new StreamReader(response.Body).ReadToEndAsync();
 
-            response.Body.Seek(0, SeekOrigin.Begin);
+        //    response.Body.Seek(0, SeekOrigin.Begin);
 
-            return $"\nResponse:\n" +
-                $"Status: {response.StatusCode}\n" +
-                $"Body: {text}";
-        }
+
+        //    return $"\nResponse:\n" +
+        //        $"Status: {response.StatusCode}\n" +
+        //        $"Body: {text}";
+        //}
     }
 }

@@ -7,7 +7,7 @@ namespace BusReservations.Core.Tests
     public class CommandHandlersTests
     {
         [Fact]
-        public void Add_Bus_Should_Call_Add_Method_Once()
+        public async Task Add_Bus_Should_Call_Add_Method_Once()
         {
             //arrange
             var mockUnitOfWork = new Mock<IUnitOfWork>();
@@ -16,7 +16,7 @@ namespace BusReservations.Core.Tests
             var addBusCommand = new AddBusCommand();
             var handler = new AddBusCommandHandler(mockUnitOfWork.Object);
             //act
-            handler.Handle(addBusCommand, new CancellationToken());
+            await handler.Handle(addBusCommand, new CancellationToken());
             //assert
             mockUnitOfWork.Verify(mock => mock.BusRepository.AddBus(It.IsAny<Bus>()), Times.Once);
         }

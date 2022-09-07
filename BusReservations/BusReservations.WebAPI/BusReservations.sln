@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusReservations.Core.Tests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusReservations.ConsoleApp", "..\BusReservations.ConsoleApp\BusReservations.ConsoleApp.csproj", "{F491CA47-6661-4383-BC78-177E08580DDA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusReservations.WebApi.Tests", "..\BusReservations.WebApi.Tests\BusReservations.WebApi.Tests.csproj", "{B0E78B07-8A3A-4B3D-A665-CB4C87AD2E42}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{F491CA47-6661-4383-BC78-177E08580DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F491CA47-6661-4383-BC78-177E08580DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F491CA47-6661-4383-BC78-177E08580DDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0E78B07-8A3A-4B3D-A665-CB4C87AD2E42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0E78B07-8A3A-4B3D-A665-CB4C87AD2E42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0E78B07-8A3A-4B3D-A665-CB4C87AD2E42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0E78B07-8A3A-4B3D-A665-CB4C87AD2E42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
