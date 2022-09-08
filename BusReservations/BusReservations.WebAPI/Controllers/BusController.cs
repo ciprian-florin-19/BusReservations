@@ -69,5 +69,6 @@ namespace BusReservations.WebAPI.Controllers
             var mappedResult = _mapper.Map<ICollection<DrivenRouteSimpleDto>>(result);
             return Ok(mappedResult);
         }
+
     }
 }

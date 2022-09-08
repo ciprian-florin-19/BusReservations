@@ -14,10 +14,7 @@ namespace BusReservations.WebAPI.Profiles
                 b => b.MapFrom(x => x.BusDrivenRoutes
                 .Select(b => b.DrivenRoute)));
             CreateMap<BusPutPostDto, Bus>();
-            CreateMap<Bus, BusPutPostDto>()
-                .ForMember(b => b.DrivenRoutes,
-                b => b.MapFrom(x => x.BusDrivenRoutes
-                .Select(b => b.DrivenRoute)));
+            CreateMap<Bus, BusPutPostDto>();
             CreateMap<Bus, BusSimpleDto>();
         }
     }

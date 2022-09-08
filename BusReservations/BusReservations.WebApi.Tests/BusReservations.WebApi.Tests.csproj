@@ -36,4 +36,8 @@
     <ProjectReference Include="..\BusReservations.WebAPI\BusReservations.WebAPI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UnitTests\" />
+  </ItemGroup>
+
 </Project>

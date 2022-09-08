@@ -12,7 +12,5 @@ namespace BusReservations.WebAPI.DTOs
         [Required]
         [Range(20, 50)]
         public int Capacity { get; set; }
-
-        public ICollection<DrivenRouteGetDto> DrivenRoutes { get; set; }
     }
 }
