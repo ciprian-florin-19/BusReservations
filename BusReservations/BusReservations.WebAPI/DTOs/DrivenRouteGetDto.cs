@@ -7,7 +7,7 @@ namespace BusReservations.WebAPI.DTOs
     {
         public string Start { get; set; }
         public string Destination { get; set; }
-        public TimeTableDto TimeTable { get; set; }
+        public TimeTableGetDto TimeTable { get; set; }
         public float SeatPrice { get; set; }
         public ICollection<BusSimpleDto> Buses { get; set; }
 

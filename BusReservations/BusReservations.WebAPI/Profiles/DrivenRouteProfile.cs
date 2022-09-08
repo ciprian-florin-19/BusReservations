@@ -15,7 +15,8 @@ namespace BusReservations.WebAPI.Profiles
                 .Select(bdr => bdr.Bus)));
             CreateMap<DrivenRoutePutPostDto, DrivenRoute>();
             CreateMap<DrivenRoute, DrivenRouteSimpleDto>();
-            CreateMap<TimeTable, TimeTableDto>();
+            CreateMap<TimeTable, TimeTableGetDto>();
+            CreateMap<TimeTablePutPostDto, TimeTable>();
         }
     }
 }

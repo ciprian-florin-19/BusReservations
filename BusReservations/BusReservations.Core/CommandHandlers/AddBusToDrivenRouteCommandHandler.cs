@@ -1,6 +1,7 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Commands;
 using BusReservations.Core.Domain;
+using BusReservations.Core.Exceptions;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace BusReservations.Core.CommandHandlers
             var bus = await _unitOfWork.BusRepository.GetBusByID(request.BusId);
             var route = await _unitOfWork.RouteRepository.GetDrivenRouteById(request.DrivenRouteId);
             if (bus == null || route == null)
-                return null;
+                throw new NotFoundException();
             var busDrivenRoute = new BusDrivenRoute()
             {
                 Id = Guid.NewGuid(),

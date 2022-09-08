@@ -32,7 +32,7 @@ namespace BusReservations.WebAPI.Controllers
         {
             var result = await _mediator.Send(new AddBusToDrivenRouteCommand() { BusId = busId, DrivenRouteId = routeId });
             var mappedResult = _mapper.Map<BusDrivenRouteGetDto>(result);
-            return CreatedAtAction(nameof(GetBusDrivenRouteById), new { Id = result.Id }, result);
+            return CreatedAtAction(nameof(GetBusDrivenRouteById), new { Id = result.Id }, mappedResult);
         }
 
         [HttpPut("{id}")]

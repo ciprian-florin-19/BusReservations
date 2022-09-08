@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using BusReservations.Core.Commands;
+using BusReservations.Core.Domain;
 using BusReservations.Core.Queries;
 using BusReservations.WebAPI.DTOs;
 using MediatR;
@@ -40,7 +42,25 @@ namespace BusReservations.WebAPI.Controllers
             var mappedResult = _mapper.Map<IEnumerable<DrivenRouteGetDto>>(result);
             return Ok(mappedResult);
         }
-        //[HttpPost]
-        // public async Task<IActionResult> AddDrivenRoute([FromBody])
+        [HttpPost]
+        public async Task<IActionResult> AddDrivenRoute([FromBody] DrivenRoutePutPostDto routeDto)
+        {
+            var route = _mapper.Map<DrivenRoute>(routeDto);
+            var result = await _mediator.Send(new AddDrivenRouteCommand { Route = route });
+            return CreatedAtAction(nameof(GetDrivenRouteById), new { Id = result.Id }, result);
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateDrivenRoute([FromBody] DrivenRoutePutPostDto routeDto, Guid id)
+        {
+            var route = _mapper.Map<DrivenRoute>(routeDto);
+            var result = await _mediator.Send(new UpdateRouteCommand { Id = id, Route = route });
+            return NoContent();
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDrivenRoute(Guid id)
+        {
+            var result = await _mediator.Send(new DeleteRouteCommand { Id = id });
+            return NoContent();
+        }
     }
 }

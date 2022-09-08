@@ -4,7 +4,7 @@
     {
         public string Start { get; set; }
         public string Destination { get; set; }
-        public TimeTableDto TimeTable { get; set; }
+        public TimeTableGetDto TimeTable { get; set; }
         public float SeatPrice { get; set; }
     }
 }

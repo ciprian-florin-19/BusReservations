@@ -4,7 +4,7 @@ namespace BusReservations.Core.Domain
 {
     public class DrivenRoute
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public ICollection<BusDrivenRoute> BusDrivenRoutes { get; set; } = new List<BusDrivenRoute>();
         public string? Start { get; set; }
         public string? Destination { get; set; }
