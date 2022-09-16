@@ -1,0 +1,8 @@
+div {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-flow: row wrap;
+  width: 100vw;
+  height: 30vh;
+}

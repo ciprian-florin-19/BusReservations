@@ -1,0 +1,13 @@
+<table *ngIf="isVisible" #content>
+  <tr>
+    <th *ngFor="let property of source[0] | keyvalue: unsorted">
+      {{ property.key | toUpper }}
+    </th>
+  </tr>
+  <tr *ngFor="let element of source">
+    <td *ngFor="let property of element | keyvalue: unsorted">
+      {{ property.value }}
+    </td>
+  </tr>
+</table>
+<ng-content></ng-content>
