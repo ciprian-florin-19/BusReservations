@@ -1,0 +1,58 @@
+<mat-toolbar color="primary" fxLayoutAlign.lt-lg="center center">
+  <a href="" mat-button class="title">
+    <span>BusReservations</span>
+    <mat-icon class="logo">commute</mat-icon>
+  </a>
+  <div fxLayout="row" fxShow.lt-md="false" fxLayoutAlign="center center">
+    <a href="" mat-button>Curse</a>
+    <a href="" mat-button>Rezervari</a>
+  </div>
+  <div class="spacer" fxShow.lt-lg="false"></div>
+  <div fxLayout="row" fxLayoutAlign="center center" fxShow.lt-lg="false">
+    <a href="" mat-button>
+      <span>Intra in cont</span>
+      <mat-icon>account_circle</mat-icon>
+    </a>
+    <a href="" mat-button>
+      <span>Creeaza cont</span>
+      <mat-icon>lock</mat-icon>
+    </a>
+  </div>
+  <button
+    mat-button
+    class="drawer-toggle"
+    (click)="drawer.toggle()"
+    fxShow.lt-lg="false"
+    fxHide.gt-md="true"
+  >
+    <span>Cont</span>
+    <mat-icon>account_circle</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-toolbar
+  color="primary"
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  fxHide.gt-sm="true"
+>
+  <a href="" mat-button>Curse</a>
+  <a href="" mat-button>Rezervari</a>
+  <button mat-button class="drawer-toggle" (click)="drawer.toggle()">
+    <span>Cont</span>
+    <mat-icon>account_circle</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-drawer-container>
+  <mat-drawer mode="side" position="end" #drawer>
+    <a href="" mat-button>
+      <span>Intra in cont</span>
+      <mat-icon>account_circle</mat-icon>
+    </a>
+    <a href="" mat-button>
+      <span>Creeaza cont</span>
+      <mat-icon>lock</mat-icon>
+    </a>
+  </mat-drawer>
+</mat-drawer-container>

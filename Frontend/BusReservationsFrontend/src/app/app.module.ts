@@ -9,6 +9,15 @@ import { ContainerComponent } from './components/container/container.component';
 import { ToUpperPipe } from './pipes/to-upper.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { MatCardModule } from '@angular/material/card';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatRippleModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -17,12 +26,21 @@ import { MatSliderModule } from '@angular/material/slider';
     TableComponent,
     ContainerComponent,
     ToUpperPipe,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSliderModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatCardModule,
+    FlexLayoutModule,
+    MatRippleModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatSidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
