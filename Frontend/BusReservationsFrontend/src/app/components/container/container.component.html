@@ -1,16 +1,1 @@
-<div>
-  <app-button color="red" text="Hide" (click)="toggleClick()"></app-button>
-  <app-button
-    color="blue"
-    text="Source1"
-    (click)="setDataSource(dummyData1)"
-  ></app-button>
-  <app-button
-    color="blue"
-    text="Source2"
-    (click)="setDataSource(dummyData2)"
-  ></app-button>
-  <app-table [source]="dummyData1">
-    <p #projection>Content projection!</p>
-  </app-table>
-</div>
+<ng-content></ng-content>

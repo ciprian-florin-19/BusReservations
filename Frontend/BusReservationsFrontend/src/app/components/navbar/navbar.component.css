@@ -3,9 +3,9 @@
 }
 :host {
   position: fixed;
-  left: 0;
-  top: 0;
   right: 0;
+  left: 0;
+  height: fit-content;
 }
 mat-drawer-container {
   width: fit-content;
@@ -14,7 +14,6 @@ mat-drawer-container {
   z-index: 2;
 }
 mat-toolbar {
-  height: fit-content;
   padding-bottom: 5px;
   padding-top: 5px;
 }
@@ -35,4 +34,7 @@ mat-icon {
   width: fit-content;
   height: fit-content;
   margin-left: 1vw;
+}
+:host {
+  opacity: 0.9;
 }

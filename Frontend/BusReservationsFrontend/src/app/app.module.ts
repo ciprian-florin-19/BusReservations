@@ -14,11 +14,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatRippleModule } from '@angular/material/core';
+import { MatRippleModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSidenavModule } from '@angular/material/sidenav';
-
+import { FooterComponent } from './components/footer/footer.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +33,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     ContainerComponent,
     ToUpperPipe,
     NavbarComponent,
+    FooterComponent,
+    SearchBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,8 +49,13 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatButtonModule,
     MatButtonToggleModule,
     MatSidenavModule,
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
-  providers: [],
+  providers: [MatNativeDateModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

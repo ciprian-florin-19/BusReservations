@@ -1,0 +1,23 @@
+:host {
+  width: 100%;
+  height: fit-content;
+  font-size: 1.5em;
+  background-color: rgba(0, 0, 0, 0.9);
+  border-top: solid 0.1em #fdd835;
+  border-bottom: solid 0.1em #fdd835;
+  position: static;
+}
+input {
+  color: aliceblue;
+}
+span {
+  color: #fdd835;
+}
+form {
+  height: 100%;
+  width: 100%;
+  padding: 1em;
+}
+button {
+  font-size: 1.5em;
+}
