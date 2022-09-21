@@ -25,6 +25,13 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { RouterModule } from '@angular/router';
+import { HomeViewComponent } from './home-view/home-view.component';
+import { SearchResultsComponent } from './components/search-results/search-results.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { BusDrivenRoutesViewComponent } from './components/bus-driven-routes-view/bus-driven-routes-view.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +42,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     NavbarComponent,
     FooterComponent,
     SearchBarComponent,
+    HomeViewComponent,
+    SearchResultsComponent,
+    BusDrivenRoutesViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,8 +64,12 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    RouterModule,
+    FormsModule,
+    HttpClientModule,
+    MatExpansionModule,
   ],
-  providers: [MatNativeDateModule],
+  providers: [MatNativeDateModule, MatExpansionModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

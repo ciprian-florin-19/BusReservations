@@ -1,0 +1,31 @@
+<app-container>
+  <div
+    class="list"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="1em"
+  >
+    <span class="title"
+      >Curse
+      <mat-icon>departure_board</mat-icon>
+    </span>
+    <mat-accordion *ngFor="let bdr of result">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header fxLayout.gt-md="row">
+          <mat-panel-title>
+            <span>Ruta <mat-icon>directions</mat-icon></span>
+            {{ bdr.drivenRoute?.start }} -
+            {{ bdr.drivenRoute?.destination }}
+          </mat-panel-title>
+          <mat-panel-title>
+            <span>Autobuz<mat-icon>directions_bus</mat-icon></span>
+            {{ bdr.bus?.name }}</mat-panel-title
+          >
+          <mat-panel-title
+            >Pret bilet: {{ bdr.drivenRoute?.seatPrice }} lei</mat-panel-title
+          >
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</app-container>

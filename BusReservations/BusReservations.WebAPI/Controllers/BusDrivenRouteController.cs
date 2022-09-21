@@ -61,5 +61,12 @@ namespace BusReservations.WebAPI.Controllers
             var mappedResult = _mapper.Map<IEnumerable<BusDrivenRouteGetDto>>(result);
             return Ok(mappedResult);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAllBusDrivenRoutes([FromQuery] int index = 1)
+        {
+            var result = await _mediator.Send(new GetAllBusDrivenRoutesQuery { pageIndex = index });
+            var mappedResult = _mapper.Map<IEnumerable<BusDrivenRouteGetDto>>(result);
+            return Ok(mappedResult);
+        }
     }
 }

@@ -1,27 +1,73 @@
-<form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1em">
+<form
+  fxLayout="column"
+  fxLayoutAlign="center center"
+  fxLayoutGap="1em"
+  #searchForm="ngForm"
+  (ngSubmit)="
+    searchAvailableRoutes(
+      searchForm.value.start,
+      searchForm.value.destination,
+      searchForm.value.date
+    )
+  "
+>
   <mat-form-field color="primary" appearance="fill">
     <mat-label>Plecare</mat-label>
-    <input type="text" matInput />
+    <input
+      type="text"
+      name="start"
+      matInput
+      required
+      [matAutocomplete]="start"
+      ngModel
+    />
+    <mat-autocomplete #start>
+      <!--
+      TO DO add async pipe
+      TO TO add custom filter  
+      TO DO add validation
+      -->
+      <mat-option *ngFor="let option of startOptions" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
   </mat-form-field>
   <mat-form-field color="primary" appearance="fill">
     <mat-label>Destinatie</mat-label>
-    <input type="text" matInput />
+    <input
+      type="text"
+      name="destination"
+      matInput
+      required
+      [matAutocomplete]="destination"
+      ngModel
+    />
+    <mat-autocomplete #destination>
+      <!--
+      TO DO add async pipe
+      TO TO add custom filter  
+      TO DO add validation
+      -->
+      <mat-option *ngFor="let option of destinationOptions" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Data plecare</mat-label>
-    <input matInput [matDatepicker]="datepicker" />
+    <input matInput [matDatepicker]="datepicker" name="date" ngModel />
     <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
     <mat-datepicker #datepicker>
       <mat-datepicker-actions>
         <button mat-button matDatepickerCancel>Cancel</button>
         <button mat-raised-button color="primary" matDatepickerApply>
-          Apply
+          Alege
         </button>
       </mat-datepicker-actions>
     </mat-datepicker>
     <mat-hint>ZZ/LL/AAAA</mat-hint>
   </mat-form-field>
-  <button mat-raised-button color="primary">
+  <button mat-raised-button color="primary" type="submit">
     Cauta
     <mat-icon>search</mat-icon>
   </button>
