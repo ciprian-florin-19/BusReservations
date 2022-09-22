@@ -3,41 +3,86 @@
   border-top: solid 0.1em #fdd835;
   border-bottom: solid 0.1em #fdd835;
   width: 100%;
-  padding-top: 125px;
+  padding-top: 15px;
   padding-bottom: 125px;
   height: fit-content;
   position: relative;
+  min-height: 100vh;
 }
 mat-accordion {
   width: 90%;
   user-select: none;
 }
 mat-expansion-panel-header {
-  min-height: 48px;
+  min-height: 200px;
   height: fit-content;
-  font-size: 2em;
+  font-size: 1em;
+}
+mat-expansion-panel-header:focus {
+  border: solid #fdd835 0.1em;
 }
 .title {
   font-size: 5em;
   color: #fdd835;
 }
 mat-icon {
-  font-size: 1em;
+  font-size: 2em;
   width: fit-content;
   height: fit-content;
   color: #fdd835;
 }
-span {
+mat-panel-title > span {
+  width: 100%;
+  font-size: 2em;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  line-height: 1em;
+  padding-left: 16px;
+}
+.content {
+  width: 100%;
+  min-height: 20em;
+  height: fit-content;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  column-gap: 2em;
+  padding-top: 16px;
+  justify-content: space-evenly;
+}
+button {
+  height: fit-content;
+  font-size: 2em;
+  white-space: normal;
+}
+.date {
+  color: #fdd835;
+}
+mat-paginator {
+  width: 100%;
+  justify-content: center;
 }
 @media only screen and (max-width: 900px) {
+  .title {
+    font-size: 3em;
+  }
   mat-expansion-panel-header {
     min-height: 48px;
     height: fit-content;
     font-size: 1.5em;
+  }
+  mat-panel-title > span {
+    width: 100%;
+    font-size: 1.5em;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 1em;
+    padding-left: 10px;
+  }
+  mat-expansion-panel-header {
+    height: fit-content;
+    font-size: 1em;
   }
 }
 @media only screen and (max-width: 600px) {
@@ -46,4 +91,35 @@ span {
     height: fit-content;
     font-size: 1em;
   }
+  mat-panel-title > span {
+    width: 100%;
+    font-size: 0.8em;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    line-height: 1em;
+    padding-left: 6px;
+  }
+  mat-expansion-panel-header {
+    min-height: 100px;
+    height: fit-content;
+    font-size: 1em;
+  }
+  .content {
+    row-gap: 1em;
+  }
+}
+mat-panel-title {
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.middle {
+  justify-content: center;
+}
+.middle > span {
+  padding: 0;
+  text-align: center;
+}
+.mat-expansion-panel-header.mat-expanded {
+  height: fit-content;
 }

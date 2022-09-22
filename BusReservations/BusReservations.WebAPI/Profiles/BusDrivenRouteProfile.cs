@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusReservations.Core.Domain;
 using BusReservations.Core.Domain.SeatModel;
+using BusReservations.Core.Pagination;
 using BusReservations.WebAPI.DTOs;
 
 namespace BusReservations.WebAPI.Profiles

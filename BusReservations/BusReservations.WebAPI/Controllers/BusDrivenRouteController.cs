@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusReservations.Core.Commands;
 using BusReservations.Core.Domain;
+using BusReservations.Core.Pagination;
 using BusReservations.Core.Queries;
 using BusReservations.WebAPI.DTOs;
 using MediatR;
@@ -65,8 +66,7 @@ namespace BusReservations.WebAPI.Controllers
         public async Task<IActionResult> GetAllBusDrivenRoutes([FromQuery] int index = 1)
         {
             var result = await _mediator.Send(new GetAllBusDrivenRoutesQuery { pageIndex = index });
-            var mappedResult = _mapper.Map<IEnumerable<BusDrivenRouteGetDto>>(result);
-            return Ok(mappedResult);
+            return Ok(new BusDrivenRoutesGetPaged(result, _mapper));
         }
     }
 }

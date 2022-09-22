@@ -40,7 +40,8 @@ namespace BusReservations.WebAPI.Controllers
         {
             var reservation = _mapper.Map<Reservation>(reservationDto);
             var result = await _mediator.Send(new AddReservationCommand { Reservation = reservation });
-            return CreatedAtAction(nameof(GetReservationById), new { Id = result.Id }, result);
+            var mappedResult = _mapper.Map<ReservationGetDto>(result);
+            return CreatedAtAction(nameof(GetReservationById), new { Id = result.Id }, mappedResult);
         }
         [HttpDelete("id")]
         public async Task<IActionResult> DeleteReservation(Guid id)

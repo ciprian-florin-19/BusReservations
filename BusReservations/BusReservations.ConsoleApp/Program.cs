@@ -39,7 +39,7 @@ var users = new Faker<User>("ro")
 var bdr = new Faker<BusDrivenRoute>("ro")
     .RuleFor(bdr => bdr.Id, Guid.NewGuid)
     .RuleFor(bdr => bdr.Bus, f => f.PickRandom(buses))
-    .RuleFor(bdr => bdr.DrivenRoute, f => f.PickRandom(routes)).Generate(10);
+    .RuleFor(bdr => bdr.DrivenRoute, f => f.PickRandom(routes));
 
 var accounts = new Faker<Account>("ro")
     .RuleFor(a => a.Id, Guid.NewGuid)

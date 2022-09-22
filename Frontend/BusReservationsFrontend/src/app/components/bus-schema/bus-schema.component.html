@@ -1,0 +1,27 @@
+<div class="row">
+  <button
+    class="seat"
+    mat-raised-button
+    color="accent"
+    *ngFor="let seat of totalSeats.slice(0, halfCapacity)"
+    [class.occupied]="isSeatOccupied(seat)"
+    [disabled]="isSeatOccupied(seat)"
+    (click)="selectSeat(seat)"
+  >
+    {{ seat }}
+  </button>
+</div>
+<div class="row"></div>
+<div class="row">
+  <button
+    class="seat"
+    mat-raised-button
+    color="accent"
+    *ngFor="let seat of totalSeats.slice(halfCapacity, capacity)"
+    [class.occupied]="isSeatOccupied(seat)"
+    [disabled]="isSeatOccupied(seat)"
+    (click)="selectSeat(seat)"
+  >
+    {{ seat }}
+  </button>
+</div>

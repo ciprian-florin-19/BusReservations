@@ -14,7 +14,7 @@ namespace BusReservations.Core.Domain
         public Guid BusId { get; set; }
         public DrivenRoute DrivenRoute { get; set; }
         public Guid DrivenRouteId { get; set; }
-        public IEnumerable<Seat> OccupiedSeats { get; set; } = new List<Seat>();
+        public ICollection<Seat> OccupiedSeats { get; set; } = new List<Seat>();
 
     }
 }

@@ -22,6 +22,7 @@ namespace BusReservations.Core.CommandHandlers
             var seat = new Seat(request.Reservation.Seat.SeatNumber, request.Reservation.Seat.Type);
             if (route == null || user == null || seat == null)
                 return null;
+            route.OccupiedSeats.Add(seat);
             var toAdd = new Reservation(user, route, seat);
             _unitOfWork.ReservationRepository.AddReservation(toAdd);
             await _unitOfWork.SaveChangesAsync();

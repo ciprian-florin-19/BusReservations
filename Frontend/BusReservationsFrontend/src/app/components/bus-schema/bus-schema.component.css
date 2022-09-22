@@ -1,0 +1,42 @@
+:host {
+  border: solid 0.5em #fdd835;
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  flex-flow: column wrap;
+  padding: 5px;
+  border-radius: 4px;
+}
+.row {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  min-height: 3em;
+}
+.seat {
+  aspect-ratio: 1/1;
+  height: 3em;
+  margin: 3px;
+  font-size: 1.5em;
+  border-radius: 4px;
+  outline: none;
+  font-weight: bold;
+}
+
+.occupied {
+  background-color: #ff0000 !important;
+  border-color: #ff0000 !important;
+  color: #f5f5f5 !important;
+}
+.seat:focus {
+  background-color: #fdd835;
+}
+@media only screen and (max-width: 900px) {
+  .seat {
+    margin: 3px;
+    font-size: 1.5em;
+    border-radius: 4px;
+    outline: none;
+    font-weight: bold;
+  }
+}

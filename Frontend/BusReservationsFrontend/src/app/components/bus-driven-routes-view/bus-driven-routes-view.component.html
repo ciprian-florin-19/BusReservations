@@ -2,30 +2,86 @@
   <div
     class="list"
     fxLayout="column"
-    fxLayoutAlign="center center"
+    fxLayoutAlign="flex-start center"
     fxLayoutGap="1em"
   >
     <span class="title"
       >Curse
       <mat-icon>departure_board</mat-icon>
     </span>
-    <mat-accordion *ngFor="let bdr of result">
-      <mat-expansion-panel>
+    <mat-progress-spinner
+      color="primary"
+      mode="indeterminate"
+      *ngIf="isLoading"
+    ></mat-progress-spinner>
+    <mat-accordion *ngFor="let bdr of result?.busDrivenRoutes">
+      <mat-expansion-panel *ngIf="bdr.occupiedSeats.length < bdr.bus.capacity">
         <mat-expansion-panel-header fxLayout.gt-md="row">
           <mat-panel-title>
-            <span>Ruta <mat-icon>directions</mat-icon></span>
-            {{ bdr.drivenRoute?.start }} -
-            {{ bdr.drivenRoute?.destination }}
+            <span class="date">{{
+              bdr.drivenRoute.timeTable.departureDate
+                | date: "d-MM-yyyy, h:mm a"
+            }}</span>
+            <span>De la : {{ bdr.drivenRoute.start }}</span>
+            <span><mat-icon>arrow_downward</mat-icon></span>
+            <span class="date">{{
+              bdr.drivenRoute.timeTable.arivvalDate | date: "d-MM-yyyy, h:mm a"
+            }}</span>
+            <span>La : {{ bdr.drivenRoute.destination }}</span>
           </mat-panel-title>
+          <mat-panel-title class="middle"
+            ><span><mat-icon>arrow_forward</mat-icon></span></mat-panel-title
+          >
           <mat-panel-title>
-            <span>Autobuz<mat-icon>directions_bus</mat-icon></span>
-            {{ bdr.bus?.name }}</mat-panel-title
+            <span>Autobuz</span>
+            <span><mat-icon>directions_bus</mat-icon></span>
+            <span>{{ bdr.bus.name }}</span></mat-panel-title
           >
-          <mat-panel-title
-            >Pret bilet: {{ bdr.drivenRoute?.seatPrice }} lei</mat-panel-title
+          <mat-panel-title class="middle"
+            ><span><mat-icon>arrow_forward</mat-icon></span></mat-panel-title
           >
+          <mat-panel-title>
+            <span>Pret bilet</span>
+            <span><mat-icon>payment</mat-icon></span>
+            <span>{{ bdr.drivenRoute.seatPrice }} lei</span>
+          </mat-panel-title>
         </mat-expansion-panel-header>
+        <div class="content" fxLayout.lt-md="column">
+          <mat-panel-title>
+            <span>Durata</span>
+            <span><mat-icon>access_time</mat-icon></span>
+            <span>
+              {{ bdr.drivenRoute.timeTable.duration }}
+            </span>
+          </mat-panel-title>
+          <app-bus-schema
+            #schema
+            [occupiedSeats]="bdr.occupiedSeats"
+            [capacity]="bdr.bus.capacity"
+          ></app-bus-schema>
+          <button
+            mat-raised-button
+            color="primary"
+            [routerLink]="['reservation-form']"
+            [state]="{
+              data: {
+                selectedSeat: busSchema?.selectedSeat,
+                bdrId: bdr.id
+              }
+            }"
+          >
+            Rezerva loc
+          </button>
+        </div>
       </mat-expansion-panel>
     </mat-accordion>
   </div>
+  <mat-paginator
+    color="accent"
+    [length]="elementCount"
+    [pageIndex]="result?.currentPage"
+    [pageSize]="result?.pageSize"
+    [hidePageSize]="true"
+    (page)="onPageChange($event)"
+  ></mat-paginator>
 </app-container>

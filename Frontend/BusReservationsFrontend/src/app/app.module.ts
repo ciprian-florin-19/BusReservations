@@ -32,6 +32,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BusDrivenRoutesViewComponent } from './components/bus-driven-routes-view/bus-driven-routes-view.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BusSchemaComponent } from './components/bus-schema/bus-schema.component';
+import { AddReservationViewComponent } from './components/add-reservation-view/add-reservation-view.component';
+import { CommonModule } from '@angular/common';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
+//TO DO clean up
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +52,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     HomeViewComponent,
     SearchResultsComponent,
     BusDrivenRoutesViewComponent,
+    BusSchemaComponent,
+    AddReservationViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +77,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
     FormsModule,
     HttpClientModule,
     MatExpansionModule,
+    MatProgressSpinnerModule,
+    CommonModule,
+    MatPaginatorModule,
   ],
   providers: [MatNativeDateModule, MatExpansionModule],
   bootstrap: [AppComponent],
