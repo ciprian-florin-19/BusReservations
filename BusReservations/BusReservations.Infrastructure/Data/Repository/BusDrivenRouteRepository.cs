@@ -58,7 +58,7 @@ namespace BusReservations.Infrastructure.Data.Repository
             _appDBContext.Update(busDrivenRoute);
         }
 
-        public async Task<IEnumerable<BusDrivenRoute>> GetAvailableRides(string start, string destination, DateTime departureDate, int pageIndex = 1)
+        public async Task<PagedList<BusDrivenRoute>> GetAvailableRides(string start, string destination, DateTime departureDate, int pageIndex = 1)
         {
             return await _appDBContext.BusDrivenRoutes
                 .Include(bdr => bdr.DrivenRoute)
@@ -91,6 +91,18 @@ namespace BusReservations.Infrastructure.Data.Repository
         public void AddRange(IEnumerable<BusDrivenRoute> routes)
         {
             _appDBContext.AddRange(routes);
+        }
+
+        public async Task<PagedList<BusDrivenRoute>> GetBusDrivenRoutesByDate(DateTime date, int pageIndex = 1)
+        {
+            return await _appDBContext.BusDrivenRoutes
+                .Include(bdr => bdr.DrivenRoute)
+                .ThenInclude(dr => dr.TimeTable)
+                .Include(bdr => bdr.Bus)
+                .Include(bdr => bdr.OccupiedSeats)
+                .Include(bdr => bdr.DrivenRoute)
+                .Where(bdr => bdr.DrivenRoute.TimeTable.DepartureDate.Date == date.Date)
+                .ToPagedListAsync(pageIndex);
         }
     }
 }

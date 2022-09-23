@@ -1,0 +1,25 @@
+form {
+  height: fit-content;
+  width: 70%;
+  padding-bottom: 2em;
+  padding-top: 2em;
+  column-gap: 1em;
+}
+input {
+  color: #f0f8ff;
+}
+form > button {
+  margin-top: 0.34375em;
+}
+button {
+  height: fit-content;
+  font-size: 2em;
+  white-space: normal;
+  margin-top: 0.5em;
+}
+:host {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

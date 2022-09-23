@@ -59,13 +59,18 @@ namespace BusReservations.WebAPI.Controllers
                 DepartureDate = new DateTime(year, month, day),
                 PageIndex = index
             });
-            var mappedResult = _mapper.Map<IEnumerable<BusDrivenRouteGetDto>>(result);
-            return Ok(mappedResult);
+            return Ok(new BusDrivenRoutesGetPaged(result, _mapper));
         }
         [HttpGet]
         public async Task<IActionResult> GetAllBusDrivenRoutes([FromQuery] int index = 1)
         {
             var result = await _mediator.Send(new GetAllBusDrivenRoutesQuery { pageIndex = index });
+            return Ok(new BusDrivenRoutesGetPaged(result, _mapper));
+        }
+        [HttpGet("filter")]
+        public async Task<IActionResult> GetBusDrivenRoutesByDate([FromQuery] int day, [FromQuery] int month, [FromQuery] int year, [FromQuery] int pageIndex = 1)
+        {
+            var result = await _mediator.Send(new GetBusDrivenRoutesByDateQuery { Date = new DateTime(year, month, day), PageIndex = pageIndex });
             return Ok(new BusDrivenRoutesGetPaged(result, _mapper));
         }
     }

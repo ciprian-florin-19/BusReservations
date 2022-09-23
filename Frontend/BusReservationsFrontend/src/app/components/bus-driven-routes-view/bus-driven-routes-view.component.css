@@ -25,7 +25,7 @@ mat-expansion-panel-header:focus {
   font-size: 5em;
   color: #fdd835;
 }
-mat-icon {
+span > mat-icon {
   font-size: 2em;
   width: fit-content;
   height: fit-content;
@@ -55,6 +55,7 @@ button {
   height: fit-content;
   font-size: 2em;
   white-space: normal;
+  margin-top: 0.5em;
 }
 .date {
   color: #fdd835;

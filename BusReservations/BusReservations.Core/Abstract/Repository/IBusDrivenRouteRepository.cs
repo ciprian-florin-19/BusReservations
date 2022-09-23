@@ -10,9 +10,10 @@ namespace BusReservations.Core.Abstract.Repository
         Task<BusDrivenRoute> GetBusDrivenRouteByID(Guid id);
         void UpdateBusDrivenRoute(BusDrivenRoute newBusDrivenRoutes);
         void DeleteBusDrivenRoute(BusDrivenRoute newBusDrivenRoutes);
-        Task<IEnumerable<BusDrivenRoute>> GetAvailableRides(string start, string destination, DateTime departureDate, int PageIndex = 1);
+        Task<PagedList<BusDrivenRoute>> GetAvailableRides(string start, string destination, DateTime departureDate, int PageIndex = 1);
         Task<IEnumerable<DrivenRoute>> GetDrivenRoutesByBus(Guid busId);
         Task<ICollection<Bus>> GetBusesByDrivenRoute(Guid RouteId);
         void AddRange(IEnumerable<BusDrivenRoute> routes);
+        Task<PagedList<BusDrivenRoute>> GetBusDrivenRoutesByDate(DateTime date, int pageIndex);
     }
 }

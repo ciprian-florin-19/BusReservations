@@ -14,7 +14,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatRippleModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import {
+  MatRippleModule,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -35,9 +39,18 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BusSchemaComponent } from './components/bus-schema/bus-schema.component';
 import { AddReservationViewComponent } from './components/add-reservation-view/add-reservation-view.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+import { DateAdapter } from '@angular/material/core';
+import 'moment/locale/ro';
+import { RidesListComponent } from './components/rides-list/rides-list.component';
+import { DateFilterComponent } from './components/date-filter/date-filter.component';
+import { AvailableRidesListComponent } from './components/available-rides-list/available-rides-list.component';
 //TO DO clean up
 @NgModule({
   declarations: [
@@ -54,6 +67,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     BusDrivenRoutesViewComponent,
     BusSchemaComponent,
     AddReservationViewComponent,
+    RidesListComponent,
+    DateFilterComponent,
+    AvailableRidesListComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,7 +97,18 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     CommonModule,
     MatPaginatorModule,
   ],
-  providers: [MatNativeDateModule, MatExpansionModule],
+  providers: [
+    MatNativeDateModule,
+    MatExpansionModule,
+    DatePipe,
+    { provide: MAT_DATE_LOCALE, useValue: 'ro-RO' },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

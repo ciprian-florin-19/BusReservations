@@ -1,0 +1,7 @@
+<app-bus-driven-routes-view
+  #rides
+  (onPageChangeEvent)="onPageChange($event)"
+  (filterResultsEvent)="filterResults($event.departureDate, $event.index)"
+>
+  <app-date-filter [listToFilter]="rides"></app-date-filter>
+</app-bus-driven-routes-view>

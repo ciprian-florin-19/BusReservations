@@ -1,11 +1,15 @@
+import { DatePipe } from '@angular/common';
 import {
   Component,
   ElementRef,
+  EventEmitter,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { DateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { BusDrivenRoute } from 'src/app/models/busDrivenRoute';
 import { busDrivenRoutePagedList } from 'src/app/models/busDrivenRoutePagedList';
@@ -19,28 +23,27 @@ import { BusSchemaComponent } from '../bus-schema/bus-schema.component';
 })
 export class BusDrivenRoutesViewComponent implements OnInit {
   result?: busDrivenRoutePagedList;
+  isFiltered: boolean = false;
+  dateFilter: Date = new Date();
   elementCount: number = 0;
   isLoading: boolean = true;
+  @Output()
+  onPageChangeEvent: EventEmitter<any> = new EventEmitter<any>();
+
+  @Output()
+  filterResultsEvent: EventEmitter<{ departureDate: Date; index: number }> =
+    new EventEmitter();
+
   @ViewChild('schema')
   busSchema?: BusSchemaComponent;
-  constructor(private bdr: BusDrivenRoutesService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.bdr.getAll().subscribe((r) => {
-      this.result = r;
-      this.isLoading = false;
-      this.result.currentPage--;
-      this.elementCount = r.pageCount * r.pageSize;
-    });
-  }
+  ngOnInit(): void {}
 
   onPageChange(event: any) {
-    window.scroll(0, 0);
-    this.bdr.getAll(event.pageIndex + 1).subscribe((r) => {
-      this.result = r;
-      this.isLoading = false;
-      this.result.currentPage--;
-      this.elementCount = r.pageCount * r.pageSize;
-    });
+    this.onPageChangeEvent.emit(event);
+  }
+  filterResults(date: Date, index: number = 1) {
+    this.filterResultsEvent.emit({ departureDate: date, index: index });
   }
 }

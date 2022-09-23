@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SearchOptionsService } from 'src/app/services/search-options.service';
 import { FormsModule } from '@angular/forms';
 import { MatAutocomplete } from '@angular/material/autocomplete';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
@@ -16,12 +17,10 @@ export class SearchBarComponent implements OnInit {
   destinationOptions?: string[];
 
   constructor(
-    private dateAdapter: DateAdapter<any>,
     private router: Router,
-    private searchOptionsService: SearchOptionsService
-  ) {
-    dateAdapter.setLocale('ro');
-  }
+    private searchOptionsService: SearchOptionsService,
+    private dateAdapter: DatePipe
+  ) {}
 
   ngOnInit(): void {
     this.options = this.searchOptionsService.getSearchOptions();
@@ -41,7 +40,9 @@ export class SearchBarComponent implements OnInit {
       queryParams: {
         start: start,
         destination: destination,
-        date: date,
+        year: this.dateAdapter.transform(date, 'yyyy'),
+        month: this.dateAdapter.transform(date, 'MM'),
+        day: this.dateAdapter.transform(date, 'dd'),
       },
     });
   }

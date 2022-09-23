@@ -1,12 +1,13 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Domain;
 using BusReservations.Core.Exceptions;
+using BusReservations.Core.Pagination;
 using BusReservations.Core.Queries;
 using MediatR;
 
 namespace BusReservations.Core.QueryHandlers
 {
-    public class GetAvailableRidesQueryHandler : IRequestHandler<GetAvailableRidesQuery, IEnumerable<BusDrivenRoute>>
+    public class GetAvailableRidesQueryHandler : IRequestHandler<GetAvailableRidesQuery, PagedList<BusDrivenRoute>>
     {
         private IUnitOfWork _unitOfWork;
 
@@ -15,7 +16,7 @@ namespace BusReservations.Core.QueryHandlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<BusDrivenRoute>> Handle(GetAvailableRidesQuery request, CancellationToken cancellationToken)
+        public async Task<PagedList<BusDrivenRoute>> Handle(GetAvailableRidesQuery request, CancellationToken cancellationToken)
         {
             var rides = await _unitOfWork.BusDrivenRoutesRepository.GetAvailableRides(request.Start, request.Destination, request.DepartureDate, request.PageIndex);
             if (rides == null || rides.Count() == 0)
