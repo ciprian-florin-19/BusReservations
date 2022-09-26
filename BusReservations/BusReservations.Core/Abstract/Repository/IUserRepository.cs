@@ -13,5 +13,6 @@ namespace BusReservations.Core.Abstract.Repository
         void DeleteUser(User user);
         void AddRange(IEnumerable<User> users);
         Task<IEnumerable<User>> GetUsersByStatus(Status status, int index);
+        Task<User> DoesUserExist(User user);
     }
 }

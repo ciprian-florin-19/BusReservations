@@ -42,6 +42,7 @@ export class BusDrivenRoutesViewComponent implements OnInit {
 
   onPageChange(event: any) {
     this.onPageChangeEvent.emit(event);
+    console.log(this.busSchema);
   }
   filterResults(date: Date, index: number = 1) {
     this.filterResultsEvent.emit({ departureDate: date, index: index });

@@ -51,6 +51,10 @@ import 'moment/locale/ro';
 import { RidesListComponent } from './components/rides-list/rides-list.component';
 import { DateFilterComponent } from './components/date-filter/date-filter.component';
 import { AvailableRidesListComponent } from './components/available-rides-list/available-rides-list.component';
+import { ReservationFormComponent } from './components/reservation-form/reservation-form.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { ReactiveFormsModule } from '@angular/forms';
+
 //TO DO clean up
 @NgModule({
   declarations: [
@@ -70,6 +74,7 @@ import { AvailableRidesListComponent } from './components/available-rides-list/a
     RidesListComponent,
     DateFilterComponent,
     AvailableRidesListComponent,
+    ReservationFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,6 +101,8 @@ import { AvailableRidesListComponent } from './components/available-rides-list/a
     MatProgressSpinnerModule,
     CommonModule,
     MatPaginatorModule,
+    MatStepperModule,
+    ReactiveFormsModule,
   ],
   providers: [
     MatNativeDateModule,

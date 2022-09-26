@@ -38,8 +38,8 @@ export class AvailableRidesListComponent implements OnInit {
         this.rides.result = r;
         this.rides.isLoading = false;
         this.rides.result.currentPage--;
-        this.rides.elementCount = r.pageCount * r.pageSize;
-        console.log(this.rides);
+        if (r.pageCount > 1) this.rides.elementCount = r.pageCount * r.pageSize;
+        else this.rides.elementCount = r.busDrivenRoutes.length;
       });
   }
   onPageChange(event: any) {

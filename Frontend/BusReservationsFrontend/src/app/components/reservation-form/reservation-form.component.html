@@ -1,0 +1,89 @@
+<mat-stepper linear="true">
+  <mat-step [stepControl]="routeForm">
+    <form [formGroup]="routeForm">
+      <ng-template matStepLabel>Detalii cursa</ng-template>
+      <mat-label
+        >Data
+        <mat-icon>calendar_today</mat-icon>
+      </mat-label>
+      <mat-form-field appearance="fill">
+        <input matInput formControlName="date" readonly="true" />
+      </mat-form-field>
+      <mat-label
+        >Plecare
+        <mat-icon> location_on</mat-icon>
+      </mat-label>
+      <div class="input-row">
+        <mat-form-field appearance="fill">
+          <input matInput formControlName="departure" readonly="true" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="time">
+          <input matInput formControlName="departureTime" readonly="true" />
+        </mat-form-field>
+      </div>
+      <mat-label>Sosire <mat-icon> location_on</mat-icon></mat-label>
+      <div class="input-row">
+        <mat-form-field appearance="fill">
+          <input matInput formControlName="destination" readonly="true" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="time">
+          <input matInput formControlName="arrivalTime" readonly="true" />
+        </mat-form-field>
+      </div>
+      <mat-label
+        >Loc <mat-icon>airline_seat_recline_normal</mat-icon></mat-label
+      >
+      <app-bus-schema
+        #schema
+        *ngIf="routeData | async as route"
+        [capacity]="route.bus.capacity"
+        [occupiedSeats]="route.occupiedSeats"
+        [selectedSeat]="autofilledData.seatNumber"
+      ></app-bus-schema>
+      <mat-form-field appearance="fill">
+        <mat-label>Tip bilet</mat-label>
+        <mat-select formControlName="seatType">
+          <mat-option value="0"> elev/student </mat-option>
+          <mat-option value="1"> adult </mat-option>
+          <mat-option value="2"> pensionar </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <button mat-button matStepperNext><mat-icon>arrow_right</mat-icon></button>
+  </mat-step>
+  <mat-step [stepControl]="userForm">
+    <form [formGroup]="userForm">
+      <ng-template matStepLabel>Date personale</ng-template>
+      <div class="input-row">
+        <mat-form-field appearance="fill">
+          <mat-label>Nume</mat-label>
+          <input matInput formControlName="firstName" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Prenume</mat-label>
+          <input matInput formControlName="lastName" required />
+        </mat-form-field>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Numar de telefon</mat-label>
+        <input type="tel" formControlName="phone" matInput required />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Adresa de e-mail</mat-label>
+        <input type="email" formControlName="email" matInput required />
+      </mat-form-field>
+    </form>
+    <button mat-button matStepperPrevious>
+      <mat-icon>arrow_left</mat-icon>
+    </button>
+    <button mat-button matStepperNext><mat-icon>arrow_right</mat-icon></button>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Confirmare</ng-template>
+    <p>detalii bilet</p>
+    <button mat-raised-button (click)="onSubmit()">Rezerva loc</button>
+    <button mat-button matStepperPrevious>
+      <mat-icon>arrow_left</mat-icon>
+    </button>
+  </mat-step>
+</mat-stepper>

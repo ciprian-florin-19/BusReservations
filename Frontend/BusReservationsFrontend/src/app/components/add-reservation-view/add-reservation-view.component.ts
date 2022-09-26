@@ -8,12 +8,16 @@ import { Seat } from 'src/app/models/seat';
   styleUrls: ['./add-reservation-view.component.css'],
 })
 export class AddReservationViewComponent implements OnInit {
-  selectedSeat?: Seat;
-  bdrId: string = '';
+  formData!: {
+    bdrId: string;
+    seatNumber: number;
+  };
   constructor(private router: Router) {
     let navigation = router.getCurrentNavigation();
     if (navigation)
-      if (navigation.extras.state) console.log(navigation.extras.state['data']);
+      if (navigation.extras.state)
+        this.formData = navigation.extras.state['data'];
+    console.log(this.formData);
   }
 
   ngOnInit(): void {}

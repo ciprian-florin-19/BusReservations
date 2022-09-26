@@ -21,7 +21,7 @@ export class RidesListComponent implements OnInit {
       this.rides.result = r;
       this.rides.isLoading = false;
       this.rides.result.currentPage--;
-      this.rides.elementCount = r.pageCount * r.pageSize;
+      this.rides.elementCount = r.pageSize * r.pageCount;
     });
   }
   onPageChange(event: any) {

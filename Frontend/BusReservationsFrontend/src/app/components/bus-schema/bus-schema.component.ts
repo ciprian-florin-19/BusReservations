@@ -11,9 +11,10 @@ export class BusSchemaComponent implements OnInit {
   @Input()
   occupiedSeats?: Seat[] = [];
   @Input()
-  capacity?: number;
-  @Output()
-  selectedSeat?: number;
+  capacity?: number = 0;
+  @Input()
+  selectedSeat: number = -1;
+
   halfCapacity: number = 0;
   totalSeats: number[] = [];
   constructor() {}
@@ -32,5 +33,6 @@ export class BusSchemaComponent implements OnInit {
 
   selectSeat(seat: number): void {
     this.selectedSeat = seat;
+    console.log(this.selectedSeat);
   }
 }

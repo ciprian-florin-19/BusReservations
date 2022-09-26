@@ -1,3 +1,4 @@
-export class Seat {
+export interface Seat {
   seatNumber?: number;
+  status: number;
 }

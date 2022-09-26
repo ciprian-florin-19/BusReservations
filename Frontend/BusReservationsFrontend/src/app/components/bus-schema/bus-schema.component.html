@@ -5,6 +5,7 @@
     color="accent"
     *ngFor="let seat of totalSeats.slice(0, halfCapacity)"
     [class.occupied]="isSeatOccupied(seat)"
+    [class.selected]="seat == selectedSeat"
     [disabled]="isSeatOccupied(seat)"
     (click)="selectSeat(seat)"
   >
@@ -20,6 +21,7 @@
     *ngFor="let seat of totalSeats.slice(halfCapacity, capacity)"
     [class.occupied]="isSeatOccupied(seat)"
     [disabled]="isSeatOccupied(seat)"
+    [class.selected]="seat == selectedSeat"
     (click)="selectSeat(seat)"
   >
     {{ seat }}

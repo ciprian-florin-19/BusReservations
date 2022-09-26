@@ -1,4 +1,4 @@
-export class Bus {
-  name?: string;
-  capacity: number = 0;
+export interface Bus {
+  name: string;
+  capacity: number;
 }

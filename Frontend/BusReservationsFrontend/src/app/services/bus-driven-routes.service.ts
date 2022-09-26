@@ -35,4 +35,9 @@ export class BusDrivenRoutesService {
       `https://localhost:7124/api/v1/bus-driven-routes/available?start=${start}&destination=${destination}&year=${year}&month=${month}&day=${day}&index=${index}`
     );
   }
+  getBusDrivenRouteById(id: string) {
+    return this.client.get<BusDrivenRoute>(
+      `https://localhost:7124/api/v1/bus-driven-routes/${id}`
+    );
+  }
 }

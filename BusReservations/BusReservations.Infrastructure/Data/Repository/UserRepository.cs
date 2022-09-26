@@ -50,6 +50,14 @@ namespace BusReservations.Infrastructure.Data.Repository
             return user;
         }
 
+        public async Task<User> DoesUserExist(User user)
+        {
+            return await _appDBContext.Users.SingleOrDefaultAsync(
+                u => u.Name == user.Name
+                && u.PhoneNumber == user.PhoneNumber
+                && u.Email == user.Email);
+        }
+
         public async Task<IEnumerable<User>> GetUsersByStatus(Status status, int index = 1)
         {
             return await _appDBContext.Users.Where(u => u.Status == status).ToPagedListAsync(index);

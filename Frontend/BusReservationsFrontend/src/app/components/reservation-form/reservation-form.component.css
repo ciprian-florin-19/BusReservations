@@ -1,0 +1,52 @@
+:host {
+  background-color: rgba(0, 0, 0, 0.8);
+  border-top: solid 0.1em #fdd835;
+  border-bottom: solid 0.1em #fdd835;
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 125px;
+  height: fit-content;
+  position: relative;
+  min-height: 100vh;
+}
+form {
+  display: flex;
+  flex-flow: column wrap;
+}
+mat-label {
+  color: #f8f0ff;
+  font-size: 1.5em;
+  padding-bottom: 15px;
+}
+mat-form-field {
+  padding-bottom: 15px;
+  width: 40%;
+  margin-top: 15px;
+}
+.time {
+  margin-left: 15px;
+}
+.input-row {
+  width: 40%;
+  display: flex;
+  flex-flow: row nowrap;
+  column-gap: 1em;
+}
+.input-row > mat-form-field {
+  width: 100%;
+}
+mat-select {
+  padding-top: 1em;
+}
+input {
+  color: #f8f0ff;
+  font-size: 1.5em;
+}
+button {
+  background-color: #fdd835;
+  color: #000000;
+  margin-right: 15px;
+}
+mat-stepper {
+  background-color: transparent;
+}

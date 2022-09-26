@@ -66,8 +66,8 @@
             [routerLink]="['reservation-form']"
             [state]="{
               data: {
-                selectedSeat: busSchema?.selectedSeat,
-                bdrId: bdr.id
+                bdrId: bdr.id,
+                seatNumber: busSchema?.selectedSeat
               }
             }"
           >
