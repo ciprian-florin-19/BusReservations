@@ -4,6 +4,7 @@ import {
   ElementRef,
   EventEmitter,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
@@ -14,6 +15,7 @@ import { Router } from '@angular/router';
 import { BusDrivenRoute } from 'src/app/models/busDrivenRoute';
 import { busDrivenRoutePagedList } from 'src/app/models/busDrivenRoutePagedList';
 import { BusDrivenRoutesService } from 'src/app/services/bus-driven-routes.service';
+import { RouteDetailsService } from 'src/app/services/route-details.service';
 import { BusSchemaComponent } from '../bus-schema/bus-schema.component';
 
 @Component({
@@ -36,8 +38,7 @@ export class BusDrivenRoutesViewComponent implements OnInit {
 
   @ViewChild('schema')
   busSchema?: BusSchemaComponent;
-  constructor() {}
-
+  constructor(private routeDetails: RouteDetailsService) {}
   ngOnInit(): void {}
 
   onPageChange(event: any) {
@@ -46,5 +47,11 @@ export class BusDrivenRoutesViewComponent implements OnInit {
   }
   filterResults(date: Date, index: number = 1) {
     this.filterResultsEvent.emit({ departureDate: date, index: index });
+  }
+  sendRouteDetails(id: string, seat?: number) {
+    this.routeDetails.setDetails({
+      bdrId: id,
+      selectedSeat: seat,
+    });
   }
 }

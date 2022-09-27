@@ -1,13 +1,19 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import html2canvas from 'html2canvas';
+import jspdf from 'jspdf';
+import jsPDF from 'jspdf';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { BusDrivenRoute } from 'src/app/models/busDrivenRoute';
-import { Reservation } from 'src/app/models/reservation';
+import { ReservationGetDto } from 'src/app/models/reservationGetDto';
+import { ReservationPutPostDto } from 'src/app/models/reservationPutPostDto';
+import { Seat } from 'src/app/models/seat';
 import { User } from 'src/app/models/user';
 import { BusDrivenRoutesService } from 'src/app/services/bus-driven-routes.service';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
+import { TicketComponent } from '../ticket/ticket.component';
 
 @Component({
   selector: 'app-reservation-form',
@@ -34,14 +40,20 @@ export class ReservationFormComponent implements OnInit {
 
   @ViewChild('schema')
   busSchema: any;
-
-  user?: User;
   @Input()
-  autofilledData!: {
+  autofilledData: {
     bdrId: string;
-    seatNumber: number;
+    seatNumber?: number;
+  } = {
+    bdrId: '',
+    seatNumber: -1,
   };
+  @ViewChild('ticket')
+  ticket?: ElementRef;
   routeData = new BehaviorSubject<BusDrivenRoute | null>(null);
+  user!: User;
+  createdReservation!: ReservationGetDto;
+
   constructor(
     private bdr: BusDrivenRoutesService,
     private datePipe: DatePipe,
@@ -50,13 +62,12 @@ export class ReservationFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.bdr
-      .getBusDrivenRouteById(this.autofilledData?.bdrId)
-      .subscribe((r) => {
-        this.routeData.next(r);
-        this.autofillFormValues(r);
-        console.log(this.autofilledData);
-      });
+    this.bdr.getBusDrivenRouteById(this.autofilledData.bdrId).subscribe((r) => {
+      this.routeData.next(r);
+      this.autofillFormValues(r);
+
+      console.log(this.autofilledData);
+    });
   }
 
   autofillFormValues(routeData: any): void {
@@ -76,7 +87,7 @@ export class ReservationFormComponent implements OnInit {
       departure: routeData.drivenRoute.start,
       destination: routeData.drivenRoute.destination,
       bus: routeData.bus.name,
-      seatType: '1',
+      seatType: '0',
     });
   }
   onSubmit() {
@@ -106,7 +117,8 @@ export class ReservationFormComponent implements OnInit {
     });
   }
   createReservation(user: User) {
-    let reservation: Reservation = {
+    let reservation: ReservationPutPostDto = {
+      id: '',
       busDrivenRouteId: this.autofilledData.bdrId,
       userId: user.id,
       seatDto: {
@@ -114,10 +126,59 @@ export class ReservationFormComponent implements OnInit {
         status: Number(this.routeForm.controls.seatType.value),
       },
     };
-    console.log(reservation);
-    console.log(user);
     this.reservationService.addReservation(reservation).subscribe((r) => {
+      this.createdReservation = r;
       console.log(r);
     });
+    this.downloadAsPdf();
+  }
+  getTicketDetails(): ReservationGetDto | undefined {
+    if (this.routeData.value != undefined) {
+      let seat = new Seat(
+        Number(`${this.autofilledData.seatNumber}`),
+        Number(`${this.routeForm.controls.seatType.value}`)
+      );
+      let finalSeatPrice;
+      if (seat.discount != undefined)
+        finalSeatPrice =
+          this.routeData.value.drivenRoute.seatPrice -
+          (this.routeData.value.drivenRoute.seatPrice / 100) * seat.discount;
+      return {
+        bus: this.routeData.value.bus,
+        drivenRoute: this.routeData.value.drivenRoute,
+        user: {
+          id: '',
+          name: `${this.userForm.controls.firstName.value} ${this.userForm.controls.lastName.value}`,
+          phone: `${this.userForm.controls.phone.value}`,
+          email: `${this.userForm.controls.email.value}`,
+        },
+        seat: seat,
+        finalSeatPrice: Number(`${finalSeatPrice}`),
+      };
+    }
+    return undefined;
+  }
+  onChange(event: any) {
+    if (event.selectedIndex == 2) {
+      let details = this.getTicketDetails();
+      if (details != undefined) this.createdReservation = details;
+    }
+  }
+  downloadAsPdf() {
+    let ticket = document.getElementById('ticket');
+    if (ticket != undefined)
+      html2canvas(ticket, { backgroundColor: '#000000' }).then((canvas) => {
+        let imgWidth = 180;
+        let imgHeight = 210;
+
+        const contentDataURL = canvas.toDataURL('image/png');
+        let pdf = new jspdf('portrait', 'mm', 'a5');
+        let position = 0;
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+        pdf.save('bilet.pdf');
+      });
+  }
+  ngAfterViewInit() {
+    console.log(document.getElementById('ticket'));
   }
 }

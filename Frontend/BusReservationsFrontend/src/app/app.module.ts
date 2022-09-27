@@ -54,6 +54,8 @@ import { AvailableRidesListComponent } from './components/available-rides-list/a
 import { ReservationFormComponent } from './components/reservation-form/reservation-form.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TicketComponent } from './components/ticket/ticket.component';
+import { BookingCompleteViewComponent } from './components/booking-complete-view/booking-complete-view.component';
 
 //TO DO clean up
 @NgModule({
@@ -75,6 +77,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     DateFilterComponent,
     AvailableRidesListComponent,
     ReservationFormComponent,
+    TicketComponent,
+    BookingCompleteViewComponent,
   ],
   imports: [
     BrowserModule,

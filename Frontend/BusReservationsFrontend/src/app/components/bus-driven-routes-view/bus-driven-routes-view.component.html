@@ -64,12 +64,7 @@
             mat-raised-button
             color="primary"
             [routerLink]="['reservation-form']"
-            [state]="{
-              data: {
-                bdrId: bdr.id,
-                seatNumber: busSchema?.selectedSeat
-              }
-            }"
+            (click)="sendRouteDetails(bdr.id, busSchema?.selectedSeat)"
           >
             Rezerva loc
           </button>

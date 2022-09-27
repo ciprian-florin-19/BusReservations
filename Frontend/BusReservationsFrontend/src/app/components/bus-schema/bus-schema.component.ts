@@ -13,7 +13,7 @@ export class BusSchemaComponent implements OnInit {
   @Input()
   capacity?: number = 0;
   @Input()
-  selectedSeat: number = -1;
+  selectedSeat?: number = -1;
 
   halfCapacity: number = 0;
   totalSeats: number[] = [];

@@ -1,0 +1,55 @@
+<span class="title">Bilet de calatorie</span>
+<span class="subtitle">Cursa:</span>
+<div class="details">
+  <div *ngIf="reservation">
+    <span class="date">{{
+      reservation.drivenRoute.timeTable.departureDate
+        | date: "d-MM-yyyy, h:mm a"
+    }}</span>
+    <span>De la : {{ reservation.drivenRoute.start }}</span>
+    <span><mat-icon>arrow_downward</mat-icon></span>
+    <span class="date">{{
+      reservation.drivenRoute.timeTable.arivvalDate | date: "d-MM-yyyy, h:mm a"
+    }}</span>
+    <span>La : {{ reservation.drivenRoute.destination }}</span>
+  </div>
+  <div><mat-icon>arrow_forward</mat-icon></div>
+
+  <div *ngIf="reservation">
+    <span>Autobuz</span>
+    <span><mat-icon>directions_bus</mat-icon></span>
+    <span>{{ reservation.bus.name }}</span>
+  </div>
+  <div><mat-icon>arrow_forward</mat-icon></div>
+
+  <div *ngIf="reservation">
+    <span>Pret bilet</span>
+    <span><mat-icon>payment</mat-icon></span>
+    <span>{{ reservation.finalSeatPrice }} lei</span>
+  </div>
+</div>
+<span class="subtitle">Detalii loc:</span>
+<div class="details" *ngIf="reservation">
+  <app-bus-schema
+    [capacity]="reservation.bus.capacity"
+    [selectedSeat]="reservation.seat.seatNumber"
+  ></app-bus-schema>
+</div>
+<div class="details" *ngIf="reservation">
+  <span>Tip bilet:</span>
+  <span>{{ getStatusName(reservation.seat.status) }}</span>
+</div>
+<span class="subtitle">Detalii client:</span>
+<div class="details user" *ngIf="reservation">
+  <span
+    >Nume: <span class="important">{{ reservation.user.name }}</span></span
+  >
+  <span
+    >Numar de telefon:
+    <span class="important">{{ reservation.user.phone }}</span></span
+  >
+  <span
+    >Adresa de e-mail:
+    <span class="important">{{ reservation.user.email }}</span></span
+  >
+</div>

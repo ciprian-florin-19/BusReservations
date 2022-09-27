@@ -23,6 +23,7 @@ export class RidesListComponent implements OnInit {
       this.rides.result.currentPage--;
       this.rides.elementCount = r.pageSize * r.pageCount;
     });
+    //TO DO: filter for next day
   }
   onPageChange(event: any) {
     window.scroll(0, 0);

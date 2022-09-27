@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Reservation } from '../models/reservation';
+import { ReservationGetDto } from '../models/reservationGetDto';
+import { ReservationPutPostDto } from '../models/reservationPutPostDto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReservationService {
   constructor(private client: HttpClient) {}
-  addReservation(reservation: Reservation) {
-    return this.client.post<Reservation>(
+  addReservation(reservation: ReservationPutPostDto) {
+    return this.client.post<ReservationGetDto>(
       `https://localhost:7124/api/v1/reservations
 `,
       {
@@ -19,6 +20,12 @@ export class ReservationService {
           type: reservation.seatDto.status,
         },
       }
+    );
+  }
+
+  getReservationById(id: string) {
+    return this.client.get<ReservationGetDto>(
+      `https://localhost:7124/api/v1/reservations/${id}`
     );
   }
 }
