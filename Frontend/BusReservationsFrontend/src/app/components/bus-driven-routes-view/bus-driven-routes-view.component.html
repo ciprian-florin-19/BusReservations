@@ -16,7 +16,7 @@
       *ngIf="isLoading"
     ></mat-progress-spinner>
     <mat-accordion *ngFor="let bdr of result?.busDrivenRoutes">
-      <mat-expansion-panel *ngIf="bdr.occupiedSeats.length < bdr.bus.capacity">
+      <mat-expansion-panel>
         <mat-expansion-panel-header fxLayout.gt-md="row">
           <mat-panel-title>
             <span class="date">{{

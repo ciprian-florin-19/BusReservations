@@ -38,6 +38,7 @@ namespace BusReservations.Infrastructure.Data.Repository
                 .Include(bdr => bdr.Bus)
                 .Include(bdr => bdr.OccupiedSeats)
                 .Include(bdr => bdr.DrivenRoute)
+                .Where(bdr => bdr.Bus.Capacity > bdr.OccupiedSeats.Count)
                 .ToPagedListAsync(pageIndex);
         }
 

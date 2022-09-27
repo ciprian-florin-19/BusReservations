@@ -22,6 +22,7 @@ export class RidesListComponent implements OnInit {
       this.rides.isLoading = false;
       this.rides.result.currentPage--;
       this.rides.elementCount = r.pageSize * r.pageCount;
+      console.log(this.rides);
     });
     //TO DO: filter for next day
   }

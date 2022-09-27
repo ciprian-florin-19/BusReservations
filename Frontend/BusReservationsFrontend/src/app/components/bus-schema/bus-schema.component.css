@@ -13,10 +13,14 @@
   flex-flow: row wrap;
   min-height: 3em;
 }
+:host:nth-child(3) {
+  justify-content: baseline;
+}
 .seat {
   aspect-ratio: 1/1;
-  height: 3em;
-  margin: 3px;
+  width: 6%;
+  aspect-ratio: 1/1;
+  margin: 0.1em;
   font-size: 1.5em;
   border-radius: 4px;
   outline: none;
@@ -33,10 +37,35 @@
 }
 @media only screen and (max-width: 900px) {
   .seat {
-    margin: 3px;
-    font-size: 1.5em;
     border-radius: 4px;
     outline: none;
     font-weight: bold;
+    min-width: 0;
+    line-height: normal;
+    padding: 0;
+    height: fit-content;
+    width: 7%;
+    font-size: 3em;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .seat {
+    border-radius: 4px;
+    outline: none;
+    font-weight: bold;
+    min-width: 0;
+    line-height: normal;
+    height: fit-content;
+    min-width: 7%;
+    width: fit-content;
+    font-size: 1em;
+    padding: 1.2%;
+  }
+  :host {
+    overflow-y: scroll;
+    width: 89%;
+  }
+  .row {
+    min-height: 1em;
   }
 }

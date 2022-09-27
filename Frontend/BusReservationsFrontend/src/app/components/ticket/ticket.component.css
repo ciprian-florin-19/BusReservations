@@ -47,3 +47,50 @@ span {
 .user {
   display: inline;
 }
+.user > div {
+  font-size: 2em;
+  height: fit-content;
+  flex-flow: nowrap;
+  line-height: 2em;
+}
+@media only screen and (max-width: 600px) {
+  span {
+    font-size: 2em;
+  }
+  mat-icon {
+    font-size: 3rem;
+  }
+  .details {
+    flex-flow: column wrap;
+  }
+  div {
+    height: fit-content;
+  }
+  mat-icon {
+    font-size: 1em;
+  }
+  .user > div {
+    font-size: 2em;
+    height: fit-content;
+    flex-flow: wrap;
+    line-height: 2em;
+  }
+  .user > div > span {
+    padding-left: 0;
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 900px) {
+  span {
+    font-size: 2em;
+  }
+  .details {
+    flex-flow: column wrap;
+  }
+  mat-icon {
+    font-size: 3rem;
+  }
+  div {
+    height: fit-content;
+  }
+}
