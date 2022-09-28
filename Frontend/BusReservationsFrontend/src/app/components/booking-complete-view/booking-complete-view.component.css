@@ -1,0 +1,24 @@
+div {
+  width: 100%;
+  color: #fdd835;
+  text-align: center;
+  line-height: normal;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-top: solid 0.1em #fdd835;
+  border-bottom: solid 0.1em #fdd835;
+}
+.title {
+  font-size: 4em;
+  height: fit-content;
+  margin-bottom: 15px;
+}
+.subtitle {
+  font-size: 2em;
+}

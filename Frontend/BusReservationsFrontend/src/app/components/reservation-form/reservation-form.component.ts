@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import html2canvas from 'html2canvas';
 import jspdf from 'jspdf';
 import jsPDF from 'jspdf';
@@ -58,7 +59,8 @@ export class ReservationFormComponent implements OnInit {
     private bdr: BusDrivenRoutesService,
     private datePipe: DatePipe,
     private userService: UserServiceService,
-    private reservationService: ReservationService
+    private reservationService: ReservationService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -100,15 +102,25 @@ export class ReservationFormComponent implements OnInit {
     };
     this.userService.getExistingUser(user).subscribe({
       next: (u) => {
-        user = u;
-        console.log('found');
-        this.createReservation(user);
+        this.router
+          .navigateByUrl('/routes/reservation-form/complete')
+          .then((nav) => {
+            user = u;
+            console.log('found');
+            this.createReservation(user);
+            window.scroll(0, 0);
+          });
       },
       error: (error) => {
         this.userService.addUser(user).subscribe((u) => {
-          user = u;
-          console.log(`added user ${u.name}`);
-          this.createReservation(user);
+          this.router
+            .navigateByUrl('/routes/reservation-form/complete')
+            .then((nav) => {
+              user = u;
+              console.log(`added user ${u.name}`);
+              this.createReservation(user);
+              window.scroll(0, 0);
+            });
         });
       },
       complete: () => {
@@ -168,11 +180,11 @@ export class ReservationFormComponent implements OnInit {
     let ticket = document.getElementById('ticket');
     if (ticket != undefined)
       html2canvas(ticket, { backgroundColor: '#000000' }).then((canvas) => {
-        let imgWidth = 180;
-        let imgHeight = 210;
-
         const contentDataURL = canvas.toDataURL('image/png');
-        let pdf = new jspdf('portrait', 'mm', 'a5');
+        let pdf = new jspdf('landscape', 'mm', 'a5');
+        const imgProps = pdf.getImageProperties(contentDataURL);
+        let imgWidth = pdf.internal.pageSize.getWidth();
+        let imgHeight = (imgProps.height * imgWidth) / imgProps.width;
         let position = 0;
         pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
         pdf.save('bilet.pdf');

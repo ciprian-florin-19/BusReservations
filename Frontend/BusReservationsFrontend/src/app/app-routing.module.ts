@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddReservationViewComponent } from './components/add-reservation-view/add-reservation-view.component';
 import { AvailableRidesListComponent } from './components/available-rides-list/available-rides-list.component';
+import { BookingCompleteViewComponent } from './components/booking-complete-view/booking-complete-view.component';
 import { BusDrivenRoutesViewComponent } from './components/bus-driven-routes-view/bus-driven-routes-view.component';
 import { RidesListComponent } from './components/rides-list/rides-list.component';
 import { SearchResultsComponent } from './components/search-results/search-results.component';
@@ -13,6 +14,10 @@ const routes: Routes = [
   { path: 'search', component: AvailableRidesListComponent },
   { path: 'routes', component: RidesListComponent },
   { path: 'routes/reservation-form', component: AddReservationViewComponent },
+  {
+    path: 'routes/reservation-form/complete',
+    component: BookingCompleteViewComponent,
+  },
 ];
 
 @NgModule({
