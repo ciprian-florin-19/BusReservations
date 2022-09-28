@@ -7,7 +7,7 @@ namespace BusReservations.WebAPI.DTOs
     {
         [Required]
         [DataType(DataType.Text)]
-        public string? Name { get; set; }
+        public string? FullName { get; set; }
 
         [Required]
         [DataType(DataType.PhoneNumber)]

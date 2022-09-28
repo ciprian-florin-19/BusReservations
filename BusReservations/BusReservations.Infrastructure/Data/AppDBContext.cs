@@ -1,12 +1,13 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Domain;
 using BusReservations.Core.Domain.SeatModel;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace BusReservations.Infrastructure.Data
 {
-    public class AppDBContext : DbContext
+    public class AppDBContext : IdentityDbContext<Account>
     {
         public AppDBContext() { }
         public AppDBContext(DbContextOptions<AppDBContext> options)
@@ -27,14 +28,14 @@ namespace BusReservations.Infrastructure.Data
             if (!optionsBuilder.IsConfigured)
                 optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=BusReservations;Trusted_Connection=True;TrustServerCertificate=True");
         }
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            builder
-                .Entity<User>()
-                .Property(u => u.Status)
-                .HasConversion(
-                s => s.ToString(),
-                s => (Status)Enum.Parse(typeof(Status), s));
-        }
+        //protected override void OnModelCreating(ModelBuilder builder)
+        //{
+        //    builder
+        //        .Entity<User>()
+        //        .Property(u => u.Status)
+        //        .HasConversion(
+        //        s => s.ToString(),
+        //        s => (Status)Enum.Parse(typeof(Status), s));
+        //}
     }
 }

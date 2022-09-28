@@ -25,11 +25,11 @@ namespace BusReservations.Core.CommandHandlers
             var toUpdate = await _unitOfWork.AccountRepository.GetAccountById(request.Id);
             if (toUpdate == null)
                 throw new NotFoundException();
-            toUpdate.User.Name = request.Account.User.Name;
+            toUpdate.User.FullName = request.Account.User.FullName;
             toUpdate.User.Email = request.Account.User.Email;
             toUpdate.User.PhoneNumber = request.Account.User.PhoneNumber;
             toUpdate.User.Status = request.Account.User.Status;
-            toUpdate.Username = request.Account.Username;
+            toUpdate.UserName = request.Account.UserName;
             toUpdate.Password = request.Account.Password;
             toUpdate.HasAdminPrivileges = request.Account.HasAdminPrivileges;
             _unitOfWork.AccountRepository.UpdateAccount(toUpdate);

@@ -82,7 +82,7 @@ namespace BusReservations.WebAPI.Controllers
         [HttpGet("existing")]
         public async Task<IActionResult> DoesUserExist([FromQuery] string name, [FromQuery] string phone, [FromQuery] string email)
         {
-            var result = await _mediator.Send(new DoesUserExistQuery { User = new User { Name = name, Email = email, PhoneNumber = phone } });
+            var result = await _mediator.Send(new DoesUserExistQuery { User = new User { FullName = name, Email = email, PhoneNumber = phone } });
             var mappedResult = _mapper.Map<UserGetDto>(result);
             return Ok(mappedResult);
         }

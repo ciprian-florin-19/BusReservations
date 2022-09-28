@@ -38,7 +38,7 @@ namespace BusReservations.Infrastructure.Data.Repository
         {
             var account = await _appDBContext.Accounts
                 .Include(a => a.User)
-                .SingleOrDefaultAsync(account => account.Id == id);
+                .SingleOrDefaultAsync(account => account.Id == id.ToString());
             return account;
         }
 

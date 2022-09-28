@@ -53,7 +53,7 @@ namespace BusReservations.Infrastructure.Data.Repository
         public async Task<User> DoesUserExist(User user)
         {
             return await _appDBContext.Users.SingleOrDefaultAsync(
-                u => u.Name == user.Name
+                u => u.FullName == user.FullName
                 && u.PhoneNumber == user.PhoneNumber
                 && u.Email == user.Email);
         }

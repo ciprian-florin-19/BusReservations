@@ -6,9 +6,13 @@ using BusReservations.Infrastructure.Data;
 using BusReservations.Infrastructure.Data.Repository;
 using BusReservations.WebAPI.Middleware;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +40,35 @@ builder.Services.AddMediatR(typeof(Bus).Assembly);
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddLogging();
 
+builder.Services.AddIdentity<Account, IdentityRole>()
+    .AddEntityFrameworkStores<AppDBContext>();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}
+).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidAudience = "http://localhost:4200/",
+        ValidIssuer = "https://localhost:7124/",
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("014257c5-7702-432f-b89f-68913e69fdcc"))
+        //TO DO: add secret to appsettings.json
+    };
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Administrator", policy =>
+    {
+        policy.RequireRole("admin");
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -58,7 +91,9 @@ app.UseCors(x => x
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 app.UseMiddleware<LoggingMiddleware>();

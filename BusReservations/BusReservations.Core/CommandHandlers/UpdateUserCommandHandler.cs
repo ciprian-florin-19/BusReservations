@@ -25,7 +25,7 @@ namespace BusReservations.Core.CommandHandlers
             var toUpdate = await _unitOfWork.UserRepository.GetUserById(request.Id);
             if (toUpdate == null)
                 throw new NotFoundException();
-            toUpdate.Name = request.User.Name;
+            toUpdate.FullName = request.User.FullName;
             toUpdate.PhoneNumber = request.User.PhoneNumber;
             toUpdate.Email = request.User.Email;
             toUpdate.Status = request.User.Status;

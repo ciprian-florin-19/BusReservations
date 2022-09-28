@@ -31,7 +31,7 @@ var routes = new Faker<DrivenRoute>("ro")
 
 var users = new Faker<User>("ro")
     .RuleFor(u => u.Id, Guid.NewGuid)
-    .RuleFor(u => u.Name, f => f.Name.FullName())
+    .RuleFor(u => u.FullName, f => f.Name.FullName())
     .RuleFor(u => u.PhoneNumber, f => f.Phone.PhoneNumber())
     .RuleFor(u => u.Email, f => f.Internet.Email())
     .RuleFor(u => u.Status, f => f.PickRandom<Status>()).Generate(10);
@@ -41,12 +41,12 @@ var bdr = new Faker<BusDrivenRoute>("ro")
     .RuleFor(bdr => bdr.Bus, f => f.PickRandom(buses))
     .RuleFor(bdr => bdr.DrivenRoute, f => f.PickRandom(routes));
 
-var accounts = new Faker<Account>("ro")
-    .RuleFor(a => a.Id, Guid.NewGuid)
-    .RuleFor(a => a.User, f => f.PickRandom(users))
-    .RuleFor(a => a.HasAdminPrivileges, f => f.Random.Bool())
-    .RuleFor(a => a.Username, f => f.Internet.UserName())
-    .RuleFor(a => a.Password, f => f.Internet.Password()).Generate(10);
+//var accounts = new Faker<Account>("ro")
+//    .RuleFor(a => a.Id, Guid.NewGuid)
+//    .RuleFor(a => a.User, f => f.PickRandom(users))
+//    .RuleFor(a => a.HasAdminPrivileges, f => f.Random.Bool())
+//    .RuleFor(a => a.UserName, f => f.Internet.UserName())
+//    .RuleFor(a => a.Password, f => f.Internet.Password()).Generate(10);
 
 var seats = new Faker<Seat>()
     .RuleFor(s => s.Id, Guid.NewGuid)
@@ -63,8 +63,8 @@ var unitOfWork = new UnitOfWork(dbContext);
 unitOfWork.UserRepository.AddRange(users);
 unitOfWork.BusRepository.AddRange(buses);
 unitOfWork.RouteRepository.AddRange(routes);
-unitOfWork.BusDrivenRoutesRepository.AddRange(bdr);
-unitOfWork.AccountRepository.AddRange(accounts);
+//unitOfWork.BusDrivenRoutesRepository.AddRange(bdr);
+//unitOfWork.AccountRepository.AddRange(accounts);
 unitOfWork.ReservationRepository.AddRange(reservations);
 await unitOfWork.SaveChangesAsync();
 

@@ -7,11 +7,9 @@ namespace BusReservations.WebAPI.DTOs
         [Required]
         public UserPutPostDto User { get; set; }
 
-        public bool HasAdminPrivileges { get; set; }
-
         [Required]
         [DataType(DataType.Text)]
-        public string Username { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
