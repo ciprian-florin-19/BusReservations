@@ -1,0 +1,30 @@
+<p mat-dialog-title class="title">Intra in cont</p>
+<div mat-dialog-content>
+  <form #userInput="ngForm" (ngSubmit)="onSubmit(userInput)" id="userInput">
+    <mat-label fxHide.lt-md="true">Nume utilizator:</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true"
+        >Nume utilizator:</mat-label
+      >
+      <input type="text" required matInput ngModel name="username" />
+    </mat-form-field>
+    <mat-label fxHide.lt-md="true">Parola:</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Parola:</mat-label>
+      <input
+        type="password"
+        required
+        matInput
+        ngModel
+        name="password"
+        minlength="8"
+        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+      />
+      <mat-error>Parola invalida!</mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close="true">Inapoi</button>
+  <button mat-raised-button form="userInput">Intra in cont</button>
+</div>

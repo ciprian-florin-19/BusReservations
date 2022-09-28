@@ -25,6 +25,9 @@ mat-toolbar {
 .logo {
   font-size: 2em;
 }
+button {
+  font-size: 1.3em;
+}
 a {
   font-size: 1.3em;
 }

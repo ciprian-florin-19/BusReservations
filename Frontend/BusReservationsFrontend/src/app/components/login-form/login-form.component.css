@@ -1,0 +1,28 @@
+form {
+  display: flex;
+  flex-flow: column;
+  font-size: 1.5em;
+  line-height: normal;
+}
+::ng-deep.mat-dialog-container {
+  background-color: #000;
+  border: solid 0.1em #fdd835;
+  width: 50rem;
+}
+.title {
+  font-size: 3em;
+  padding-bottom: 1em;
+  color: #fdd835;
+}
+mat-label {
+  padding-bottom: 1em;
+}
+.mat-raised-button {
+  background-color: #fdd835;
+  color: black;
+}
+@media only screen and (orientation: landscape) and (max-width: 900px) {
+  form {
+    font-size: 1em;
+  }
+}

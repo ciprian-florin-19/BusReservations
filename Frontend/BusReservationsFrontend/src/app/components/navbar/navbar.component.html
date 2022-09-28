@@ -13,20 +13,20 @@
   </div>
   <div class="spacer" fxShow.lt-md="true" fxHide.lt-sm="true"></div>
   <div fxLayout="row" fxLayoutAlign="center center" fxShow.lt-lg="false">
-    <a href="" mat-button>
+    <button mat-button (click)="openLoginForm()">
       <span>Intra in cont</span>
       <mat-icon>vpn_key</mat-icon>
-    </a>
-    <a href="" mat-button>
+    </button>
+    <button mat-button (click)="openRegisterForm()">
       <span>Creeaza cont</span>
       <mat-icon>assignment</mat-icon>
-    </a>
+    </button>
   </div>
   <button
     mat-button
     class="drawer-toggle"
     (click)="drawer.toggle()"
-    fxHide.lg="true"
+    fxHide.gt-md="true"
     fxHide.xs="true"
   >
     <span fxHide.lt-sm="true" fxHide.sm="true">Cont</span>
@@ -48,13 +48,13 @@
 </mat-toolbar>
 <mat-drawer-container>
   <mat-drawer mode="side" position="end" #drawer>
-    <a href="" mat-button>
+    <button (click)="openLoginForm()" mat-button>
       <span>Intra in cont</span>
       <mat-icon>vpn_key</mat-icon>
-    </a>
-    <a href="" mat-button>
+    </button>
+    <button mat-button (click)="openRegisterForm()">
       <span>Creeaza cont</span>
       <mat-icon>assignment</mat-icon>
-    </a>
+    </button>
   </mat-drawer>
 </mat-drawer-container>

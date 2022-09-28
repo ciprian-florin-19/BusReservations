@@ -56,6 +56,9 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TicketComponent } from './components/ticket/ticket.component';
 import { BookingCompleteViewComponent } from './components/booking-complete-view/booking-complete-view.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
 
 //TO DO clean up
 @NgModule({
@@ -79,6 +82,8 @@ import { BookingCompleteViewComponent } from './components/booking-complete-view
     ReservationFormComponent,
     TicketComponent,
     BookingCompleteViewComponent,
+    LoginFormComponent,
+    RegisterFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -107,6 +112,7 @@ import { BookingCompleteViewComponent } from './components/booking-complete-view
     MatPaginatorModule,
     MatStepperModule,
     ReactiveFormsModule,
+    MatDialogModule,
   ],
   providers: [
     MatNativeDateModule,
