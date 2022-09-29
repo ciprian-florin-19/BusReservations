@@ -1,6 +1,8 @@
+import { Status } from './status';
+
 export interface User {
   id: string;
-  name: string;
-  phone: string;
+  fullName: string;
+  phoneNumber: string;
   email?: string;
 }

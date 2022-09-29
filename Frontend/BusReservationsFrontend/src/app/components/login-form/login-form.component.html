@@ -1,5 +1,11 @@
 <p mat-dialog-title class="title">Intra in cont</p>
 <div mat-dialog-content>
+  <div class="spinner" *ngIf="isLoading">
+    <mat-progress-spinner
+      color="primary"
+      mode="indeterminate"
+    ></mat-progress-spinner>
+  </div>
   <form #userInput="ngForm" (ngSubmit)="onSubmit(userInput)" id="userInput">
     <mat-label fxHide.lt-md="true">Nume utilizator:</mat-label>
     <mat-form-field appearance="fill">

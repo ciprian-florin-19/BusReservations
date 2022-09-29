@@ -66,11 +66,23 @@
       </div>
       <mat-form-field appearance="fill">
         <mat-label>Numar de telefon</mat-label>
-        <input type="tel" formControlName="phone" matInput required />
+        <input
+          type="tel"
+          formControlName="phone"
+          matInput
+          required
+          pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"
+        />
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Adresa de e-mail</mat-label>
-        <input type="email" formControlName="email" matInput required />
+        <input
+          type="email"
+          pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+          formControlName="email"
+          matInput
+          required
+        />
       </mat-form-field>
     </form>
     <button mat-button matStepperPrevious>

@@ -96,9 +96,9 @@ export class ReservationFormComponent implements OnInit {
     let userFormData = this.userForm.value;
     let user: User = {
       id: '',
-      name: `${userFormData.firstName} ${userFormData.lastName}`,
+      fullName: `${userFormData.firstName} ${userFormData.lastName}`,
       email: `${userFormData.email}`,
-      phone: `${userFormData.phone}`,
+      phoneNumber: `${userFormData.phone}`,
     };
     this.userService.getExistingUser(user).subscribe({
       next: (u) => {
@@ -117,7 +117,7 @@ export class ReservationFormComponent implements OnInit {
             .navigateByUrl('/routes/reservation-form/complete')
             .then((nav) => {
               user = u;
-              console.log(`added user ${u.name}`);
+              console.log(`added user ${u.fullName}`);
               this.createReservation(user);
               window.scroll(0, 0);
             });
@@ -160,8 +160,8 @@ export class ReservationFormComponent implements OnInit {
         drivenRoute: this.routeData.value.drivenRoute,
         user: {
           id: '',
-          name: `${this.userForm.controls.firstName.value} ${this.userForm.controls.lastName.value}`,
-          phone: `${this.userForm.controls.phone.value}`,
+          fullName: `${this.userForm.controls.firstName.value} ${this.userForm.controls.lastName.value}`,
+          phoneNumber: `${this.userForm.controls.phone.value}`,
           email: `${this.userForm.controls.email.value}`,
         },
         seat: seat,

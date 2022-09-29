@@ -12,7 +12,12 @@
     <a href="" mat-button routerLink="routes">Curse</a>
   </div>
   <div class="spacer" fxShow.lt-md="true" fxHide.lt-sm="true"></div>
-  <div fxLayout="row" fxLayoutAlign="center center" fxShow.lt-lg="false">
+  <div
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    fxShow.lt-lg="false"
+    *ngIf="!isLoggedIn"
+  >
     <button mat-button (click)="openLoginForm()">
       <span>Intra in cont</span>
       <mat-icon>vpn_key</mat-icon>

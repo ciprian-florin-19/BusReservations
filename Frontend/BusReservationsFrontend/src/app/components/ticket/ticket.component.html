@@ -42,11 +42,11 @@
 <span class="subtitle">Detalii client:</span>
 <div class="details user" *ngIf="reservation">
   <div>
-    Nume: <span class="important">{{ reservation.user.name }}</span>
+    Nume: <span class="important">{{ reservation.user.fullName }}</span>
   </div>
   <div>
     Numar de telefon:
-    <span class="important">{{ reservation.user.phone }}</span>
+    <span class="important">{{ reservation.user.phoneNumber }}</span>
   </div>
   <div>
     Adresa de e-mail:

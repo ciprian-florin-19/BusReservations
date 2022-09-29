@@ -16,7 +16,5 @@ namespace BusReservations.WebAPI.DTOs
         [Required]
         [DataType(DataType.EmailAddress)]
         public string? Email { get; set; }
-
-        public Status Status { get; set; }
     }
 }

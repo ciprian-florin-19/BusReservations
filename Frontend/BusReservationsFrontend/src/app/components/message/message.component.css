@@ -1,0 +1,14 @@
+::ng-deep .mat-snack-bar-container {
+  color: #f8f0ff !important;
+  background-color: #000 !important;
+  border-color: #fdd835 !important;
+  font-size: 2em;
+  width: fit-content;
+  white-space: nowrap;
+}
+.name {
+  color: #fdd835;
+}
+span {
+  margin: 0.1em;
+}

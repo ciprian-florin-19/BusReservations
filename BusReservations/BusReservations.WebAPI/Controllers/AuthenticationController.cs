@@ -3,6 +3,7 @@ using BusReservations.Core.Domain;
 using BusReservations.Core.Queries;
 using BusReservations.WebAPI.DTOs;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -31,10 +32,10 @@ namespace BusReservations.WebAPI.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login(string username, string password)
+        public async Task<IActionResult> Login([FromBody] LoginDto credentials)
         {
-            var account = await _userManager.FindByNameAsync(username);
-            if (account != null && await _userManager.CheckPasswordAsync(account, password))
+            var account = await _userManager.FindByNameAsync(credentials.Username);
+            if (account != null && await _userManager.CheckPasswordAsync(account, credentials.Password))
             {
                 var roles = await _userManager.GetRolesAsync(account);
 
@@ -45,13 +46,15 @@ namespace BusReservations.WebAPI.Controllers
                     claims.Add(new Claim(ClaimTypes.Role, role));
                 }
 
+                claims.Add(new Claim(ClaimTypes.UserData, account.Id.ToString()));
+
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("014257c5-7702-432f-b89f-68913e69fdcc"));
 
                 var token = new JwtSecurityToken(
                     issuer: "https://localhost:7124/",
                     audience: "http://localhost:4200/",
                     claims: claims,
-                    expires: DateTime.Now.AddHours(5),
+                    expires: DateTime.UtcNow.AddHours(5),
                     signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
                     );
 
@@ -100,11 +103,12 @@ namespace BusReservations.WebAPI.Controllers
             if (!result.Succeeded)
                 return BadRequest("Failed to create account!");
 
-            return Ok("Account created successfully");
+            return Ok();
         }
 
         [HttpPost]
         [Route("assign-role")]
+        [Authorize(Policy = "Administrator")]
         public async Task<IActionResult> AddToRole(string username, string roleName)
         {
             var accountExists = await _userManager.FindByNameAsync(username);
@@ -120,6 +124,12 @@ namespace BusReservations.WebAPI.Controllers
             }
 
             var result = await _userManager.AddToRoleAsync(accountExists, roleName);
+
+            if (roleName == "admin")
+            {
+                accountExists.HasAdminPrivileges = true;
+                await _userManager.UpdateAsync(accountExists);
+            }
 
             if (!result.Succeeded)
                 return BadRequest("Failed to add user to role!");

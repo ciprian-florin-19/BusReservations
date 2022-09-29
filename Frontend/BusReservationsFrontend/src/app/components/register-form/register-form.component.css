@@ -1,7 +1,7 @@
 form {
   display: flex;
   flex-flow: column;
-  font-size: 1.5em;
+  font-size: 1em;
   line-height: normal;
 }
 ::ng-deep.mat-dialog-container {
@@ -21,11 +21,25 @@ mat-label {
   background-color: #fdd835;
   color: black;
 }
+:host {
+  position: relative;
+}
+.spinner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+}
 @media only screen and (orientation: landscape) and (max-width: 900px) {
   .title {
-    font-size: 2em;
+    font-size: 1.5em;
   }
   form {
-    font-size: 0.8em;
+    font-size: 0.6em;
   }
 }

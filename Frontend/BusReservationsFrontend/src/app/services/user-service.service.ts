@@ -10,7 +10,11 @@ export class UserServiceService {
 
   getExistingUser(user: User) {
     return this.client
-      .get<User>(`https://localhost:7124/api/v1/users/existing?name=${user.name}&phone=${user.phone}&email=${user.email}
+      .get<User>(`https://localhost:7124/api/v1/users/existing?name=${user.fullName}&phone=${user.phoneNumber}&email=${user.email}
+`);
+  }
+  getUserById(id: string) {
+    return this.client.get<User>(`https://localhost:7124/api/v1/users/${id}
 `);
   }
   addUser(user: User) {
@@ -18,8 +22,8 @@ export class UserServiceService {
       `https://localhost:7124/api/v1/users
 `,
       {
-        name: user.name,
-        phoneNumber: user.phone,
+        name: user.fullName,
+        phoneNumber: user.phoneNumber,
         email: user.email,
         status: 0,
       }

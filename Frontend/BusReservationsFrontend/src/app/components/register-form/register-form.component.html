@@ -1,5 +1,11 @@
 <p mat-dialog-title class="title">Creeaza cont</p>
 <div mat-dialog-content>
+  <div class="spinner" *ngIf="isLoading">
+    <mat-progress-spinner
+      color="primary"
+      mode="indeterminate"
+    ></mat-progress-spinner>
+  </div>
   <form #userInput="ngForm" (ngSubmit)="onSubmit(userInput)" id="userInput">
     <mat-label fxHide.lt-md="true">Nume si prenume:</mat-label>
     <mat-form-field appearance="fill">
@@ -36,6 +42,13 @@
         pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
       />
     </mat-form-field>
+    <mat-label fxHide.lt-md="true">Nume utilizator:</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true"
+        >Nume utilizator:</mat-label
+      >
+      <input type="text" required matInput ngModel name="username" />
+    </mat-form-field>
     <mat-label fxHide.lt-md="true">Parola:</mat-label>
     <mat-form-field appearance="fill">
       <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Parola:</mat-label>
@@ -54,5 +67,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button mat-dialog-close="true">Inapoi</button>
-  <button mat-raised-button form="userInput">Intra in cont</button>
+  <button mat-raised-button form="userInput">Creeaza cont</button>
 </div>

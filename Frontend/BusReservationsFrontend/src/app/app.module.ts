@@ -33,7 +33,7 @@ import { RouterModule } from '@angular/router';
 import { HomeViewComponent } from './home-view/home-view.component';
 import { SearchResultsComponent } from './components/search-results/search-results.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BusDrivenRoutesViewComponent } from './components/bus-driven-routes-view/bus-driven-routes-view.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -59,6 +59,13 @@ import { BookingCompleteViewComponent } from './components/booking-complete-view
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { HttpInterceptor } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
+import { MessageComponent } from './components/message/message.component';
+import {
+  MatSnackBarModule,
+  MAT_SNACK_BAR_DATA,
+} from '@angular/material/snack-bar';
 
 //TO DO clean up
 @NgModule({
@@ -84,6 +91,7 @@ import { RegisterFormComponent } from './components/register-form/register-form.
     BookingCompleteViewComponent,
     LoginFormComponent,
     RegisterFormComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,
@@ -113,6 +121,7 @@ import { RegisterFormComponent } from './components/register-form/register-form.
     MatStepperModule,
     ReactiveFormsModule,
     MatDialogModule,
+    MatSnackBarModule,
   ],
   providers: [
     MatNativeDateModule,
@@ -125,6 +134,8 @@ import { RegisterFormComponent } from './components/register-form/register-form.
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: MAT_SNACK_BAR_DATA, useValue: {} },
   ],
   bootstrap: [AppComponent],
 })
