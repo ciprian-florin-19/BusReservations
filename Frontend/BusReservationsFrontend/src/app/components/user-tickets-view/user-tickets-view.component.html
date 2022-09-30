@@ -1,0 +1,66 @@
+<app-container>
+  <div
+    class="list"
+    fxLayout="column"
+    fxLayoutAlign="flex-start center"
+    fxLayoutGap="1em"
+  >
+    <span class="title">Biletele mele </span>
+    <mat-progress-spinner
+      color="primary"
+      mode="indeterminate"
+      *ngIf="isLoading"
+    ></mat-progress-spinner>
+    <mat-accordion *ngFor="let reservation of reservations?.items">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header fxLayout.gt-md="row">
+          <mat-panel-title>
+            <span class="date">{{
+              reservation.busDrivenRoute.drivenRoute.timeTable.departureDate
+                | date: "d-MM-yyyy, h:mm a"
+            }}</span>
+            <span
+              >De la : {{ reservation.busDrivenRoute.drivenRoute.start }}</span
+            >
+            <span><mat-icon>arrow_downward</mat-icon></span>
+            <span class="date">{{
+              reservation.busDrivenRoute.drivenRoute.timeTable.arivvalDate
+                | date: "d-MM-yyyy, h:mm a"
+            }}</span>
+            <span
+              >La :
+              {{ reservation.busDrivenRoute.drivenRoute.destination }}</span
+            >
+          </mat-panel-title>
+          <mat-panel-title class="middle"
+            ><span><mat-icon>arrow_forward</mat-icon></span></mat-panel-title
+          >
+          <mat-panel-title>
+            <span>Autobuz</span>
+            <span><mat-icon>directions_bus</mat-icon></span>
+            <span>{{
+              reservation.busDrivenRoute.bus.name
+            }}</span></mat-panel-title
+          >
+          <mat-panel-title class="middle"
+            ><span><mat-icon>arrow_forward</mat-icon></span></mat-panel-title
+          >
+          <mat-panel-title>
+            <span>Pret bilet</span>
+            <span><mat-icon>payment</mat-icon></span>
+            <span>{{ reservation.finalSeatPrice }} lei</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <mat-paginator
+    color="accent"
+    *ngIf="reservations"
+    [length]="elementCount"
+    [pageIndex]="reservations.paginationParameters.currentPage"
+    [pageSize]="reservations.paginationParameters.pageSize"
+    [hidePageSize]="true"
+    (page)="onPageChange()"
+  ></mat-paginator>
+</app-container>

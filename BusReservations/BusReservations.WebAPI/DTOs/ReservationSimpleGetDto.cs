@@ -1,4 +1,6 @@
-﻿namespace BusReservations.WebAPI.DTOs
+﻿using BusReservations.Core.Domain;
+
+namespace BusReservations.WebAPI.DTOs
 {
     public class ReservationSimpleGetDto
     {

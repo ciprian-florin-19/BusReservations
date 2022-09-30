@@ -12,19 +12,26 @@
     <a href="" mat-button routerLink="routes">Curse</a>
   </div>
   <div class="spacer" fxShow.lt-md="true" fxHide.lt-sm="true"></div>
-  <div
-    fxLayout="row"
-    fxLayoutAlign="center center"
-    fxShow.lt-lg="false"
-    *ngIf="!isLoggedIn"
-  >
-    <button mat-button (click)="openLoginForm()">
+  <div fxLayout="row" fxLayoutAlign="center center" fxShow.lt-lg="false">
+    <button mat-button *ngIf="isLoggedIn" routerLink="user/reservations">
+      <span>Biletele mele</span>
+      <mat-icon>bookmark</mat-icon>
+    </button>
+    <button mat-button (click)="openLoginForm()" *ngIf="!isLoggedIn">
       <span>Intra in cont</span>
       <mat-icon>vpn_key</mat-icon>
     </button>
-    <button mat-button (click)="openRegisterForm()">
+    <button mat-button (click)="openRegisterForm()" *ngIf="!isLoggedIn">
       <span>Creeaza cont</span>
       <mat-icon>assignment</mat-icon>
+    </button>
+    <button mat-button *ngIf="isLoggedIn" routerLink="profile">
+      <span>Profil</span>
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <button mat-button (click)="logOut()" *ngIf="isLoggedIn">
+      <span>Iesi din cont</span>
+      <mat-icon>exit_to_app</mat-icon>
     </button>
   </div>
   <button
@@ -46,6 +53,7 @@
   fxHide.gt-xs="true"
 >
   <a href="" mat-button routerLink="routes">Curse</a>
+
   <button mat-button class="drawer-toggle" (click)="drawer.toggle()">
     <span>Cont</span>
     <mat-icon>account_circle</mat-icon>
@@ -53,13 +61,25 @@
 </mat-toolbar>
 <mat-drawer-container>
   <mat-drawer mode="side" position="end" #drawer>
-    <button (click)="openLoginForm()" mat-button>
+    <button (click)="openLoginForm()" mat-button *ngIf="!isLoggedIn">
       <span>Intra in cont</span>
       <mat-icon>vpn_key</mat-icon>
     </button>
-    <button mat-button (click)="openRegisterForm()">
+    <button mat-button (click)="openRegisterForm()" *ngIf="!isLoggedIn">
       <span>Creeaza cont</span>
       <mat-icon>assignment</mat-icon>
+    </button>
+    <button mat-button *ngIf="isLoggedIn" routerLink="profile">
+      <span>Profil</span>
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <button mat-button *ngIf="isLoggedIn" routerLink="user/reservations">
+      <span>Biletele mele</span>
+      <mat-icon>bookmark</mat-icon>
+    </button>
+    <button mat-button (click)="logOut()" *ngIf="isLoggedIn">
+      <span>Iesi din cont</span>
+      <mat-icon>exit_to_app</mat-icon>
     </button>
   </mat-drawer>
 </mat-drawer-container>

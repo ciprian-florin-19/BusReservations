@@ -66,6 +66,8 @@ import {
   MatSnackBarModule,
   MAT_SNACK_BAR_DATA,
 } from '@angular/material/snack-bar';
+import { UserTicketsViewComponent } from './components/user-tickets-view/user-tickets-view.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 //TO DO clean up
 @NgModule({
@@ -92,6 +94,7 @@ import {
     LoginFormComponent,
     RegisterFormComponent,
     MessageComponent,
+    UserTicketsViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -122,6 +125,7 @@ import {
     ReactiveFormsModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatDividerModule,
   ],
   providers: [
     MatNativeDateModule,

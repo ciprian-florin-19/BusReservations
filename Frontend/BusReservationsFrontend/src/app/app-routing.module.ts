@@ -6,6 +6,7 @@ import { BookingCompleteViewComponent } from './components/booking-complete-view
 import { BusDrivenRoutesViewComponent } from './components/bus-driven-routes-view/bus-driven-routes-view.component';
 import { RidesListComponent } from './components/rides-list/rides-list.component';
 import { SearchResultsComponent } from './components/search-results/search-results.component';
+import { UserTicketsViewComponent } from './components/user-tickets-view/user-tickets-view.component';
 import { HomeViewComponent } from './home-view/home-view.component';
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'routes/reservation-form/complete',
     component: BookingCompleteViewComponent,
+  },
+  {
+    path: 'user/reservations',
+    component: UserTicketsViewComponent,
   },
 ];
 

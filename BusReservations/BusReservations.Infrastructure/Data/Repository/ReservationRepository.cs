@@ -2,6 +2,7 @@
 using BusReservations.Core;
 using BusReservations.Core.Abstract.Repository;
 using BusReservations.Core.Domain;
+using BusReservations.Core.Pagination;
 using Microsoft.EntityFrameworkCore;
 
 namespace BusReservations.Infrastructure.Data.Repository
@@ -44,7 +45,7 @@ namespace BusReservations.Infrastructure.Data.Repository
                 .ToPagedListAsync(pageIndex);
         }
 
-        public async Task<IEnumerable<Reservation>> getCustomerReservations(Guid customerId, int pageIndex = 1)
+        public async Task<PagedList<Reservation>> getCustomerReservations(Guid customerId, int pageIndex = 1)
         {
             return await _appDBContext.Reservations
                 .Include(r => r.BusDrivenRoute)

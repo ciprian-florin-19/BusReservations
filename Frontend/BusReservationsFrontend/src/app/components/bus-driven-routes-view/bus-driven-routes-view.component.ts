@@ -13,7 +13,7 @@ import {
 import { DateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { BusDrivenRoute } from 'src/app/models/busDrivenRoute';
-import { busDrivenRoutePagedList } from 'src/app/models/busDrivenRoutePagedList';
+import { PagedList } from 'src/app/models/PagedList';
 import { BusDrivenRoutesService } from 'src/app/services/bus-driven-routes.service';
 import { RouteDetailsService } from 'src/app/services/route-details.service';
 import { BusSchemaComponent } from '../bus-schema/bus-schema.component';
@@ -24,7 +24,7 @@ import { BusSchemaComponent } from '../bus-schema/bus-schema.component';
   styleUrls: ['./bus-driven-routes-view.component.css'],
 })
 export class BusDrivenRoutesViewComponent implements OnInit {
-  result?: busDrivenRoutePagedList;
+  result?: PagedList<BusDrivenRoute>;
   isFiltered: boolean = false;
   dateFilter: Date = new Date();
   elementCount: number = 0;
@@ -42,8 +42,10 @@ export class BusDrivenRoutesViewComponent implements OnInit {
   ngOnInit(): void {}
 
   onPageChange(event: any) {
+    console.log(this.result);
+    console.log(this.elementCount);
+
     this.onPageChangeEvent.emit(event);
-    console.log(this.busSchema);
   }
   filterResults(date: Date, index: number = 1) {
     this.filterResultsEvent.emit({ departureDate: date, index: index });

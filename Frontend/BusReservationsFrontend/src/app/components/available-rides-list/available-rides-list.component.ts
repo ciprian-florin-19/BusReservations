@@ -26,6 +26,8 @@ export class AvailableRidesListComponent implements OnInit {
       month: queryParams.get('month'),
       day: queryParams.get('day'),
     };
+    console.log(queryParamsObject);
+
     this.bdr
       .getAvailableRides(
         queryParamsObject.start,
@@ -37,9 +39,10 @@ export class AvailableRidesListComponent implements OnInit {
       .subscribe((r) => {
         this.rides.result = r;
         this.rides.isLoading = false;
-        this.rides.result.currentPage--;
-        if (r.pageCount > 1) this.rides.elementCount = r.pageCount * r.pageSize;
-        else this.rides.elementCount = r.busDrivenRoutes.length;
+        this.rides.result.currentPage = r.paginationParameters.currentPage--;
+        this.rides.elementCount = r.paginationParameters.pageSize;
+        console.log(this.rides.result.currentPage);
+        console.log(r.paginationParameters.pageSize);
       });
   }
   onPageChange(event: any) {
@@ -48,7 +51,8 @@ export class AvailableRidesListComponent implements OnInit {
       this.rides.result = r;
       this.rides.isLoading = false;
       this.rides.result.currentPage--;
-      this.rides.elementCount = r.pageCount * r.pageSize;
+      this.rides.elementCount =
+        r.paginationParameters.pageCount * r.paginationParameters.pageSize;
     });
   }
 }

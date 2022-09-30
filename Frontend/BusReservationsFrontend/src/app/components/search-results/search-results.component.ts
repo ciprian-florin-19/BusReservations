@@ -18,6 +18,7 @@ export class SearchResultsComponent implements OnInit {
       this.destination = params.get('destination');
       this.date = params.get('date');
     });
+
     this.getAvailableRides();
   }
   getAvailableRides() {

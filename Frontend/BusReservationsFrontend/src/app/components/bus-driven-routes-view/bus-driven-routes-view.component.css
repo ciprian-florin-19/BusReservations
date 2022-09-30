@@ -45,11 +45,21 @@ mat-panel-title > span {
   height: fit-content;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  column-gap: 2em;
   padding-top: 16px;
-  justify-content: space-evenly;
+  column-gap: 2em;
+}
+.time {
+  width: 10vw;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-grow: 0;
+}
+.time > * {
+  width: fit-content;
+  text-align: left;
+  white-space: wrap;
 }
 button {
   height: fit-content;

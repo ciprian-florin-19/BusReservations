@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using BusReservations.Core.Commands;
 using BusReservations.Core.Domain;
+using BusReservations.Core.Pagination;
 using BusReservations.Core.Queries;
 using BusReservations.Core.QueryHandlers;
 using BusReservations.WebAPI.DTOs;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BusReservations.WebAPI.Controllers
@@ -73,11 +75,17 @@ namespace BusReservations.WebAPI.Controllers
             return Ok(mappedUser);
         }
         [HttpGet("{id}/reservations")]
+        [Authorize]
         public async Task<IActionResult> GetUserReservations(Guid id, [FromQuery] int index = 1)
         {
             var result = await _mediator.Send(new GetCustomerReservationsQuery { CustomerId = id, PageIndex = index });
-            var mappedResult = _mapper.Map<IEnumerable<ReservationSimpleGetDto>>(result);
-            return Ok(mappedResult);
+            var mappedResult = _mapper.Map<PagedList<ReservationSimpleGetDto>>(result);
+            return Ok(new PagedListGetDto<ReservationSimpleGetDto>(mappedResult, new PaginationParametersDto
+            {
+                CurrentPage = result.CurrentPage,
+                PageCount = result.PageCount,
+                PageSize = result.PageSize
+            }));
         }
         [HttpGet("existing")]
         public async Task<IActionResult> DoesUserExist([FromQuery] string name, [FromQuery] string phone, [FromQuery] string email)

@@ -20,6 +20,8 @@ namespace BusReservations.WebAPI.DTOs
             CurrentPage = bdr.CurrentPage;
             PageCount = bdr.PageCount;
             PageSize = bdr.PageSize;
+            if (busDrivenRoutes.Count < PageSize)
+                PageSize = busDrivenRoutes.Count;
         }
     }
 }

@@ -11,8 +11,10 @@ import { ReservationGetDto } from 'src/app/models/reservationGetDto';
 import { ReservationPutPostDto } from 'src/app/models/reservationPutPostDto';
 import { Seat } from 'src/app/models/seat';
 import { User } from 'src/app/models/user';
+import { AccountService } from 'src/app/services/account.service';
 import { BusDrivenRoutesService } from 'src/app/services/bus-driven-routes.service';
 import { ReservationService } from 'src/app/services/reservation.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
 import { TicketComponent } from '../ticket/ticket.component';
 
@@ -54,20 +56,27 @@ export class ReservationFormComponent implements OnInit {
   routeData = new BehaviorSubject<BusDrivenRoute | null>(null);
   user!: User;
   createdReservation!: ReservationGetDto;
-
+  isLoggedIn?: boolean;
   constructor(
     private bdr: BusDrivenRoutesService,
     private datePipe: DatePipe,
     private userService: UserServiceService,
     private reservationService: ReservationService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private tokenStorage: TokenStorageService,
+    private accountService: AccountService
+  ) {
+    tokenStorage.exists.subscribe((r) => {
+      this.isLoggedIn = r;
+      console.log(r);
+    });
+  }
 
   ngOnInit(): void {
     this.bdr.getBusDrivenRouteById(this.autofilledData.bdrId).subscribe((r) => {
       this.routeData.next(r);
       this.autofillFormValues(r);
-
+      if (this.isLoggedIn) this.autofillUserData();
       console.log(this.autofilledData);
     });
   }
@@ -92,6 +101,27 @@ export class ReservationFormComponent implements OnInit {
       seatType: '0',
     });
   }
+
+  autofillUserData() {
+    var userData: any;
+    var accountId = this.tokenStorage.getSession().accountId;
+    this.accountService.getAccountById(accountId).subscribe({
+      next: (a) => {
+        var fullName = a.user.fullName.split(' ');
+        userData = {
+          email: a.user.email,
+          firstName: fullName[0],
+          lastName: fullName[1],
+          phone: a.user.phoneNumber,
+        };
+        this.userForm.setValue(userData);
+      },
+      error: (e) => {
+        console.log(e);
+      },
+    });
+  }
+
   onSubmit() {
     let userFormData = this.userForm.value;
     let user: User = {
@@ -156,8 +186,7 @@ export class ReservationFormComponent implements OnInit {
           this.routeData.value.drivenRoute.seatPrice -
           (this.routeData.value.drivenRoute.seatPrice / 100) * seat.discount;
       return {
-        bus: this.routeData.value.bus,
-        drivenRoute: this.routeData.value.drivenRoute,
+        drivenRoute: this.routeData.value,
         user: {
           id: '',
           fullName: `${this.userForm.controls.firstName.value} ${this.userForm.controls.lastName.value}`,

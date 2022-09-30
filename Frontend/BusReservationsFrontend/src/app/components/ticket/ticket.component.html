@@ -3,22 +3,23 @@
 <div class="details">
   <div *ngIf="reservation">
     <span class="date">{{
-      reservation.drivenRoute.timeTable.departureDate
+      reservation.drivenRoute.drivenRoute.timeTable.departureDate
         | date: "d-MM-yyyy, h:mm a"
     }}</span>
-    <span>De la : {{ reservation.drivenRoute.start }}</span>
+    <span>De la : {{ reservation.drivenRoute.drivenRoute.start }}</span>
     <span><mat-icon>arrow_downward</mat-icon></span>
     <span class="date">{{
-      reservation.drivenRoute.timeTable.arivvalDate | date: "d-MM-yyyy, h:mm a"
+      reservation.drivenRoute.drivenRoute.timeTable.arivvalDate
+        | date: "d-MM-yyyy, h:mm a"
     }}</span>
-    <span>La : {{ reservation.drivenRoute.destination }}</span>
+    <span>La : {{ reservation.drivenRoute.drivenRoute.destination }}</span>
   </div>
   <div><mat-icon>arrow_forward</mat-icon></div>
 
   <div *ngIf="reservation">
     <span>Autobuz</span>
     <span><mat-icon>directions_bus</mat-icon></span>
-    <span>{{ reservation.bus.name }}</span>
+    <span>{{ reservation.drivenRoute.bus.name }}</span>
   </div>
   <div><mat-icon>arrow_forward</mat-icon></div>
 
@@ -31,7 +32,7 @@
 <span class="subtitle">Detalii loc:</span>
 <div class="details" *ngIf="reservation">
   <app-bus-schema
-    [capacity]="reservation.bus.capacity"
+    [capacity]="reservation.drivenRoute.bus.capacity"
     [selectedSeat]="reservation.seat.seatNumber"
   ></app-bus-schema>
 </div>

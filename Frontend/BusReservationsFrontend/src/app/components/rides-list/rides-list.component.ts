@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { busDrivenRoutePagedList } from 'src/app/models/busDrivenRoutePagedList';
 import { BusDrivenRoutesService } from 'src/app/services/bus-driven-routes.service';
+import { BusDrivenRoutesViewComponent } from '../bus-driven-routes-view/bus-driven-routes-view.component';
 
 @Component({
   selector: 'app-rides-list',
@@ -10,7 +10,7 @@ import { BusDrivenRoutesService } from 'src/app/services/bus-driven-routes.servi
 })
 export class RidesListComponent implements OnInit {
   @ViewChild('rides')
-  rides?: any;
+  rides!: BusDrivenRoutesViewComponent;
   constructor(
     private bdr: BusDrivenRoutesService,
     private datePipe: DatePipe
@@ -20,8 +20,9 @@ export class RidesListComponent implements OnInit {
     this.bdr.getAll().subscribe((r) => {
       this.rides.result = r;
       this.rides.isLoading = false;
-      this.rides.result.currentPage--;
-      this.rides.elementCount = r.pageSize * r.pageCount;
+      this.rides.result.paginationParameters.currentPage--;
+      this.rides.elementCount =
+        r.paginationParameters.pageSize * r.paginationParameters.pageCount;
       console.log(this.rides);
     });
     //TO DO: filter for next day
@@ -34,8 +35,9 @@ export class RidesListComponent implements OnInit {
       this.bdr.getAll(event.pageIndex + 1).subscribe((r) => {
         this.rides.result = r;
         this.rides.isLoading = false;
-        this.rides.result.currentPage--;
-        this.rides.elementCount = r.pageCount * r.pageSize;
+        this.rides.result.paginationParameters.currentPage--;
+        this.rides.elementCount =
+          r.paginationParameters.pageCount * r.paginationParameters.pageSize;
       });
   }
 
@@ -48,8 +50,9 @@ export class RidesListComponent implements OnInit {
       .subscribe((r) => {
         this.rides.result = r;
         this.rides.isLoading = false;
-        this.rides.result.currentPage--;
-        this.rides.elementCount = r.pageCount * r.pageSize;
+        this.rides.result.paginationParameters.currentPage;
+        this.rides.elementCount =
+          r.paginationParameters.pageCount * r.paginationParameters.pageSize;
       });
   }
 

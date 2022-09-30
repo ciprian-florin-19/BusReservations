@@ -4,9 +4,9 @@ import { DrivenRoute } from './drivenRoute';
 import { Seat } from './seat';
 import { User } from './user';
 
-export interface ReservationGetDto {
+export interface ReservationSimpleGetDto {
   user: User;
-  drivenRoute: BusDrivenRoute;
+  busDrivenRoute: BusDrivenRoute;
   seat: Seat;
   finalSeatPrice: number;
 }

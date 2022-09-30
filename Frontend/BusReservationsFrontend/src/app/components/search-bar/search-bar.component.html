@@ -55,7 +55,7 @@
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Data plecare</mat-label>
-    <input matInput [matDatepicker]="datepicker" name="date" ngModel />
+    <input matInput [matDatepicker]="datepicker" name="date" ngModel required />
     <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
     <mat-datepicker #datepicker>
       <mat-datepicker-actions>

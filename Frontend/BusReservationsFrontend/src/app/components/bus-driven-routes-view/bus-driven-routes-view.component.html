@@ -15,7 +15,7 @@
       mode="indeterminate"
       *ngIf="isLoading"
     ></mat-progress-spinner>
-    <mat-accordion *ngFor="let bdr of result?.busDrivenRoutes">
+    <mat-accordion *ngFor="let bdr of result?.items">
       <mat-expansion-panel>
         <mat-expansion-panel-header fxLayout.gt-md="row">
           <mat-panel-title>
@@ -48,11 +48,11 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="content" fxLayout.lt-md="column">
-          <mat-panel-title>
+          <mat-panel-title class="time">
             <span>Durata</span>
             <span><mat-icon>access_time</mat-icon></span>
             <span>
-              {{ bdr.drivenRoute.timeTable.duration }}
+              {{ bdr.drivenRoute.timeTable.duration.substring(0, 5) }}
             </span>
           </mat-panel-title>
           <app-bus-schema
@@ -75,8 +75,8 @@
   <mat-paginator
     color="accent"
     [length]="elementCount"
-    [pageIndex]="result?.currentPage"
-    [pageSize]="result?.pageSize"
+    [pageIndex]="result?.paginationParameters?.currentPage"
+    [pageSize]="result?.paginationParameters?.pageSize"
     [hidePageSize]="true"
     (page)="onPageChange($event)"
   ></mat-paginator>
