@@ -1,0 +1,59 @@
+<form #userInput="ngForm" (ngSubmit)="onSubmit(userInput)" id="userInput">
+  <mat-label fxHide.lt-md="true">Nume si prenume:</mat-label>
+  <mat-form-field appearance="fill">
+    <mat-label fxShow.lt-md="true" fxHide.gt-md="true"
+      >Nume si prenume:</mat-label
+    >
+    <input type="text" required matInput ngModel name="name" minlength="7" />
+  </mat-form-field>
+
+  <mat-label fxHide.lt-md="true">Telefon:</mat-label>
+  <mat-form-field appearance="fill">
+    <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Telefon:</mat-label>
+    <input
+      type="text"
+      required
+      matInput
+      ngModel
+      name="phone"
+      type="tel"
+      pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"
+    />
+  </mat-form-field>
+
+  <mat-label fxHide.lt-md="true">Email:</mat-label>
+  <mat-form-field appearance="fill">
+    <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Email:</mat-label>
+    <input
+      type="text"
+      required
+      matInput
+      ngModel
+      name="email"
+      type="email"
+      pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+    />
+  </mat-form-field>
+  <mat-label fxHide.lt-md="true">Nume utilizator:</mat-label>
+  <mat-form-field appearance="fill">
+    <mat-label fxShow.lt-md="true" fxHide.gt-md="true"
+      >Nume utilizator:</mat-label
+    >
+    <input type="text" required matInput ngModel name="username" />
+  </mat-form-field>
+  <mat-label fxHide.lt-md="true">Parola:</mat-label>
+  <mat-form-field appearance="fill">
+    <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Parola:</mat-label>
+    <input
+      type="password"
+      required
+      matInput
+      ngModel
+      name="password"
+      minlength="8"
+      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+    />
+    <mat-error>Parola invalida!</mat-error>
+  </mat-form-field>
+  <button mat-raised-button type="submit">Salveaza</button>
+</form>

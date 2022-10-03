@@ -68,6 +68,11 @@ import {
 } from '@angular/material/snack-bar';
 import { UserTicketsViewComponent } from './components/user-tickets-view/user-tickets-view.component';
 import { MatDividerModule } from '@angular/material/divider';
+import { TicketDetailsComponent } from './components/ticket-details/ticket-details.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { TicketsListComponent } from './components/tickets-list/tickets-list.component';
+import { ProfileEditorComponent } from './components/profile-editor/profile-editor.component';
 
 //TO DO clean up
 @NgModule({
@@ -95,6 +100,10 @@ import { MatDividerModule } from '@angular/material/divider';
     RegisterFormComponent,
     MessageComponent,
     UserTicketsViewComponent,
+    TicketDetailsComponent,
+    ProfileComponent,
+    TicketsListComponent,
+    ProfileEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -126,6 +135,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatDialogModule,
     MatSnackBarModule,
     MatDividerModule,
+    MatTabsModule,
   ],
   providers: [
     MatNativeDateModule,

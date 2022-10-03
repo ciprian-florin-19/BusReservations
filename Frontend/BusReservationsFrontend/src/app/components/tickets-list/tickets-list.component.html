@@ -1,0 +1,70 @@
+<mat-accordion
+  *ngFor="let reservation of reservations?.items"
+  hideToggle="true"
+>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header fxLayout.gt-md="row">
+      <mat-panel-title>
+        <span class="date">{{
+          reservation.busDrivenRoute.drivenRoute.timeTable.departureDate
+            | date: "d-MM-yyyy, h:mm a"
+        }}</span>
+        <span>De la : {{ reservation.busDrivenRoute.drivenRoute.start }}</span>
+        <span><mat-icon>arrow_downward</mat-icon></span>
+        <span class="date">{{
+          reservation.busDrivenRoute.drivenRoute.timeTable.arivvalDate
+            | date: "d-MM-yyyy, h:mm a"
+        }}</span>
+        <span
+          >La : {{ reservation.busDrivenRoute.drivenRoute.destination }}</span
+        >
+      </mat-panel-title>
+      <mat-panel-title class="middle"
+        ><span><mat-icon>arrow_forward</mat-icon></span></mat-panel-title
+      >
+      <mat-panel-title>
+        <span>Autobuz</span>
+        <span><mat-icon>directions_bus</mat-icon></span>
+        <span>{{ reservation.busDrivenRoute.bus.name }}</span></mat-panel-title
+      >
+      <mat-panel-title class="middle"
+        ><span><mat-icon>arrow_forward</mat-icon></span></mat-panel-title
+      >
+      <mat-panel-title>
+        <span>Pret bilet</span>
+        <span><mat-icon>payment</mat-icon></span>
+        <span>{{ reservation.finalSeatPrice }} lei</span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="content" fxLayout.lt-md="column">
+      <mat-panel-title class="time">
+        <span>Durata</span>
+        <span><mat-icon>access_time</mat-icon></span>
+        <span>
+          {{
+            reservation.busDrivenRoute.drivenRoute.timeTable.duration.substring(
+              0,
+              5
+            )
+          }}
+        </span>
+      </mat-panel-title>
+      <app-bus-schema
+        #schema
+        [capacity]="reservation.busDrivenRoute.bus.capacity"
+        [selectedSeat]="reservation.seat.seatNumber"
+        [isDisabled]="true"
+      ></app-bus-schema>
+      <div class="actions">
+        <button
+          mat-raised-button
+          color="primary"
+          [routerLink]="['ticket-details']"
+          (click)="sendDetails(reservation)"
+        >
+          Detalii
+        </button>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

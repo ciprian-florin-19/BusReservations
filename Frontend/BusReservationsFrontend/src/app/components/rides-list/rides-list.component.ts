@@ -50,7 +50,7 @@ export class RidesListComponent implements OnInit {
       .subscribe((r) => {
         this.rides.result = r;
         this.rides.isLoading = false;
-        this.rides.result.paginationParameters.currentPage;
+        this.rides.result.paginationParameters.currentPage--;
         this.rides.elementCount =
           r.paginationParameters.pageCount * r.paginationParameters.pageSize;
       });

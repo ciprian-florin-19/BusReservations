@@ -34,6 +34,7 @@
   <app-bus-schema
     [capacity]="reservation.drivenRoute.bus.capacity"
     [selectedSeat]="reservation.seat.seatNumber"
+    [isDisabled]="true"
   ></app-bus-schema>
 </div>
 <div class="details" *ngIf="reservation">

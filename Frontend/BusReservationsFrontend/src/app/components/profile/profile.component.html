@@ -1,0 +1,36 @@
+<app-container>
+  <div class="container">
+    <div class="banner">
+      <mat-icon>account_circle</mat-icon>
+      <div class="user-data" fxLayout.lt-md="column" *ngIf="accountData">
+        <div class="data-row">
+          <span>Nume utilizator:</span>
+          <span>{{ accountData.username }}</span>
+        </div>
+        <div class="data-row">
+          <span>Nume complet:</span>
+          <span>{{ accountData.user.fullName }}</span>
+        </div>
+        <div class="data-row">
+          <span>Telefon:</span>
+          <span>{{ accountData.user.phoneNumber }}</span>
+        </div>
+        <div class="data-row">
+          <span>Adresa e-mail:</span>
+          <span>{{ accountData.user.email }}</span>
+        </div>
+      </div>
+    </div>
+    <mat-tab-group>
+      <mat-tab label="Biletele mele">
+        <app-user-tickets-view [isEmbedded]="true"></app-user-tickets-view>
+      </mat-tab>
+      <mat-tab label="Modifica date">
+        <app-profile-editor
+          (onSubmitEmitter)="onUpdate($event)"
+        ></app-profile-editor>
+      </mat-tab>
+      <mat-tab label="Admin panel" *ngIf="isAdmin">Date</mat-tab>
+    </mat-tab-group>
+  </div>
+</app-container>

@@ -4,6 +4,7 @@ import { ReservationGetDto } from 'src/app/models/reservationGetDto';
 import { Seat } from 'src/app/models/seat';
 import { Status } from 'src/app/models/status';
 import { User } from 'src/app/models/user';
+import { RouteDetailsService } from 'src/app/services/route-details.service';
 
 @Component({
   selector: 'app-ticket',
@@ -13,11 +14,20 @@ import { User } from 'src/app/models/user';
 export class TicketComponent implements OnInit {
   @Input()
   reservation?: ReservationGetDto;
-  constructor() {}
-
-  ngOnInit(): void {
-    console.log(this.reservation);
+  constructor(private details: RouteDetailsService) {
+    if (JSON.parse(localStorage.getItem('routeDetails')!).user) {
+      this.details.routeDetails.subscribe({
+        next: (r) => {
+          this.reservation = JSON.parse(localStorage.getItem('routeDetails')!);
+        },
+        error: (e) => {
+          console.log(e);
+        },
+      });
+    }
   }
+
+  ngOnInit(): void {}
   getStatusName(status: number): string {
     switch (status) {
       case 0:

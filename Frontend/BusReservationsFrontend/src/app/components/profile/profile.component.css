@@ -1,0 +1,75 @@
+.container {
+  background-color: rgba(0, 0, 0, 0.8);
+  border-top: solid 0.1em #fdd835;
+  border-bottom: solid 0.1em #fdd835;
+  width: 100%;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  height: fit-content;
+  position: relative;
+  min-height: 100vh;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+:host ::ng-deep app-user-tickets-view > app-container {
+  background: transparent;
+  padding-top: 0;
+}
+:host ::ng-deep .list {
+  background-color: transparent !important;
+  border: none !important;
+}
+::ng-deep .mat-tab-body-content {
+  overflow: hidden !important;
+}
+mat-tab {
+  height: fit-content;
+}
+.user-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.data-row {
+  display: flex;
+  flex-direction: row;
+  column-gap: 1em;
+  font-size: 3em;
+}
+.data-row :nth-child(2) {
+  color: #fdd835;
+}
+.banner {
+  display: flex;
+  flex-direction: row;
+  color: #f5f5f5;
+  line-height: normal;
+}
+.banner > mat-icon {
+  color: #fdd835;
+  font-size: 25em;
+  height: fit-content;
+  width: fit-content;
+}
+@media only screen and (max-width: 900px) {
+  .data-row {
+    display: flex;
+    flex-direction: row;
+    column-gap: 0.5em;
+    font-size: 2em;
+  }
+  .banner > mat-icon {
+    font-size: 10em;
+  }
+  .container {
+    padding-top: 25px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .banner {
+    justify-content: center;
+  }
+  .banner > mat-icon {
+    display: none;
+  }
+}

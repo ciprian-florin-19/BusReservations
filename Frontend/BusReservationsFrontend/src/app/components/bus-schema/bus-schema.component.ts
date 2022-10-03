@@ -14,6 +14,8 @@ export class BusSchemaComponent implements OnInit {
   capacity?: number = 0;
   @Input()
   selectedSeat?: number = -1;
+  @Input()
+  isDisabled: boolean = false;
 
   halfCapacity: number = 0;
   totalSeats: number[] = [];
@@ -23,6 +25,7 @@ export class BusSchemaComponent implements OnInit {
     this.totalSeats = Array.from(Array(this.capacity).keys());
     if (this.capacity != undefined)
       this.halfCapacity = Math.ceil(this.capacity / 2);
+    console.log(this.selectedSeat);
   }
 
   isSeatOccupied(seat: number): boolean {
@@ -32,6 +35,7 @@ export class BusSchemaComponent implements OnInit {
   }
 
   selectSeat(seat: number): void {
+    if (this.isDisabled) return;
     this.selectedSeat = seat;
     console.log(this.selectedSeat);
   }

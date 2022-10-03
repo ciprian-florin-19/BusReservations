@@ -56,6 +56,7 @@ export class ReservationFormComponent implements OnInit {
   routeData = new BehaviorSubject<BusDrivenRoute | null>(null);
   user!: User;
   createdReservation!: ReservationGetDto;
+  ticketDetails?: ReservationGetDto;
   isLoggedIn?: boolean;
   constructor(
     private bdr: BusDrivenRoutesService,
@@ -174,10 +175,10 @@ export class ReservationFormComponent implements OnInit {
     });
     this.downloadAsPdf();
   }
-  getTicketDetails(): ReservationGetDto | undefined {
+  getTicketDetails() {
     if (this.routeData.value != undefined) {
       let seat = new Seat(
-        Number(`${this.autofilledData.seatNumber}`),
+        Number(`${this.busSchema.selectedSeat}`),
         Number(`${this.routeForm.controls.seatType.value}`)
       );
       let finalSeatPrice;
@@ -185,7 +186,7 @@ export class ReservationFormComponent implements OnInit {
         finalSeatPrice =
           this.routeData.value.drivenRoute.seatPrice -
           (this.routeData.value.drivenRoute.seatPrice / 100) * seat.discount;
-      return {
+      this.ticketDetails = {
         drivenRoute: this.routeData.value,
         user: {
           id: '',
@@ -197,12 +198,13 @@ export class ReservationFormComponent implements OnInit {
         finalSeatPrice: Number(`${finalSeatPrice}`),
       };
     }
-    return undefined;
   }
   onChange(event: any) {
     if (event.selectedIndex == 2) {
-      let details = this.getTicketDetails();
-      if (details != undefined) this.createdReservation = details;
+      this.getTicketDetails();
+      console.log(this.ticketDetails);
+      if (this.ticketDetails != undefined)
+        this.createdReservation = this.ticketDetails;
     }
   }
   downloadAsPdf() {

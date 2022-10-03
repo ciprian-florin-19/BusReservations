@@ -92,7 +92,7 @@
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Confirmare</ng-template>
-    <app-ticket [reservation]="getTicketDetails()" id="ticket"></app-ticket>
+    <app-ticket [reservation]="ticketDetails" id="ticket"></app-ticket>
     <button mat-raised-button (click)="onSubmit()">Rezerva loc</button>
     <button mat-button matStepperPrevious>
       <mat-icon>arrow_left</mat-icon>
