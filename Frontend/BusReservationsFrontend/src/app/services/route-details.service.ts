@@ -6,11 +6,9 @@ import { RouteDetails } from '../models/routeDetails';
   providedIn: 'root',
 })
 export class RouteDetailsService {
-  routeDetails = new BehaviorSubject<any>({});
   constructor() {}
 
   setDetails(details: any) {
-    this.routeDetails.next(details);
     localStorage.setItem('routeDetails', JSON.stringify(details));
   }
 }

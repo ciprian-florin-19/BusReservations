@@ -187,7 +187,8 @@ export class ReservationFormComponent implements OnInit {
           this.routeData.value.drivenRoute.seatPrice -
           (this.routeData.value.drivenRoute.seatPrice / 100) * seat.discount;
       this.ticketDetails = {
-        drivenRoute: this.routeData.value,
+        id: '',
+        busDrivenRoute: this.routeData.value,
         user: {
           id: '',
           fullName: `${this.userForm.controls.firstName.value} ${this.userForm.controls.lastName.value}`,

@@ -1,0 +1,4 @@
+::ng-deep.mat-dialog-container {
+  background-color: #000;
+  border: solid 0.1em #fdd835;
+}

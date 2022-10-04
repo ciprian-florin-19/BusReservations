@@ -16,21 +16,12 @@ export class AddReservationViewComponent implements OnInit, OnDestroy {
     bdrId: '',
   };
   constructor(private routeDetails: RouteDetailsService) {
-    routeDetails.routeDetails.subscribe((r) => {
-      let source;
-      if (r.bdrId != undefined) {
-        source = r;
-        console.log(`from service`);
-      } else {
-        source = JSON.parse(localStorage.getItem('routeDetails')!);
-        console.log(`from localStorage`);
-      }
-      this.formData = {
-        bdrId: source.bdrId,
-        seatNumber: source.selectedSeat,
-      };
-      console.log(this.formData);
-    });
+    let source;
+    source = JSON.parse(localStorage.getItem('routeDetails')!);
+    this.formData = {
+      bdrId: source.bdrId,
+      seatNumber: source.selectedSeat,
+    };
   }
   ngOnDestroy(): void {
     localStorage.clear();

@@ -1,6 +1,7 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Abstract.Repository;
 using BusReservations.Infrastructure.Data.Repository;
+using SeatReservations.Core.Abstract.Repository;
 
 namespace BusReservations.Infrastructure.Data
 {
@@ -13,6 +14,8 @@ namespace BusReservations.Infrastructure.Data
         private IDrivenRouteRepository? _routeRepository;
         private IAccountRepository? _accountRepository;
         private IBusDrivenRouteRepository _busDrivenRouteRepository;
+        private ISeatRepository? _seatRepository;
+        private ITimeTableRepository? _timeTableRepository;
 
         public UnitOfWork(AppDBContext dbContext)
         {
@@ -102,6 +105,33 @@ namespace BusReservations.Infrastructure.Data
             set
             {
                 _busDrivenRouteRepository = value;
+            }
+        }
+
+        public ISeatRepository SeatRepository
+        {
+            get
+            {
+                if (_seatRepository == null)
+                    _seatRepository = new SeatRepository(_dbContext);
+                return _seatRepository;
+            }
+            set
+            {
+                _seatRepository = value;
+            }
+        }
+        public ITimeTableRepository TimeTableRepository
+        {
+            get
+            {
+                if (_timeTableRepository == null)
+                    _timeTableRepository = new TimeTableRepository(_dbContext);
+                return _timeTableRepository;
+            }
+            set
+            {
+                _timeTableRepository = value;
             }
         }
 

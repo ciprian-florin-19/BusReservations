@@ -28,4 +28,9 @@ export class ReservationService {
       `https://localhost:7124/api/v1/reservations/${id}`
     );
   }
+  deleteReservation(id: string) {
+    return this.client.delete(
+      `https://localhost:7124/api/v1/reservations/id?id=${id}`
+    );
+  }
 }

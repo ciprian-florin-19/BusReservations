@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PagedList } from 'src/app/models/PagedList';
-import { ReservationSimpleGetDto } from 'src/app/models/reservationSimpleGetDto';
+import { ReservationGetDto } from 'src/app/models/reservationGetDto';
 
 @Component({
   selector: 'app-tickets-list',
@@ -12,14 +12,21 @@ import { ReservationSimpleGetDto } from 'src/app/models/reservationSimpleGetDto'
 })
 export class TicketsListComponent implements OnInit {
   @Input()
-  reservations!: PagedList<ReservationSimpleGetDto>;
+  reservations!: PagedList<ReservationGetDto>;
   @Output()
-  sendDetailsEvent: EventEmitter<ReservationSimpleGetDto> = new EventEmitter();
+  onSendDetails: EventEmitter<ReservationGetDto> = new EventEmitter();
+  @Output()
+  onCancel: EventEmitter<any> = new EventEmitter();
   constructor() {}
 
   ngOnInit(): void {}
 
-  sendDetails(details: ReservationSimpleGetDto) {
-    this.sendDetailsEvent.emit(details);
+  sendDetails(details: ReservationGetDto) {
+    this.onSendDetails.emit(details);
+  }
+  cancelReservation(ticketId: string) {
+    console.log('emitted');
+
+    this.onCancel.emit(ticketId);
   }
 }

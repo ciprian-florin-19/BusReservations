@@ -1,4 +1,5 @@
 ﻿using BusReservations.Core.Abstract.Repository;
+using SeatReservations.Core.Abstract.Repository;
 
 namespace BusReservations.Core.Abstract
 {
@@ -10,6 +11,8 @@ namespace BusReservations.Core.Abstract
         IDrivenRouteRepository RouteRepository { get; set; }
         IAccountRepository AccountRepository { get; set; }
         IBusDrivenRouteRepository BusDrivenRoutesRepository { get; set; }
+        ISeatRepository SeatRepository { get; set; }
+        ITimeTableRepository TimeTableRepository { get; set; }
         Task SaveChangesAsync();
     }
 }

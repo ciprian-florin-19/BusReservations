@@ -1,12 +1,16 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PagedList } from 'src/app/models/PagedList';
 import { ReservationGetDto } from 'src/app/models/reservationGetDto';
-import { ReservationSimpleGetDto } from 'src/app/models/reservationSimpleGetDto';
 import { User } from 'src/app/models/user';
 import { AccountService } from 'src/app/services/account.service';
+import { ReservationService } from 'src/app/services/reservation.service';
 import { RouteDetailsService } from 'src/app/services/route-details.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
+import { ConfirmationComponent } from '../confirmation/confirmation.component';
+import { MessageComponent } from '../message/message.component';
 import { TicketDetailsComponent } from '../ticket-details/ticket-details.component';
 
 @Component({
@@ -22,10 +26,14 @@ export class UserTicketsViewComponent implements OnInit {
     private userService: UserServiceService,
     private accountService: AccountService,
     private tokenStorage: TokenStorageService,
-    public details: RouteDetailsService
+    public details: RouteDetailsService,
+    private reservationService: ReservationService,
+    private dialog: MatDialog,
+    private snackbar: MatSnackBar
   ) {}
   isLoading: boolean = true;
-  reservations!: PagedList<ReservationSimpleGetDto>;
+  isEmpty: boolean = false;
+  reservations!: PagedList<ReservationGetDto>;
   user!: User;
   elementCount: number = 0;
   @Input()
@@ -59,6 +67,10 @@ export class UserTicketsViewComponent implements OnInit {
       },
       error: (e) => {
         console.log(e);
+        this.isLoading = false;
+        this.isEmpty = true;
+
+        //TO DO add not found message
       },
       complete: () => {
         this.isLoading = false;
@@ -72,13 +84,52 @@ export class UserTicketsViewComponent implements OnInit {
     );
   }
 
-  sendDetails(reservation: ReservationSimpleGetDto) {
+  sendDetails(reservation: ReservationGetDto) {
     const details: ReservationGetDto = {
-      drivenRoute: reservation.busDrivenRoute,
+      id: reservation.id,
+      busDrivenRoute: reservation.busDrivenRoute,
       user: this.user,
       seat: reservation.seat,
       finalSeatPrice: reservation.finalSeatPrice,
     };
     this.details.setDetails(details);
+  }
+
+  cancelReservation(id: string) {
+    const dialogRef = this.dialog.open(ConfirmationComponent, {
+      data: {
+        message: 'Esti sigur ca vrei sa anulezi rezervarea?',
+        okMessage: 'Da',
+        cancelMessage: 'Nu',
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe({
+      next: (r) => {
+        if (r)
+          this.reservationService.deleteReservation(id).subscribe({
+            next: () => {
+              this.showMessage('Rezervarea a fost anulata cu sucess', '');
+              this.getUserReservations(this.user.id, 1);
+            },
+            error: (e) => {
+              console.log(e);
+            },
+          });
+        else {
+          console.log('cancelled');
+        }
+      },
+    });
+  }
+
+  private showMessage(message: string, name: string) {
+    this.snackbar.openFromComponent(MessageComponent, {
+      duration: 2000,
+      data: {
+        message: message,
+        name: name,
+      },
+    });
   }
 }

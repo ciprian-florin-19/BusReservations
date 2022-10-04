@@ -27,10 +27,13 @@
       </mat-tab>
       <mat-tab label="Modifica date">
         <app-profile-editor
+          #editor
           (onSubmitEmitter)="onUpdate($event)"
         ></app-profile-editor>
       </mat-tab>
-      <mat-tab label="Admin panel" *ngIf="isAdmin">Date</mat-tab>
+      <mat-tab label="Admin panel" *ngIf="isAdmin">
+        <app-admin-panel></app-admin-panel>
+      </mat-tab>
     </mat-tab-group>
   </div>
 </app-container>

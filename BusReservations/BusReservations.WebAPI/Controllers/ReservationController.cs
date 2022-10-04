@@ -25,14 +25,14 @@ namespace BusReservations.WebAPI.Controllers
         public async Task<IActionResult> GetReservationById(Guid id)
         {
             var result = await _mediator.Send(new GetReservationByIdQuery { Id = id });
-            var mappedResult = _mapper.Map<ReservationGetDto>(result);
+            var mappedResult = _mapper.Map<ReservationSimpleGetDto>(result);
             return Ok(mappedResult);
         }
         [HttpGet]
         public async Task<IActionResult> GetAllReservations([FromQuery] int index = 1)
         {
             var result = await _mediator.Send(new GetAllReservationsQuery { Index = index });
-            var mappedResult = _mapper.Map<IEnumerable<ReservationGetDto>>(result);
+            var mappedResult = _mapper.Map<IEnumerable<ReservationSimpleGetDto>>(result);
             return Ok(mappedResult);
         }
         [HttpPost]
@@ -40,7 +40,7 @@ namespace BusReservations.WebAPI.Controllers
         {
             var reservation = _mapper.Map<Reservation>(reservationDto);
             var result = await _mediator.Send(new AddReservationCommand { Reservation = reservation });
-            var mappedResult = _mapper.Map<ReservationGetDto>(result);
+            var mappedResult = _mapper.Map<ReservationSimpleGetDto>(result);
             return CreatedAtAction(nameof(GetReservationById), new { Id = result.Id }, mappedResult);
         }
         [HttpDelete("id")]

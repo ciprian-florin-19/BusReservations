@@ -5,8 +5,9 @@ import { Seat } from './seat';
 import { User } from './user';
 
 export interface ReservationGetDto {
+  id: string;
   user: User;
-  drivenRoute: BusDrivenRoute;
+  busDrivenRoute: BusDrivenRoute;
   seat: Seat;
   finalSeatPrice: number;
 }

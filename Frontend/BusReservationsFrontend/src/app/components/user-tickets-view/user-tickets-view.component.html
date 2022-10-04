@@ -5,15 +5,18 @@
     fxLayoutAlign="flex-start center"
     fxLayoutGap="1em"
   >
-    <span class="title" *ngIf="!isEmbedded">Biletele mele </span>
+    <span class="title" *ngIf="!isEmbedded && !isEmpty">Biletele mele </span>
+    <span class="title" *ngIf="isEmpty">Nu s-au gasit bilete!</span>
     <mat-progress-spinner
       color="primary"
       mode="indeterminate"
       *ngIf="isLoading"
     ></mat-progress-spinner>
     <app-tickets-list
+      *ngIf="!isEmpty"
       [reservations]="reservations"
-      (sendDetailsEvent)="sendDetails($event)"
+      (onCancel)="cancelReservation($event)"
+      (onSendDetails)="sendDetails($event)"
     ></app-tickets-list>
   </div>
   <mat-paginator

@@ -17,15 +17,20 @@ export class RidesListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.bdr.getAll().subscribe((r) => {
-      this.rides.result = r;
-      this.rides.isLoading = false;
-      this.rides.result.paginationParameters.currentPage--;
-      this.rides.elementCount =
-        r.paginationParameters.pageSize * r.paginationParameters.pageCount;
-      console.log(this.rides);
+    this.bdr.getAll().subscribe({
+      next: (r) => {
+        this.rides.result = r;
+        this.rides.isLoading = false;
+        this.rides.result.paginationParameters.currentPage--;
+        this.rides.elementCount =
+          r.paginationParameters.pageSize * r.paginationParameters.pageCount;
+        console.log(this.rides);
+      },
+      error: (e) => {
+        this.rides.isLoading = false;
+        this.rides.isEmpty = true;
+      },
     });
-    //TO DO: filter for next day
   }
   onPageChange(event: any) {
     window.scroll(0, 0);

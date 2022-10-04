@@ -36,13 +36,18 @@ export class AvailableRidesListComponent implements OnInit {
         queryParamsObject.month,
         queryParamsObject.year
       )
-      .subscribe((r) => {
-        this.rides.result = r;
-        this.rides.isLoading = false;
-        this.rides.result.currentPage = r.paginationParameters.currentPage--;
-        this.rides.elementCount = r.paginationParameters.pageSize;
-        console.log(this.rides.result.currentPage);
-        console.log(r.paginationParameters.pageSize);
+      .subscribe({
+        next: (r) => {
+          this.rides.result = r;
+          this.rides.isLoading = false;
+          this.rides.result.currentPage = r.paginationParameters.currentPage--;
+          this.rides.elementCount = r.paginationParameters.pageSize;
+        },
+        error: (e) => {
+          this.rides.isLoading = false;
+          this.rides.isEmpty = true;
+          console.log(e);
+        },
       });
   }
   onPageChange(event: any) {

@@ -22,6 +22,8 @@ export class BusSchemaComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    console.log(`capacity:${this.capacity}`);
+
     this.totalSeats = Array.from(Array(this.capacity).keys());
     if (this.capacity != undefined)
       this.halfCapacity = Math.ceil(this.capacity / 2);

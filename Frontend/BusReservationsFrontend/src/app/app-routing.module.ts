@@ -2,14 +2,18 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddReservationViewComponent } from './components/add-reservation-view/add-reservation-view.component';
 import { AvailableRidesListComponent } from './components/available-rides-list/available-rides-list.component';
+import { BdrEditorComponent } from './components/bdr-editor/bdr-editor.component';
 import { BookingCompleteViewComponent } from './components/booking-complete-view/booking-complete-view.component';
 import { BusDrivenRoutesViewComponent } from './components/bus-driven-routes-view/bus-driven-routes-view.component';
+import { BusEditorComponent } from './components/bus-editor/bus-editor.component';
+import { DrivenRouteEditorComponent } from './components/driven-route-editor/driven-route-editor.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RidesListComponent } from './components/rides-list/rides-list.component';
 import { SearchResultsComponent } from './components/search-results/search-results.component';
 import { TicketDetailsComponent } from './components/ticket-details/ticket-details.component';
 import { TicketComponent } from './components/ticket/ticket.component';
 import { UserTicketsViewComponent } from './components/user-tickets-view/user-tickets-view.component';
+import { ChangesPromptGuard } from './guards/changes-prompt.guard';
 import { HomeViewComponent } from './home-view/home-view.component';
 
 const routes: Routes = [
@@ -30,7 +34,25 @@ const routes: Routes = [
     path: 'user/reservations/ticket-details',
     component: TicketDetailsComponent,
   },
-  { path: 'user/profile', component: ProfileComponent },
+  {
+    path: 'user/profile',
+    component: ProfileComponent,
+    canDeactivate: [ChangesPromptGuard],
+    children: [
+      {
+        path: 'bus-editor',
+        component: BusEditorComponent,
+      },
+      {
+        path: 'bdr-editor',
+        component: BdrEditorComponent,
+      },
+      {
+        path: 'route-editor',
+        component: DrivenRouteEditorComponent,
+      },
+    ],
+  },
   {
     path: 'user/profile/ticket-details',
     component: TicketDetailsComponent,

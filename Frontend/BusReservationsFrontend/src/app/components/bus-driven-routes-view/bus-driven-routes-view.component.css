@@ -24,6 +24,7 @@ mat-expansion-panel-header:focus {
 .title {
   font-size: 5em;
   color: #fdd835;
+  padding-top: 25px;
 }
 span > mat-icon {
   font-size: 2em;

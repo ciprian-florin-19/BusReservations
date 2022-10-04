@@ -16,17 +16,9 @@ export class TicketComponent implements OnInit {
   reservation?: ReservationGetDto;
   constructor(private details: RouteDetailsService) {
     if (JSON.parse(localStorage.getItem('routeDetails')!).user) {
-      this.details.routeDetails.subscribe({
-        next: (r) => {
-          this.reservation = JSON.parse(localStorage.getItem('routeDetails')!);
-        },
-        error: (e) => {
-          console.log(e);
-        },
-      });
+      this.reservation = JSON.parse(localStorage.getItem('routeDetails')!);
     }
   }
-
   ngOnInit(): void {}
   getStatusName(status: number): string {
     switch (status) {

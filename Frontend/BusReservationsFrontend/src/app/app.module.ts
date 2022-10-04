@@ -57,7 +57,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TicketComponent } from './components/ticket/ticket.component';
 import { BookingCompleteViewComponent } from './components/booking-complete-view/booking-complete-view.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { HttpInterceptor } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
@@ -73,6 +73,14 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { TicketsListComponent } from './components/tickets-list/tickets-list.component';
 import { ProfileEditorComponent } from './components/profile-editor/profile-editor.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { ChangesPromptGuard } from './guards/changes-prompt.guard';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { RawDataEditorComponent } from './components/raw-data-editor/raw-data-editor.component';
+import { BusEditorComponent } from './components/bus-editor/bus-editor.component';
+import { BdrEditorComponent } from './components/bdr-editor/bdr-editor.component';
+import { DrivenRouteEditorComponent } from './components/driven-route-editor/driven-route-editor.component';
 
 //TO DO clean up
 @NgModule({
@@ -104,6 +112,12 @@ import { ProfileEditorComponent } from './components/profile-editor/profile-edit
     ProfileComponent,
     TicketsListComponent,
     ProfileEditorComponent,
+    ConfirmationComponent,
+    AdminPanelComponent,
+    RawDataEditorComponent,
+    BusEditorComponent,
+    BdrEditorComponent,
+    DrivenRouteEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -136,6 +150,7 @@ import { ProfileEditorComponent } from './components/profile-editor/profile-edit
     MatSnackBarModule,
     MatDividerModule,
     MatTabsModule,
+    MatMenuModule,
   ],
   providers: [
     MatNativeDateModule,
@@ -150,6 +165,8 @@ import { ProfileEditorComponent } from './components/profile-editor/profile-edit
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: MAT_SNACK_BAR_DATA, useValue: {} },
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    ChangesPromptGuard,
   ],
   bootstrap: [AppComponent],
 })

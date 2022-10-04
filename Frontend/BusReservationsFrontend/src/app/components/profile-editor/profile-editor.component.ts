@@ -1,6 +1,8 @@
 import {
   Component,
   EventEmitter,
+  HostListener,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild,
@@ -9,11 +11,14 @@ import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ComponentCanDeactivate } from 'src/app/guards/changes-prompt.guard';
 import { Account } from 'src/app/models/account';
 import { AccountPutPostDto } from 'src/app/models/accountPutPostDto';
 import { AccountService } from 'src/app/services/account.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { ConfirmationComponent } from '../confirmation/confirmation.component';
 import { LoginFormComponent } from '../login-form/login-form.component';
 import { MessageComponent } from '../message/message.component';
 
@@ -22,7 +27,7 @@ import { MessageComponent } from '../message/message.component';
   templateUrl: './profile-editor.component.html',
   styleUrls: ['./profile-editor.component.css'],
 })
-export class ProfileEditorComponent implements OnInit {
+export class ProfileEditorComponent implements OnInit, ComponentCanDeactivate {
   constructor(
     private authService: AuthenticationService,
     private tokenStorage: TokenStorageService,
@@ -31,7 +36,16 @@ export class ProfileEditorComponent implements OnInit {
     private router: Router,
     private accountService: AccountService
   ) {}
+
+  canDeactivate(): boolean | Observable<boolean> {
+    if (this.userForm?.dirty && !this.isSaved) {
+      return false;
+    }
+    return true;
+  }
+
   isLoading: boolean = false;
+  isSaved: boolean = false;
   accountData?: Account;
   @ViewChild('userInput')
   userForm?: NgForm;
@@ -52,9 +66,8 @@ export class ProfileEditorComponent implements OnInit {
         },
       });
   }
-
-  onSubmit(userInput: NgForm) {
-    if (!userInput.valid) return;
+  onSubmit(userInput?: NgForm) {
+    if (userInput == undefined || !userInput.dirty || !userInput.valid) return;
     this.isLoading = true;
     const userData: AccountPutPostDto = {
       user: {
@@ -84,7 +97,7 @@ export class ProfileEditorComponent implements OnInit {
     this.showMessage(message, name);
   }
   private onFailedUpdate() {
-    const message = 'Nu s-au putut salva modificarile';
+    const message = 'Modificarile nu au fost salvate';
     let name: string = '';
     this.showMessage(message, name);
   }
@@ -99,6 +112,7 @@ export class ProfileEditorComponent implements OnInit {
     });
   }
   displayData() {
+    this.isSaved = false;
     this.userForm?.setValue({
       name: this.accountData?.user.fullName,
       phone: this.accountData?.user.phoneNumber,

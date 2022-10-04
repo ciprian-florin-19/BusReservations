@@ -1,6 +1,7 @@
 ﻿using BusReservations.Core.Abstract;
 using BusReservations.Core.Commands;
 using BusReservations.Core.Domain;
+using BusReservations.Core.Domain.SeatModel;
 using BusReservations.Core.Exceptions;
 using MediatR;
 
@@ -20,6 +21,8 @@ namespace BusReservations.Core.CommandHandlers
             if (toDelete == null)
                 throw new NotFoundException();
             _unitOfWork.ReservationRepository.DeleteReservation(toDelete);
+            _unitOfWork.SeatRepository.DeleteSeat(toDelete.Seat);
+            toDelete.BusDrivenRoute.OccupiedSeats.Remove(toDelete.Seat);
             await _unitOfWork.SaveChangesAsync();
             return toDelete;
         }

@@ -5,6 +5,7 @@ namespace BusReservations.WebAPI.DTOs
 {
     public class ReservationGetDto
     {
+        public Guid Id { get; set; }
         public UserGetDto User { get; set; }
 
         public DrivenRouteSimpleDto DrivenRoute { get; set; }

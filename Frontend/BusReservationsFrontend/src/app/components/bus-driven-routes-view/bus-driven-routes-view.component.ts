@@ -29,6 +29,7 @@ export class BusDrivenRoutesViewComponent implements OnInit {
   dateFilter: Date = new Date();
   elementCount: number = 0;
   isLoading: boolean = true;
+  isEmpty: boolean = false;
   @Output()
   onPageChangeEvent: EventEmitter<any> = new EventEmitter<any>();
 
@@ -36,8 +37,6 @@ export class BusDrivenRoutesViewComponent implements OnInit {
   filterResultsEvent: EventEmitter<{ departureDate: Date; index: number }> =
     new EventEmitter();
 
-  @ViewChild('schema')
-  busSchema?: BusSchemaComponent;
   constructor(private routeDetails: RouteDetailsService) {}
   ngOnInit(): void {}
 
@@ -51,6 +50,8 @@ export class BusDrivenRoutesViewComponent implements OnInit {
     this.filterResultsEvent.emit({ departureDate: date, index: index });
   }
   sendRouteDetails(id: string, seat?: number) {
+    console.log(`data to be sent: ${id} ${seat}`);
+    window.localStorage.clear();
     this.routeDetails.setDetails({
       bdrId: id,
       selectedSeat: seat,
