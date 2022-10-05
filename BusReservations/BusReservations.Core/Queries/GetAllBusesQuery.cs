@@ -1,4 +1,5 @@
 ﻿using BusReservations.Core.Domain;
+using BusReservations.Core.Pagination;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BusReservations.Core.Queries
 {
-    public class GetAllBusesQuery : IRequest<IEnumerable<Bus>>
+    public class GetAllBusesQuery : IRequest<PagedList<Bus>>
     {
         public int PageIndex { get; set; }
     }

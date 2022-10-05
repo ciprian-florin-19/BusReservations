@@ -1,0 +1,93 @@
+<p mat-dialog-title>{{ data.message }}</p>
+<div mat-dialog-content>
+  <div class="spinner" *ngIf="isLoading">
+    <mat-progress-spinner
+      color="primary"
+      mode="indeterminate"
+    ></mat-progress-spinner>
+  </div>
+  <form #routeData="ngForm" (ngSubmit)="onSubmit(routeData)" id="userInput">
+    <mat-label fxHide.lt-md="true">Plecare:</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Plecare:</mat-label>
+      <input type="text" required matInput ngModel name="start" />
+    </mat-form-field>
+    <mat-label fxHide.lt-md="true">Sosire:</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Sosire:</mat-label>
+      <input type="text" required matInput ngModel name="destination" />
+    </mat-form-field>
+
+    <mat-label fxHide.lt-md="true">Data plecare:</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true"
+        >Data plecare</mat-label
+      >
+      <input
+        matInput
+        [matDatepicker]="datepicker"
+        name="date"
+        ngModel
+        required
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="datepicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #datepicker>
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancel</button>
+          <button mat-raised-button color="primary" matDatepickerApply>
+            Alege
+          </button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+      <mat-hint>ZZ/LL/AAAA</mat-hint>
+    </mat-form-field>
+
+    <mat-label fxHide.lt-md="true">Durata calatorie:</mat-label>
+    <mat-form-field appearance="fill" class="duration">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true"
+        >Durata calatorie:</mat-label
+      >
+      <input
+        matInput
+        type="number"
+        required
+        ngModel
+        name="hour"
+        max="4"
+        placeholder="ore"
+      />
+      <input
+        type="number"
+        required
+        matInput
+        ngModel
+        name="minute"
+        max="59"
+        placeholder="minute"
+      />
+    </mat-form-field>
+
+    <mat-label fxHide.lt-md="true">Pret:</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Pret:</mat-label>
+      <input type="number" required matInput ngModel name="price" />
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button
+    color="primary"
+    mat-raised-button
+    form="userInput"
+    [mat-dialog-close]="true"
+    type="submit"
+  >
+    {{ data.okMessage }}
+  </button>
+  <button color="warn" mat-raised-button [mat-dialog-close]="false">
+    {{ data.cancelMessage }}
+  </button>
+</div>

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusReservations.Core.Commands;
 using BusReservations.Core.Domain;
+using BusReservations.Core.Pagination;
 using BusReservations.Core.Queries;
 using BusReservations.WebAPI.DTOs;
 using MediatR;
@@ -27,7 +28,7 @@ namespace BusReservations.WebAPI.Controllers
         public async Task<IActionResult> GetBusById(Guid id)
         {
             var bus = await _mediator.Send(new GetBusByIDQuery { BusID = id });
-            var result = _mapper.Map<BusGetDto>(bus);
+            var result = _mapper.Map<BusSimpleDto>(bus);
             return Ok(result);
         }
 
@@ -35,8 +36,13 @@ namespace BusReservations.WebAPI.Controllers
         public async Task<IActionResult> GetAllBuses([FromQuery] int index = 1)
         {
             var result = await _mediator.Send(new GetAllBusesQuery() { PageIndex = index });
-            var mappedResult = _mapper.Map<IEnumerable<BusGetDto>>(result);
-            return Ok(mappedResult);
+            var mappedResult = _mapper.Map<PagedList<BusSimpleDto>>(result);
+            return Ok(new PagedListGetDto<BusSimpleDto>(mappedResult, new PaginationParametersDto
+            {
+                CurrentPage = index,
+                PageCount = result.PageCount,
+                PageSize = result.PageSize
+            }));
         }
 
         [HttpPost]

@@ -1,0 +1,44 @@
+<p mat-dialog-title>{{ data.message }}</p>
+<div mat-dialog-content>
+  <div class="spinner" *ngIf="isLoading">
+    <mat-progress-spinner
+      color="primary"
+      mode="indeterminate"
+    ></mat-progress-spinner>
+  </div>
+  <form #busData="ngForm" (ngSubmit)="onSubmit(busData)" id="userInput">
+    <mat-label fxHide.lt-md="true">Nume autobuz:</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true"
+        >Nume autobuz:</mat-label
+      >
+      <input type="text" required matInput ngModel name="name" />
+    </mat-form-field>
+    <mat-label fxHide.lt-md="true">Capacitate:</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Capacitate:</mat-label>
+      <input
+        type="number"
+        required
+        matInput
+        ngModel
+        name="capacity"
+        maxlength="2"
+      />
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button
+    color="primary"
+    mat-raised-button
+    form="userInput"
+    [mat-dialog-close]="true"
+    type="submit"
+  >
+    {{ data.okMessage }}
+  </button>
+  <button color="warn" mat-raised-button [mat-dialog-close]="false">
+    {{ data.cancelMessage }}
+  </button>
+</div>

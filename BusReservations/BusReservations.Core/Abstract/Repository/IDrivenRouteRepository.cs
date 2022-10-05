@@ -1,4 +1,5 @@
 ﻿using BusReservations.Core.Domain;
+using BusReservations.Core.Pagination;
 
 namespace BusReservations.Core.Abstract.Repository
 {
@@ -6,7 +7,7 @@ namespace BusReservations.Core.Abstract.Repository
     {
         void AddDrivenRoute(DrivenRoute route);
         Task<DrivenRoute> GetDrivenRouteById(Guid id);
-        Task<IEnumerable<DrivenRoute>> GetAllDrivenRoutes(int index);
+        Task<PagedList<DrivenRoute>> GetAllDrivenRoutes(int index);
         void UpdateDrivenRoute(DrivenRoute route);
         void DeleteDrivenRoute(DrivenRoute route);
         void AddRange(IEnumerable<DrivenRoute> routes);

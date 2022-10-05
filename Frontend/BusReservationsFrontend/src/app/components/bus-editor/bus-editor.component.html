@@ -1,2 +1,35 @@
-<p>bus editor works!</p>
-<app-raw-data-editor></app-raw-data-editor>
+<table mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Nume</th>
+    <td mat-cell *matCellDef="let bus">{{ bus.name }}</td>
+  </ng-container>
+  <ng-container matColumnDef="capacity">
+    <th mat-header-cell *matHeaderCellDef>Capacitate</th>
+    <td mat-cell *matCellDef="let bus">{{ bus.capacity }}</td>
+  </ng-container>
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let row" class="actions">
+      <button class="edit" (click)="editRow(row)" matRipple>
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button class="delete" (click)="deleteRow(row)" matRipple>
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+  <mat-header-row mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
+</table>
+<div class="add-wrapper">
+  <button class="add" (click)="addRow()" matRipple>
+    <mat-icon>playlist_add</mat-icon>
+  </button>
+</div>
+<mat-paginator
+  [length]="elementCount"
+  [pageIndex]="paginationParameters.currentPage"
+  [pageSize]="paginationParameters.pageSize"
+  [hidePageSize]="true"
+  (page)="getPage($event)"
+></mat-paginator>

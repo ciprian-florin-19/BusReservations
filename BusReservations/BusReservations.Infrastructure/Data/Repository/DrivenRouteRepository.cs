@@ -1,6 +1,7 @@
 ﻿using BusReservations.Core;
 using BusReservations.Core.Abstract.Repository;
 using BusReservations.Core.Domain;
+using BusReservations.Core.Pagination;
 using Microsoft.EntityFrameworkCore;
 
 namespace BusReservations.Infrastructure.Data.Repository
@@ -29,7 +30,7 @@ namespace BusReservations.Infrastructure.Data.Repository
             _appDBContext.DrivenRoutes.Remove(route);
         }
 
-        public async Task<IEnumerable<DrivenRoute>> GetAllDrivenRoutes(int index = 1)
+        public async Task<PagedList<DrivenRoute>> GetAllDrivenRoutes(int index = 1)
         {
             return await _appDBContext.DrivenRoutes
                 .Include(dr => dr.TimeTable)

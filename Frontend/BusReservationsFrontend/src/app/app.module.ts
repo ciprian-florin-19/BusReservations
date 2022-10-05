@@ -81,6 +81,9 @@ import { RawDataEditorComponent } from './components/raw-data-editor/raw-data-ed
 import { BusEditorComponent } from './components/bus-editor/bus-editor.component';
 import { BdrEditorComponent } from './components/bdr-editor/bdr-editor.component';
 import { DrivenRouteEditorComponent } from './components/driven-route-editor/driven-route-editor.component';
+import { MatTableModule } from '@angular/material/table';
+import { BusDialogComponent } from './components/bus-dialog/bus-dialog.component';
+import { RouteDialogComponent } from './components/route-dialog/route-dialog.component';
 
 //TO DO clean up
 @NgModule({
@@ -118,6 +121,8 @@ import { DrivenRouteEditorComponent } from './components/driven-route-editor/dri
     BusEditorComponent,
     BdrEditorComponent,
     DrivenRouteEditorComponent,
+    BusDialogComponent,
+    RouteDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -151,6 +156,7 @@ import { DrivenRouteEditorComponent } from './components/driven-route-editor/dri
     MatDividerModule,
     MatTabsModule,
     MatMenuModule,
+    MatTableModule,
   ],
   providers: [
     MatNativeDateModule,
