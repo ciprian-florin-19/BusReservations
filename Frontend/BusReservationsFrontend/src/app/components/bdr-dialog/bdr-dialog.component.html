@@ -1,0 +1,177 @@
+<p mat-dialog-title>{{ data.message }}</p>
+<div mat-dialog-content>
+  <div class="spinner" *ngIf="isLoading">
+    <mat-progress-spinner
+      color="primary"
+      mode="indeterminate"
+    ></mat-progress-spinner>
+  </div>
+  <form #busData="ngForm" (ngSubmit)="onSubmit()" id="userInput">
+    <mat-label fxHide.lt-md="true">Autobuz:</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Autobuz:</mat-label>
+      <mat-autocomplete
+        #busesAuto="matAutocomplete"
+        (optionSelected)="selectBus($event.option.value)"
+        (opened)="autocompleteScroll(busesAuto)"
+      >
+        <mat-option *ngFor="let bus of buses.items" [value]="bus.name">
+          {{ bus.name }}
+        </mat-option>
+      </mat-autocomplete>
+      <input
+        type="text"
+        required
+        matInput
+        ngModel
+        name="busName"
+        [matAutocomplete]="busesAuto"
+      />
+    </mat-form-field>
+    <mat-label fxHide.lt-md="true">Capacitate:</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Capacitate:</mat-label>
+      <input
+        type="number"
+        required
+        matInput
+        ngModel
+        name="capacity"
+        maxlength="2"
+        readonly="true"
+        [value]="selectedBus?.capacity"
+      />
+    </mat-form-field>
+    <mat-label fxHide.lt-md="true">Ruta:</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Ruta:</mat-label>
+      <mat-autocomplete
+        #routesAuto="matAutocomplete"
+        (optionSelected)="selectRoute($event.option.value)"
+        (opened)="autocompleteScroll(routesAuto)"
+      >
+        <mat-option
+          *ngFor="let route of routes.items"
+          [value]="route.start + ' - ' + route.destination"
+        >
+          {{ route.start }} - {{ route.destination }}
+        </mat-option>
+      </mat-autocomplete>
+      <input
+        type="text"
+        required
+        matInput
+        ngModel
+        name="routeName"
+        [matAutocomplete]="routesAuto"
+      />
+    </mat-form-field>
+
+    <mat-label fxHide.lt-md="true">Plecare:</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Plecare:</mat-label>
+      <input
+        type="text"
+        required
+        matInput
+        ngModel
+        name="start"
+        readonly="true"
+        [value]="selectedRoute?.start"
+      />
+    </mat-form-field>
+    <mat-label fxHide.lt-md="true">Sosire:</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Sosire:</mat-label>
+      <input
+        type="text"
+        required
+        matInput
+        ngModel
+        name="destination"
+        readonly="true"
+        [value]="selectedRoute?.destination"
+      />
+    </mat-form-field>
+
+    <mat-label fxHide.lt-md="true">Data plecare:</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true"
+        >Data plecare:</mat-label
+      >
+      <input
+        type="text"
+        required
+        matInput
+        ngModel
+        name="departureDate"
+        readonly="true"
+        [value]="
+          selectedRoute?.timeTable?.departureDate | date: 'dd/MM/yyyy, HH:mm'
+        "
+      />
+    </mat-form-field>
+
+    <mat-label fxHide.lt-md="true">Data sosire:</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true"
+        >Data sosire:</mat-label
+      >
+      <input
+        type="text"
+        required
+        matInput
+        ngModel
+        name="arrivalDate"
+        readonly="true"
+        [value]="
+          selectedRoute?.timeTable?.arivvalDate | date: 'dd/MM/yyyy, HH:mm'
+        "
+      />
+    </mat-form-field>
+
+    <mat-label fxHide.lt-md="true">Durata calatorie:</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true"
+        >Durata calatorie:</mat-label
+      >
+      <input
+        type="text"
+        required
+        matInput
+        ngModel
+        name="duration"
+        readonly="true"
+        [value]="selectedRoute?.timeTable?.duration?.substring(0, 5)"
+      />
+    </mat-form-field>
+
+    <mat-label fxHide.lt-md="true">Pret:</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Pret:</mat-label>
+      <input
+        type="text"
+        required
+        matInput
+        ngModel
+        name="price"
+        readonly="true"
+        [value]="selectedRoute?.seatPrice + 'lei'"
+      />
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button
+    color="primary"
+    mat-raised-button
+    form="userInput"
+    [mat-dialog-close]="true"
+    type="submit"
+  >
+    {{ data.okMessage }}
+  </button>
+  <button color="warn" mat-raised-button [mat-dialog-close]="false">
+    {{ data.cancelMessage }}
+  </button>
+</div>

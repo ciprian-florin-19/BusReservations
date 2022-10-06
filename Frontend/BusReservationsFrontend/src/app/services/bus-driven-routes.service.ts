@@ -40,4 +40,24 @@ export class BusDrivenRoutesService {
       `https://localhost:7124/api/v1/bus-driven-routes/${id}`
     );
   }
+  deleteBusDrivenRoute(id: string) {
+    return this.client.delete(
+      `https://localhost:7124/api/v1/bus-driven-routes/${id}`
+    );
+  }
+  updateBusDrivenRoute(
+    id: string,
+    bdrData: { busId: string; drivenRouteId: string }
+  ) {
+    return this.client.put(
+      `https://localhost:7124/api/v1/bus-driven-routes/${id}`,
+      bdrData
+    );
+  }
+  addBusDrivenRoute(bdrData: { busId: string; drivenRouteId: string }) {
+    return this.client.post<BusDrivenRoute>(
+      `https://localhost:7124/api/v1/bus-driven-routes`,
+      bdrData
+    );
+  }
 }

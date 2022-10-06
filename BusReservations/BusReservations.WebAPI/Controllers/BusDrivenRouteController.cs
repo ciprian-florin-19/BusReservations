@@ -29,9 +29,9 @@ namespace BusReservations.WebAPI.Controllers
             return Ok(mappedResult);
         }
         [HttpPost]
-        public async Task<IActionResult> AddBusToDrivenRoute(Guid busId, Guid routeId)
+        public async Task<IActionResult> AddBusToDrivenRoute([FromBody] BusDrivenRoutePutPostDto bdrData)
         {
-            var result = await _mediator.Send(new AddBusToDrivenRouteCommand() { BusId = busId, DrivenRouteId = routeId });
+            var result = await _mediator.Send(new AddBusToDrivenRouteCommand() { BusId = bdrData.BusId, DrivenRouteId = bdrData.DrivenRouteId });
             var mappedResult = _mapper.Map<BusDrivenRouteGetDto>(result);
             return CreatedAtAction(nameof(GetBusDrivenRouteById), new { Id = result.Id }, mappedResult);
         }

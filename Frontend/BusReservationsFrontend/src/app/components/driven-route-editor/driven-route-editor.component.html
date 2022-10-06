@@ -10,13 +10,13 @@
   <ng-container matColumnDef="departure">
     <th mat-header-cell *matHeaderCellDef>Data plecare</th>
     <td mat-cell *matCellDef="let route">
-      {{ route.timeTable.departureDate | date: "d/M/yy, h:mm a" }}
+      {{ route.timeTable.departureDate | date: "d/M/yy, H:mm " }}
     </td>
   </ng-container>
   <ng-container matColumnDef="arrival">
     <th mat-header-cell *matHeaderCellDef>Data sosire</th>
     <td mat-cell *matCellDef="let route">
-      {{ route.timeTable.arivvalDate | date: "d/M/yy, h:mm a" }}
+      {{ route.timeTable.arivvalDate | date: "d/M/yy, H:mm " }}
     </td>
   </ng-container>
   <ng-container matColumnDef="price">

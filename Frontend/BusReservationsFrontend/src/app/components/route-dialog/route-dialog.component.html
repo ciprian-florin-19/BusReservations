@@ -45,6 +45,31 @@
       <mat-hint>ZZ/LL/AAAA</mat-hint>
     </mat-form-field>
 
+    <mat-label fxHide.lt-md="true">Ora plecare:</mat-label>
+    <mat-form-field appearance="fill" class="duration">
+      <mat-label fxShow.lt-md="true" fxHide.gt-md="true"
+        >Ora plecare:</mat-label
+      >
+      <input
+        matInput
+        type="number"
+        required
+        ngModel
+        name="departureHour"
+        max="23"
+        placeholder="ore"
+      />
+      <input
+        type="number"
+        required
+        matInput
+        ngModel
+        name="departureMinute"
+        max="59"
+        placeholder="minute"
+      />
+    </mat-form-field>
+
     <mat-label fxHide.lt-md="true">Durata calatorie:</mat-label>
     <mat-form-field appearance="fill" class="duration">
       <mat-label fxShow.lt-md="true" fxHide.gt-md="true"

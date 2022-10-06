@@ -4,13 +4,13 @@
   <div *ngIf="reservation">
     <span class="date">{{
       reservation.busDrivenRoute.drivenRoute.timeTable.departureDate
-        | date: "d-MM-yyyy, h:mm a"
+        | date: "d-MM-yyyy, H:mm"
     }}</span>
     <span>De la : {{ reservation.busDrivenRoute.drivenRoute.start }}</span>
     <span><mat-icon>arrow_downward</mat-icon></span>
     <span class="date">{{
       reservation.busDrivenRoute.drivenRoute.timeTable.arivvalDate
-        | date: "d-MM-yyyy, h:mm a"
+        | date: "d-MM-yyyy, H:mm"
     }}</span>
     <span>La : {{ reservation.busDrivenRoute.drivenRoute.destination }}</span>
   </div>

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 import { DrivenRoute } from '../models/drivenRoute';
 import { PagedList } from '../models/PagedList';
 
@@ -27,22 +28,22 @@ export class DrivenRouteService {
         start: route.start,
         destination: route.destination,
         timeTable: {
-          departureDate: route.timeTable.departureDate,
-          arivvalDate: route.timeTable.arivvalDate,
+          departureDate: moment(route.timeTable.departureDate).format(),
+          arivvalDate: moment(route.timeTable.arivvalDate).format(),
         },
         seatPrice: route.seatPrice,
       }
     );
   }
-  addDrivenRoute(id: string, route: DrivenRoute) {
+  addDrivenRoute(route: DrivenRoute) {
     return this.client.post<DrivenRoute>(
-      `https://localhost:7124/api/v1/driven-routes/${id}`,
+      `https://localhost:7124/api/v1/driven-routes`,
       {
         start: route.start,
         destination: route.destination,
         timeTable: {
-          departureDate: route.timeTable.departureDate,
-          arivvalDate: route.timeTable.arivvalDate,
+          departureDate: moment(route.timeTable.departureDate).format(),
+          arivvalDate: moment(route.timeTable.arivvalDate).format(),
         },
         seatPrice: route.seatPrice,
       }

@@ -23,7 +23,9 @@
     </div>
     <mat-tab-group>
       <mat-tab label="Biletele mele">
-        <app-user-tickets-view [isEmbedded]="true"></app-user-tickets-view>
+        <ng-template matTabContent>
+          <app-user-tickets-view [isEmbedded]="true"></app-user-tickets-view>
+        </ng-template>
       </mat-tab>
       <mat-tab label="Modifica date">
         <app-profile-editor

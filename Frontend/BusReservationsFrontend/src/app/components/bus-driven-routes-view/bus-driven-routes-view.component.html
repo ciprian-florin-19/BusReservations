@@ -21,13 +21,12 @@
         <mat-expansion-panel-header fxLayout.gt-md="row">
           <mat-panel-title>
             <span class="date">{{
-              bdr.drivenRoute.timeTable.departureDate
-                | date: "d-MM-yyyy, h:mm a"
+              bdr.drivenRoute.timeTable.departureDate | date: "d-MM-yyyy, H:mm"
             }}</span>
             <span>De la : {{ bdr.drivenRoute.start }}</span>
             <span><mat-icon>arrow_downward</mat-icon></span>
             <span class="date">{{
-              bdr.drivenRoute.timeTable.arivvalDate | date: "d-MM-yyyy, h:mm a"
+              bdr.drivenRoute.timeTable.arivvalDate | date: "d-MM-yyyy, H:mm"
             }}</span>
             <span>La : {{ bdr.drivenRoute.destination }}</span>
           </mat-panel-title>

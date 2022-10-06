@@ -26,7 +26,7 @@ namespace BusReservations.Core.CommandHandlers
             toUpdate.TimeTable.DepartureDate = request.Route.TimeTable.DepartureDate;
             toUpdate.TimeTable.ArivvalDate = request.Route.TimeTable.ArivvalDate;
             toUpdate.TimeTable.Duration = request.Route.TimeTable.ArivvalDate - request.Route.TimeTable.DepartureDate;
-            toUpdate.BusDrivenRoutes = request.Route.BusDrivenRoutes;
+
             _unitOfWork.RouteRepository.UpdateDrivenRoute(toUpdate);
 
             await _unitOfWork.SaveChangesAsync();

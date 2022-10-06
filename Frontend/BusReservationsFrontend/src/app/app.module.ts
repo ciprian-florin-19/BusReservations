@@ -84,6 +84,8 @@ import { DrivenRouteEditorComponent } from './components/driven-route-editor/dri
 import { MatTableModule } from '@angular/material/table';
 import { BusDialogComponent } from './components/bus-dialog/bus-dialog.component';
 import { RouteDialogComponent } from './components/route-dialog/route-dialog.component';
+import { BdrDialogComponent } from './components/bdr-dialog/bdr-dialog.component';
+import { MatSelectScrollBottomDirective } from './mat-select-scroll-bottom.directive';
 
 //TO DO clean up
 @NgModule({
@@ -123,6 +125,8 @@ import { RouteDialogComponent } from './components/route-dialog/route-dialog.com
     DrivenRouteEditorComponent,
     BusDialogComponent,
     RouteDialogComponent,
+    BdrDialogComponent,
+    MatSelectScrollBottomDirective,
   ],
   imports: [
     BrowserModule,
