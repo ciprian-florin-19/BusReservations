@@ -10,26 +10,27 @@
     <mat-label fxHide.lt-md="true">Autobuz:</mat-label>
     <mat-form-field appearance="fill">
       <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Autobuz:</mat-label>
-      <mat-autocomplete
-        #busesAuto="matAutocomplete"
-        (optionSelected)="selectBus($event.option.value)"
-        (opened)="autocompleteScroll(busesAuto)"
+      <mat-select
+        [value]="selectedBus?.name"
+        name="bus"
+        (appMatSelectScrollBottom)="fetchBuses(buses.currentPage + 1)"
       >
-        <mat-option *ngFor="let bus of buses.items" [value]="bus.name">
+        <mat-option
+          *ngFor="let bus of buses.items"
+          [value]="bus.name"
+          (click)="selectedBus = bus"
+        >
           {{ bus.name }}
         </mat-option>
-      </mat-autocomplete>
-      <input
-        type="text"
-        required
-        matInput
-        ngModel
-        name="busName"
-        [matAutocomplete]="busesAuto"
-      />
+      </mat-select>
     </mat-form-field>
-    <mat-label fxHide.lt-md="true">Capacitate:</mat-label>
-    <mat-form-field appearance="fill">
+    <mat-label fxHide.lt-md="true" [hidden]="!selectedBus"
+      >Capacitate:</mat-label
+    >
+    <mat-form-field
+      appearance="fill"
+      [class.cdk-visually-hidden]="!selectedBus"
+    >
       <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Capacitate:</mat-label>
       <input
         type="number"
@@ -37,38 +38,47 @@
         matInput
         ngModel
         name="capacity"
-        maxlength="2"
-        readonly="true"
         [value]="selectedBus?.capacity"
       />
     </mat-form-field>
     <mat-label fxHide.lt-md="true">Ruta:</mat-label>
     <mat-form-field appearance="fill">
       <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Ruta:</mat-label>
-      <mat-autocomplete
-        #routesAuto="matAutocomplete"
-        (optionSelected)="selectRoute($event.option.value)"
-        (opened)="autocompleteScroll(routesAuto)"
+      <mat-select
+        [value]="
+          selectedRoute?.start +
+          ' - ' +
+          selectedRoute?.destination +
+          ' ' +
+          (selectedRoute?.timeTable?.departureDate | date: 'dd/MM/yyyy, HH:mm')
+        "
+        name="route"
+        (appMatSelectScrollBottom)="fetchRoutes(routes.currentPage + 1)"
       >
         <mat-option
           *ngFor="let route of routes.items"
-          [value]="route.start + ' - ' + route.destination"
+          [value]="
+            route.start +
+            ' - ' +
+            route.destination +
+            ' ' +
+            (route.timeTable.departureDate | date: 'dd/MM/yyyy, HH:mm')
+          "
+          (click)="selectedRoute = route"
         >
           {{ route.start }} - {{ route.destination }}
+          {{ route.timeTable.departureDate | date: "dd/MM/yyyy, HH:mm" }}
         </mat-option>
-      </mat-autocomplete>
-      <input
-        type="text"
-        required
-        matInput
-        ngModel
-        name="routeName"
-        [matAutocomplete]="routesAuto"
-      />
+      </mat-select>
     </mat-form-field>
 
-    <mat-label fxHide.lt-md="true">Plecare:</mat-label>
-    <mat-form-field appearance="fill">
+    <mat-label fxHide.lt-md="true" [hidden]="!selectedRoute"
+      >Plecare:</mat-label
+    >
+    <mat-form-field
+      appearance="fill"
+      [class.cdk-visually-hidden]="!selectedRoute"
+    >
       <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Plecare:</mat-label>
       <input
         type="text"
@@ -80,8 +90,11 @@
         [value]="selectedRoute?.start"
       />
     </mat-form-field>
-    <mat-label fxHide.lt-md="true">Sosire:</mat-label>
-    <mat-form-field appearance="fill">
+    <mat-label fxHide.lt-md="true" [hidden]="!selectedRoute">Sosire:</mat-label>
+    <mat-form-field
+      appearance="fill"
+      [class.cdk-visually-hidden]="!selectedRoute"
+    >
       <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Sosire:</mat-label>
       <input
         type="text"
@@ -94,8 +107,13 @@
       />
     </mat-form-field>
 
-    <mat-label fxHide.lt-md="true">Data plecare:</mat-label>
-    <mat-form-field appearance="fill">
+    <mat-label fxHide.lt-md="true" [hidden]="!selectedRoute"
+      >Data plecare:</mat-label
+    >
+    <mat-form-field
+      appearance="fill"
+      [class.cdk-visually-hidden]="!selectedRoute"
+    >
       <mat-label fxShow.lt-md="true" fxHide.gt-md="true"
         >Data plecare:</mat-label
       >
@@ -112,8 +130,13 @@
       />
     </mat-form-field>
 
-    <mat-label fxHide.lt-md="true">Data sosire:</mat-label>
-    <mat-form-field appearance="fill">
+    <mat-label fxHide.lt-md="true" [hidden]="!selectedRoute"
+      >Data sosire:</mat-label
+    >
+    <mat-form-field
+      appearance="fill"
+      [class.cdk-visually-hidden]="!selectedRoute"
+    >
       <mat-label fxShow.lt-md="true" fxHide.gt-md="true"
         >Data sosire:</mat-label
       >
@@ -130,8 +153,13 @@
       />
     </mat-form-field>
 
-    <mat-label fxHide.lt-md="true">Durata calatorie:</mat-label>
-    <mat-form-field appearance="fill">
+    <mat-label fxHide.lt-md="true" [hidden]="!selectedRoute"
+      >Durata calatorie:</mat-label
+    >
+    <mat-form-field
+      appearance="fill"
+      [class.cdk-visually-hidden]="!selectedRoute"
+    >
       <mat-label fxShow.lt-md="true" fxHide.gt-md="true"
         >Durata calatorie:</mat-label
       >
@@ -146,8 +174,11 @@
       />
     </mat-form-field>
 
-    <mat-label fxHide.lt-md="true">Pret:</mat-label>
-    <mat-form-field appearance="fill">
+    <mat-label fxHide.lt-md="true" [hidden]="!selectedRoute">Pret:</mat-label>
+    <mat-form-field
+      appearance="fill"
+      [class.cdk-visually-hidden]="!selectedRoute"
+    >
       <mat-label fxShow.lt-md="true" fxHide.gt-md="true">Pret:</mat-label>
       <input
         type="text"

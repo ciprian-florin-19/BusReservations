@@ -13,49 +13,50 @@
 >
   <mat-form-field color="primary" appearance="fill">
     <mat-label>Plecare</mat-label>
-    <input
-      type="text"
-      name="start"
-      matInput
-      required
-      [matAutocomplete]="start"
+    <mat-select
+      #start
       ngModel
-    />
-    <mat-autocomplete #start>
+      name="start"
+      (appMatSelectScrollBottom)="fetchOptions(currentPage + 1)"
+    >
       <!--
       TO DO add async pipe
       TO TO add custom filter  
       TO DO add validation
       -->
-      <mat-option *ngFor="let option of startOptions" [value]="option">
-        {{ option }}
+      <mat-option *ngFor="let option of options" [value]="option.start">
+        {{ option.start }}
       </mat-option>
-    </mat-autocomplete>
+    </mat-select>
   </mat-form-field>
   <mat-form-field color="primary" appearance="fill">
     <mat-label>Destinatie</mat-label>
-    <input
-      type="text"
-      name="destination"
-      matInput
-      required
-      [matAutocomplete]="destination"
+    <mat-select
+      #destination
       ngModel
-    />
-    <mat-autocomplete #destination>
+      name="destination"
+      (appMatSelectScrollBottom)="fetchOptions(currentPage + 1)"
+    >
       <!--
       TO DO add async pipe
       TO TO add custom filter  
       TO DO add validation
       -->
-      <mat-option *ngFor="let option of destinationOptions" [value]="option">
-        {{ option }}
+      <mat-option *ngFor="let option of options" [value]="option.destination">
+        {{ option.destination }}
       </mat-option>
-    </mat-autocomplete>
+    </mat-select>
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Data plecare</mat-label>
-    <input matInput [matDatepicker]="datepicker" name="date" ngModel required />
+    <input
+      matInput
+      [matDatepicker]="datepicker"
+      name="date"
+      ngModel
+      required
+      [min]="minDate"
+    />
     <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
     <mat-datepicker #datepicker>
       <mat-datepicker-actions>

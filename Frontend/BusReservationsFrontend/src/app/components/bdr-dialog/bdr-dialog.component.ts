@@ -6,6 +6,7 @@ import {
   MatAutocompleteTrigger,
 } from '@angular/material/autocomplete';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSelect } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Route } from '@angular/router';
 import { fromEvent, map, takeUntil } from 'rxjs';
@@ -52,7 +53,7 @@ export class BdrDialogComponent implements OnInit {
     private snackbar: MatSnackBar,
     private datePipe: DatePipe
   ) {}
-  @ViewChild(MatAutocompleteTrigger)
+  /*@ViewChild(MatAutocompleteTrigger)
   autocompleteTrigger!: MatAutocompleteTrigger;
 
   autocompleteScroll(autoComplete: MatAutocomplete) {
@@ -79,39 +80,11 @@ export class BdrDialogComponent implements OnInit {
           });
       }
     });
-  }
+  }*/
   ngOnInit(): void {
-    if (this.data.action == 'edit') {
-      this.service.getBusDrivenRouteById(this.data.bdrId).subscribe({
-        next: (b) => {
-          console.log(b);
-          this.selectedBus = b.bus;
-          this.selectedRoute = b.drivenRoute;
-          this.form?.setValue({
-            busName: b.bus.name,
-            capacity: b.bus.capacity,
-            routeName: b.drivenRoute.start + ' - ' + b.drivenRoute.destination,
-            start: b.drivenRoute.start,
-            destination: b.drivenRoute.destination,
-            departureDate: this.datePipe.transform(
-              b.drivenRoute.timeTable.departureDate,
-              'dd/MM/yyyy, HH:mm'
-            ),
-            arrivalDate: this.datePipe.transform(
-              b.drivenRoute.timeTable.arivvalDate,
-              'dd/MM/yyyy, HH:mm'
-            ),
-            duration: b.drivenRoute.timeTable.duration.substring(0, 5),
-            price: `${b.drivenRoute.seatPrice} lei`,
-          });
-        },
-        error: (e) => {
-          console.log(e);
-        },
-      });
-    }
     this.fetchBuses();
     this.fetchRoutes();
+    this.fetchSelection();
   }
 
   fetchBuses(page: number = 1) {
@@ -129,6 +102,25 @@ export class BdrDialogComponent implements OnInit {
       },
     });
   }
+
+  fetchSelection() {
+    if (this.data.action == 'edit')
+      this.service.getBusDrivenRouteById(this.data.bdrId).subscribe({
+        next: (bdr) => {
+          this.selectedBus = bdr.bus;
+          this.selectedRoute = bdr.drivenRoute;
+
+          if (this.buses.items.includes(this.selectedBus))
+            this.buses.items.splice(this.buses.items.indexOf(this.selectedBus));
+          if (this.routes.items.includes(this.selectedRoute))
+            this.routes.items.splice(
+              this.routes.items.indexOf(this.selectedRoute)
+            );
+          this.routes.items.unshift(this.selectedRoute);
+        },
+      });
+  }
+
   fetchRoutes(page: number = 1) {
     if (!this.routes.hasNext) return;
     this.routeService.getDrivenRoutes(page).subscribe({
@@ -196,16 +188,5 @@ export class BdrDialogComponent implements OnInit {
         name: name,
       },
     });
-  }
-  selectBus(busName: string) {
-    this.selectedBus = this.buses.items.find((b) => b.name == busName);
-  }
-  selectRoute(route: string) {
-    this.selectedRoute = this.routes.items.find(
-      (r) =>
-        r.start == route.split(' - ')[0] &&
-        r.destination == route.split(' - ')[1]
-    );
-    console.log(this.selectedRoute);
   }
 }

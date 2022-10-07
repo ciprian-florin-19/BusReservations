@@ -15,6 +15,7 @@ import {
 export class MatSelectScrollBottomDirective {
   private readonly BOTTOM_SCROLL_OFFSET = 25;
   @Output('appMatSelectScrollBottom') reachedBottom = new EventEmitter<void>();
+
   unsubscribeAll = new Subject<boolean>();
 
   constructor(private matSelect: MatSelect) {
