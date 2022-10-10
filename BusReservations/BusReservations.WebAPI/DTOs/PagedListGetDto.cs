@@ -16,8 +16,9 @@ namespace BusReservations.WebAPI.DTOs
             PaginationParameters.CurrentPage = pagination.CurrentPage;
             PaginationParameters.PageCount = pagination.PageCount;
             PaginationParameters.PageSize = pagination.PageSize;
-            if (Items.Count < PaginationParameters.PageSize)
-                PaginationParameters.PageSize = Items.Count;
+            //if (Items.Count < PaginationParameters.PageSize)
+            //    PaginationParameters.PageSize = Items.Count;
+            PaginationParameters.TotalElementCount = pagination.TotalElementCount;
         }
     }
 }

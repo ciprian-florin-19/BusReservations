@@ -75,7 +75,21 @@ mat-paginator {
   width: 100%;
   justify-content: center;
 }
+:host ::ng-deep form {
+  flex-direction: row !important;
+  width: 100% !important;
+  column-gap: 2em;
+  row-gap: 1em;
+}
+:host ::ng-deep button {
+  margin-top: 0 !important;
+  position: relative;
+  bottom: 0.5em;
+}
 @media only screen and (max-width: 900px) {
+  :host ::ng-deep button {
+    margin-top: 0 !important;
+  }
   .title {
     font-size: 3em;
   }
@@ -98,6 +112,17 @@ mat-paginator {
   }
 }
 @media only screen and (max-width: 600px) {
+  :host ::ng-deep form {
+    flex-direction: column !important;
+    width: 100% !important;
+    column-gap: 2em;
+    row-gap: 1em;
+  }
+  :host ::ng-deep button {
+    margin-top: 0 !important;
+    position: relative;
+    bottom: 0.5em;
+  }
   mat-expansion-panel-header {
     min-height: 48px;
     height: fit-content;

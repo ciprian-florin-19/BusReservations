@@ -33,7 +33,6 @@ export class BusEditorComponent implements OnInit {
       next: (p) => {
         this.paginationParameters = p;
         this.paginationParameters.currentPage--;
-        this.elementCount = p.pageSize * p.pageCount;
       },
     });
   }

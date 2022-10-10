@@ -1,5 +1,6 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgFor } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BusDrivenRoutesService } from 'src/app/services/bus-driven-routes.service';
 
@@ -16,7 +17,7 @@ export class AvailableRidesListComponent implements OnInit {
     private datePipe: DatePipe,
     private activatedRoute: ActivatedRoute
   ) {}
-
+  formData?: any;
   ngOnInit(): void {
     let queryParams = this.activatedRoute.snapshot.queryParamMap;
     let queryParamsObject = {
@@ -25,6 +26,17 @@ export class AvailableRidesListComponent implements OnInit {
       year: queryParams.get('year'),
       month: queryParams.get('month'),
       day: queryParams.get('day'),
+    };
+    console.log(Number(queryParamsObject.month));
+
+    this.formData = {
+      start: queryParamsObject.start,
+      destination: queryParamsObject.destination,
+      date: new Date(
+        Number(queryParamsObject.year),
+        Number(queryParamsObject.month) - 1,
+        Number(queryParamsObject.day)
+      ),
     };
     console.log(queryParamsObject);
 
@@ -46,6 +58,7 @@ export class AvailableRidesListComponent implements OnInit {
         error: (e) => {
           this.rides.isLoading = false;
           this.rides.isEmpty = true;
+          this.rides.result = undefined;
           console.log(e);
         },
       });
@@ -59,5 +72,10 @@ export class AvailableRidesListComponent implements OnInit {
       this.rides.elementCount =
         r.paginationParameters.pageCount * r.paginationParameters.pageSize;
     });
+  }
+  refreshResults() {
+    this.rides.isLoading = true;
+    this.rides.isEmpty = false;
+    this.ngOnInit();
   }
 }

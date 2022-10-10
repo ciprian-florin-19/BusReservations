@@ -69,6 +69,7 @@ namespace BusReservations.WebAPI.Controllers
                    CurrentPage = index,
                    PageCount = result.PageCount,
                    PageSize = result.PageSize,
+                   TotalElementCount = result.TotalElementCount,
                }
                ));
         }
@@ -84,6 +85,7 @@ namespace BusReservations.WebAPI.Controllers
                     CurrentPage = index,
                     PageCount = result.PageCount,
                     PageSize = result.PageSize,
+                    TotalElementCount = result.TotalElementCount,
                 }
                 ));
         }
@@ -100,6 +102,7 @@ namespace BusReservations.WebAPI.Controllers
                    CurrentPage = pageIndex,
                    PageCount = result.PageCount,
                    PageSize = result.PageSize,
+                   TotalElementCount = result.TotalElementCount,
                }
                ));
         }

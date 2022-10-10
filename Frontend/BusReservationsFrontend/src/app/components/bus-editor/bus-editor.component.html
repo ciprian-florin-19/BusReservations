@@ -27,9 +27,10 @@
   </button>
 </div>
 <mat-paginator
-  [length]="elementCount"
+  [length]="paginationParameters.totalElementCount"
   [pageIndex]="paginationParameters.currentPage"
   [pageSize]="paginationParameters.pageSize"
   [hidePageSize]="true"
   (page)="getPage($event)"
+  [showFirstLastButtons]="true"
 ></mat-paginator>

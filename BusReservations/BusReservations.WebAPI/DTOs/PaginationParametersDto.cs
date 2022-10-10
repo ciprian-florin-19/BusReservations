@@ -6,6 +6,7 @@
         public int PageCount { get; set; }
         public int PageSize { get; set; }
 
+        public int TotalElementCount { get; set; }
         public bool HasNext => CurrentPage < PageCount;
         public bool HasPrevious => CurrentPage > 1;
     }

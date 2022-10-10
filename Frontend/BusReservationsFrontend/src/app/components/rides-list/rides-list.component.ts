@@ -19,12 +19,10 @@ export class RidesListComponent implements OnInit {
   ngOnInit(): void {
     this.bdr.getAll().subscribe({
       next: (r) => {
+        --r.paginationParameters.currentPage;
         this.rides.result = r;
         this.rides.isLoading = false;
-        this.rides.result.paginationParameters.currentPage--;
-        this.rides.elementCount =
-          r.paginationParameters.pageSize * r.paginationParameters.pageCount;
-        console.log(this.rides);
+        console.log(r);
       },
       error: (e) => {
         this.rides.isLoading = false;
@@ -34,30 +32,30 @@ export class RidesListComponent implements OnInit {
   }
   onPageChange(event: any) {
     window.scroll(0, 0);
-    if (this.rides.isFiltered)
-      this.filterResults(this.rides.dateFilter, event.pageIndex + 1);
-    else
-      this.bdr.getAll(event.pageIndex + 1).subscribe((r) => {
+    let nextPageIndex = event.pageIndex + 1;
+    if (this.rides.isFiltered) {
+      event.pageIndex = 0;
+      this.filterResults(this.rides.dateFilter, nextPageIndex);
+    } else
+      this.bdr.getAll(nextPageIndex).subscribe((r) => {
+        --r.paginationParameters.currentPage;
         this.rides.result = r;
         this.rides.isLoading = false;
-        this.rides.result.paginationParameters.currentPage--;
-        this.rides.elementCount =
-          r.paginationParameters.pageCount * r.paginationParameters.pageSize;
+        console.log(this.rides.result);
       });
   }
 
-  filterResults(departureDate: Date, index: number = 0): void {
+  filterResults(departureDate: Date, index: number = 1): void {
     let date = this.formatDate(departureDate);
     this.rides.isFiltered = true;
     this.rides.dateFilter = departureDate;
     this.bdr
       .getAllByDate(date.day, date.month, date.year, index)
       .subscribe((r) => {
+        r.paginationParameters.currentPage--;
         this.rides.result = r;
         this.rides.isLoading = false;
-        this.rides.result.paginationParameters.currentPage--;
-        this.rides.elementCount =
-          r.paginationParameters.pageCount * r.paginationParameters.pageSize;
+        console.log(r);
       });
   }
 

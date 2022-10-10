@@ -1,22 +1,27 @@
-:host {
-  width: 100%;
-  height: fit-content;
-  font-size: 1.5em;
-  background-color: rgba(0, 0, 0, 0.9);
-  border-top: solid 0.1em #fdd835;
-  border-bottom: solid 0.1em #fdd835;
+span {
+  color: #fdd835;
 }
 input {
   color: aliceblue;
 }
-span {
-  color: #fdd835;
-}
 form {
   height: 100%;
-  width: 100%;
+  width: fit-content;
   padding: 1em;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-self: center;
 }
 button {
   font-size: 1.5em;
+  width: fit-content;
+  align-self: center;
+  margin-top: 1em;
+}
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }

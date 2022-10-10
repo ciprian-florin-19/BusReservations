@@ -14,6 +14,7 @@ export class BusDataSource extends DataSource<any> {
     hasPrevious: false,
     pageCount: 1,
     pageSize: 1,
+    totalElementCount: 0,
   });
   constructor(private service: BusService) {
     super();

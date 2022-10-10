@@ -11,6 +11,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { BusDrivenRoute } from 'src/app/models/busDrivenRoute';
 import { PagedList } from 'src/app/models/PagedList';
@@ -36,17 +37,16 @@ export class BusDrivenRoutesViewComponent implements OnInit {
   @Output()
   filterResultsEvent: EventEmitter<{ departureDate: Date; index: number }> =
     new EventEmitter();
-
+  @ViewChild(MatPaginator)
+  paginator?: MatPaginator;
   constructor(private routeDetails: RouteDetailsService) {}
   ngOnInit(): void {}
 
   onPageChange(event: any) {
-    console.log(this.result);
-    console.log(this.elementCount);
-
     this.onPageChangeEvent.emit(event);
   }
   filterResults(date: Date, index: number = 1) {
+    this.paginator?.firstPage();
     this.filterResultsEvent.emit({ departureDate: date, index: index });
   }
   sendRouteDetails(id: string, seat?: number) {

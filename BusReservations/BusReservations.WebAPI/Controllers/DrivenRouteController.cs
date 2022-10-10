@@ -45,7 +45,8 @@ namespace BusReservations.WebAPI.Controllers
             {
                 CurrentPage = index,
                 PageCount = result.PageCount,
-                PageSize = result.PageSize
+                PageSize = result.PageSize,
+                TotalElementCount = result.TotalElementCount
             }));
         }
         [HttpPost]

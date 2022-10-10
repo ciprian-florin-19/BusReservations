@@ -1,2 +1,6 @@
 <app-bus-driven-routes-view (onPageChangeEvent)="onPageChange($event)" #rides>
+  <app-search-bar
+    [formData]="formData"
+    (onRefresh)="refreshResults()"
+  ></app-search-bar>
 </app-bus-driven-routes-view>

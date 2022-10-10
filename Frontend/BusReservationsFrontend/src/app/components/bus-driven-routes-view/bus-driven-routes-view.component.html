@@ -9,8 +9,8 @@
       >Curse
       <mat-icon>departure_board</mat-icon>
     </span>
-    <span class="title" *ngIf="isEmpty">Nu s-au gasit curse! </span>
     <ng-content></ng-content>
+    <span class="title" *ngIf="isEmpty">Nu s-au gasit curse! </span>
     <mat-progress-spinner
       color="primary"
       mode="indeterminate"
@@ -74,11 +74,12 @@
     </mat-accordion>
   </div>
   <mat-paginator
+    *ngIf="result"
     color="accent"
-    [length]="elementCount"
-    [pageIndex]="result?.paginationParameters?.currentPage"
-    [pageSize]="result?.paginationParameters?.pageSize"
+    [length]="result.paginationParameters.totalElementCount"
+    [pageSize]="result.paginationParameters.pageSize"
     [hidePageSize]="true"
+    [showFirstLastButtons]="true"
     (page)="onPageChange($event)"
   ></mat-paginator>
 </app-container>

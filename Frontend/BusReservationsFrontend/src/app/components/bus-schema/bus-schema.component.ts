@@ -22,12 +22,9 @@ export class BusSchemaComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(`capacity:${this.capacity}`);
-
     this.totalSeats = Array.from(Array(this.capacity).keys());
     if (this.capacity != undefined)
       this.halfCapacity = Math.ceil(this.capacity / 2);
-    console.log(this.selectedSeat);
   }
 
   isSeatOccupied(seat: number): boolean {
@@ -39,6 +36,5 @@ export class BusSchemaComponent implements OnInit {
   selectSeat(seat: number): void {
     if (this.isDisabled) return;
     this.selectedSeat = seat;
-    console.log(this.selectedSeat);
   }
 }

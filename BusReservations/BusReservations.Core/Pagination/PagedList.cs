@@ -6,6 +6,7 @@
         public int PageCount { get; private set; }
         public int PageSize { get; private set; }
 
+        public int TotalElementCount { get; private set; }
         public bool HasNext => CurrentPage < PageCount;
         public bool HasPrevious => CurrentPage > 1;
 
@@ -14,6 +15,7 @@
             CurrentPage = parameters.PageIndex;
             PageSize = parameters.PageSize;
             PageCount = (int)Math.Ceiling(collection.Count() / (double)PageSize);
+            TotalElementCount = collection.Count();
             AddRange(collection.Skip((parameters.PageIndex - 1) * PageSize).Take(PageSize));
         }
         public PagedList()
@@ -27,6 +29,7 @@
                 CurrentPage = parameters.PageIndex;
                 PageSize = parameters.PageSize;
                 PageCount = (int)Math.Ceiling(collection.Count() / (double)PageSize);
+                TotalElementCount = collection.Count();
                 AddRange(collection.Skip((parameters.PageIndex - 1) * PageSize).Take(PageSize));
             }
             );

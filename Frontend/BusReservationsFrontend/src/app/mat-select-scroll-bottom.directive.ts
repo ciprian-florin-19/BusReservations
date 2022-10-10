@@ -26,12 +26,11 @@ export class MatSelectScrollBottomDirective {
           fromEvent(this.matSelect.panel.nativeElement, 'scroll').pipe(
             throttleTime(50)
           )
-        ), //controles the thrasold of scroll event
+        ),
         takeUntil(this.unsubscribeAll)
       )
       .subscribe((event: any) => {
         console.log('scroll');
-        // console.log(event, event.target.scrollTop, event.target.scrollHeight);
         if (
           event.target.scrollTop >=
           event.target.scrollHeight -

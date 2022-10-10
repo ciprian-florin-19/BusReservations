@@ -22,7 +22,7 @@
   <mat-paginator
     color="accent"
     *ngIf="reservations"
-    [length]="elementCount"
+    [length]="reservations.paginationParameters.totalElementCount"
     [pageIndex]="reservations.paginationParameters.currentPage"
     [pageSize]="reservations.paginationParameters.pageSize"
     [hidePageSize]="true"

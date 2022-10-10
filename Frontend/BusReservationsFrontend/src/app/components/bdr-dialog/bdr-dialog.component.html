@@ -39,6 +39,7 @@
         ngModel
         name="capacity"
         [value]="selectedBus?.capacity"
+        disabled="true"
       />
     </mat-form-field>
     <mat-label fxHide.lt-md="true">Ruta:</mat-label>
@@ -86,7 +87,7 @@
         matInput
         ngModel
         name="start"
-        readonly="true"
+        disabled="true"
         [value]="selectedRoute?.start"
       />
     </mat-form-field>
@@ -102,7 +103,7 @@
         matInput
         ngModel
         name="destination"
-        readonly="true"
+        disabled="true"
         [value]="selectedRoute?.destination"
       />
     </mat-form-field>
@@ -123,7 +124,7 @@
         matInput
         ngModel
         name="departureDate"
-        readonly="true"
+        disabled="true"
         [value]="
           selectedRoute?.timeTable?.departureDate | date: 'dd/MM/yyyy, HH:mm'
         "
@@ -146,7 +147,7 @@
         matInput
         ngModel
         name="arrivalDate"
-        readonly="true"
+        disabled="true"
         [value]="
           selectedRoute?.timeTable?.arivvalDate | date: 'dd/MM/yyyy, HH:mm'
         "
@@ -169,7 +170,7 @@
         matInput
         ngModel
         name="duration"
-        readonly="true"
+        disabled="true"
         [value]="selectedRoute?.timeTable?.duration?.substring(0, 5)"
       />
     </mat-form-field>
@@ -186,7 +187,7 @@
         matInput
         ngModel
         name="price"
-        readonly="true"
+        disabled="true"
         [value]="selectedRoute?.seatPrice + 'lei'"
       />
     </mat-form-field>
