@@ -43,6 +43,7 @@ export class ProfileComponent implements OnInit, ComponentCanDeactivate {
           } else {
             this.editor.onFailedUpdate();
             this.editor.displayData();
+            this.editor.isSaved = true;
           }
           return true;
         },
