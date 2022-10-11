@@ -8,6 +8,7 @@ button {
 .actions {
   display: flex;
   flex-flow: column wrap;
+  row-gap: 1em;
 }
 .actions > button {
   width: 100%;

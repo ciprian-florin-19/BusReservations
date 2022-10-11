@@ -17,14 +17,19 @@ export class BusSchemaComponent implements OnInit {
   @Input()
   isDisabled: boolean = false;
 
+  rowLength: number = 0;
   halfCapacity: number = 0;
+  columnStyle: string = '';
   totalSeats: number[] = [];
   constructor() {}
 
   ngOnInit(): void {
     this.totalSeats = Array.from(Array(this.capacity).keys());
-    if (this.capacity != undefined)
+    if (this.capacity != undefined) {
+      this.rowLength = Math.ceil(this.capacity / 4);
       this.halfCapacity = Math.ceil(this.capacity / 2);
+      this.columnStyle = `repeat(${this.rowLength},1fr)`;
+    }
   }
 
   isSeatOccupied(seat: number): boolean {

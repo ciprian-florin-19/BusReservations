@@ -4,6 +4,8 @@
   flex-flow: row wrap;
   align-items: flex-start;
   height: fit-content;
+  width: fit-content;
+  max-width: 100%;
   padding-top: 1em;
   padding-bottom: 2em;
   column-gap: 2em;
