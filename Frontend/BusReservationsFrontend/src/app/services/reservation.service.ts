@@ -33,4 +33,9 @@ export class ReservationService {
       `https://localhost:7124/api/v1/reservations/id?id=${id}`
     );
   }
+  getReservationInvoice(id: string) {
+    return this.client.get<string>(
+      `https://localhost:7124/api/v1/reservations/${id}/invoice`
+    );
+  }
 }

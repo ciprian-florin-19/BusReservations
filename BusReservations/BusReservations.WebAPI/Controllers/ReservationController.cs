@@ -51,5 +51,11 @@ namespace BusReservations.WebAPI.Controllers
                 return NotFound();
             return NoContent();
         }
+        [HttpGet("{id}/invoice")]
+        public async Task<IActionResult> GetReservationInvoice(Guid id)
+        {
+            var result = await _mediator.Send(new GetReservationInvoiceQuery { Id = id });
+            return Ok(result);
+        }
     }
 }

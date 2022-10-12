@@ -1,4 +1,6 @@
-﻿using BusReservations.Core.Pagination;
+﻿using BusReservations.Core.Domain;
+using BusReservations.Core.Pagination;
+using IronPdf;
 
 namespace BusReservations.Core
 {
@@ -19,6 +21,11 @@ namespace BusReservations.Core
         public static async Task<PagedList<T>> ToPagedListAsync<T>(this IEnumerable<T> values, int pageIndex = 1)
         {
             return await PagedList<T>.Create(values, new PaginationParameters() { PageIndex = pageIndex });
+        }
+
+        public static PdfDocument ToPdf(this Reservation reservation)
+        {
+            return TicketUtilities.Instance.ConvertToPdf(reservation);
         }
     }
 }

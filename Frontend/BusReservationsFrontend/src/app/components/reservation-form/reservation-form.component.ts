@@ -171,9 +171,9 @@ export class ReservationFormComponent implements OnInit {
     };
     this.reservationService.addReservation(reservation).subscribe((r) => {
       this.createdReservation = r;
+      this.downloadAsPdf();
       console.log(r);
     });
-    this.downloadAsPdf();
   }
   getTicketDetails() {
     if (this.routeData.value != undefined) {
@@ -209,17 +209,28 @@ export class ReservationFormComponent implements OnInit {
     }
   }
   downloadAsPdf() {
-    let ticket = document.getElementById('ticket');
-    if (ticket != undefined)
-      html2canvas(ticket, { backgroundColor: '#000000' }).then((canvas) => {
-        const contentDataURL = canvas.toDataURL('image/png');
-        let pdf = new jspdf('landscape', 'mm', 'a5');
-        const imgProps = pdf.getImageProperties(contentDataURL);
-        let imgWidth = pdf.internal.pageSize.getWidth();
-        let imgHeight = (imgProps.height * imgWidth) / imgProps.width;
-        let position = 0;
-        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-        pdf.save('bilet.pdf');
+    this.reservationService
+      .getReservationInvoice(this.createdReservation.id)
+      .subscribe({
+        next: (r) => {
+          const byteArray = new Uint8Array(
+            atob(r)
+              .split('')
+              .map((char) => char.charCodeAt(0))
+          );
+          const blob = new Blob([byteArray], { type: 'application/pdf' });
+          const link = document.createElement('a');
+
+          link.href = URL.createObjectURL(blob);
+          link.download = 'bilet';
+
+          document.body.append(link);
+          link.click();
+          link.remove();
+        },
+        error: (e) => {
+          console.log(e);
+        },
       });
   }
   ngAfterViewInit() {

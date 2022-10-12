@@ -1,6 +1,8 @@
 <app-container>
   <div class="wrapper">
-    <app-ticket id="ticket"></app-ticket>
-    <button mat-raised-button (click)="downloadAsPdf()">Descarca bilet</button>
+    <app-ticket id="ticket" #ticket></app-ticket>
+    <button mat-raised-button (click)="downloadAsPdf(ticket.reservation!.id)">
+      Descarca bilet
+    </button>
   </div>
 </app-container>

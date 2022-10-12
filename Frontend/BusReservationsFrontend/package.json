@@ -38,6 +38,7 @@
     "@angular/compiler-cli": "^14.0.0",
     "@types/html-to-pdfmake": "^2.1.1",
     "@types/jasmine": "~4.0.0",
+    "@types/node": "^18.8.4",
     "@types/pdfmake": "^0.2.1",
     "jasmine-core": "~4.3.0",
     "karma": "~6.4.0",
