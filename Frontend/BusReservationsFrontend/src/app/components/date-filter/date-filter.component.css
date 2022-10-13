@@ -15,7 +15,7 @@ button {
   height: fit-content;
   font-size: 2em;
   white-space: normal;
-  margin-top: 0.5em;
+  margin-top: 0.8em !important;
 }
 :host {
   width: 90%;
