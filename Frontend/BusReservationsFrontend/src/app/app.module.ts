@@ -8,41 +8,21 @@ import { TableComponent } from './components/table/table.component';
 import { ContainerComponent } from './components/container/container.component';
 import { ToUpperPipe } from './pipes/to-upper.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {
-  MatRippleModule,
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
-} from '@angular/material/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { FooterComponent } from './components/footer/footer.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
-import { MatSelectModule } from '@angular/material/select';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import { RouterModule } from '@angular/router';
 import { HomeViewComponent } from './home-view/home-view.component';
 import { SearchResultsComponent } from './components/search-results/search-results.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BusDrivenRoutesViewComponent } from './components/bus-driven-routes-view/bus-driven-routes-view.component';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BusSchemaComponent } from './components/bus-schema/bus-schema.component';
 import { AddReservationViewComponent } from './components/add-reservation-view/add-reservation-view.component';
 import { CommonModule, DatePipe } from '@angular/common';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import {
-  MAT_MOMENT_DATE_FORMATS,
   MomentDateAdapter,
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
@@ -52,40 +32,30 @@ import { RidesListComponent } from './components/rides-list/rides-list.component
 import { DateFilterComponent } from './components/date-filter/date-filter.component';
 import { AvailableRidesListComponent } from './components/available-rides-list/available-rides-list.component';
 import { ReservationFormComponent } from './components/reservation-form/reservation-form.component';
-import { MatStepperModule } from '@angular/material/stepper';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TicketComponent } from './components/ticket/ticket.component';
 import { BookingCompleteViewComponent } from './components/booking-complete-view/booking-complete-view.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
-import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
-import { HttpInterceptor } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
 import { MessageComponent } from './components/message/message.component';
-import {
-  MatSnackBarModule,
-  MAT_SNACK_BAR_DATA,
-} from '@angular/material/snack-bar';
 import { UserTicketsViewComponent } from './components/user-tickets-view/user-tickets-view.component';
-import { MatDividerModule } from '@angular/material/divider';
 import { TicketDetailsComponent } from './components/ticket-details/ticket-details.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { MatTabsModule } from '@angular/material/tabs';
 import { TicketsListComponent } from './components/tickets-list/tickets-list.component';
 import { ProfileEditorComponent } from './components/profile-editor/profile-editor.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { ChangesPromptGuard } from './guards/changes-prompt.guard';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
-import { MatMenuModule } from '@angular/material/menu';
 import { RawDataEditorComponent } from './components/raw-data-editor/raw-data-editor.component';
 import { BusEditorComponent } from './components/bus-editor/bus-editor.component';
 import { BdrEditorComponent } from './components/bdr-editor/bdr-editor.component';
 import { DrivenRouteEditorComponent } from './components/driven-route-editor/driven-route-editor.component';
-import { MatTableModule } from '@angular/material/table';
 import { BusDialogComponent } from './components/bus-dialog/bus-dialog.component';
 import { RouteDialogComponent } from './components/route-dialog/route-dialog.component';
 import { BdrDialogComponent } from './components/bdr-dialog/bdr-dialog.component';
 import { MatSelectScrollBottomDirective } from './mat-select-scroll-bottom.directive';
+import { MaterialModule } from './material/material.module';
 
 //TO DO clean up
 @NgModule({
@@ -132,39 +102,15 @@ import { MatSelectScrollBottomDirective } from './mat-select-scroll-bottom.direc
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatSliderModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatCardModule,
     FlexLayoutModule,
-    MatRippleModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatSidenavModule,
-    MatSelectModule,
-    MatAutocompleteModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
     RouterModule,
     FormsModule,
     HttpClientModule,
-    MatExpansionModule,
-    MatProgressSpinnerModule,
     CommonModule,
-    MatPaginatorModule,
-    MatStepperModule,
     ReactiveFormsModule,
-    MatDialogModule,
-    MatSnackBarModule,
-    MatDividerModule,
-    MatTabsModule,
-    MatMenuModule,
-    MatTableModule,
+    MaterialModule,
   ],
   providers: [
-    MatNativeDateModule,
-    MatExpansionModule,
     DatePipe,
     { provide: MAT_DATE_LOCALE, useValue: 'ro-RO' },
     {
@@ -172,10 +118,7 @@ import { MatSelectScrollBottomDirective } from './mat-select-scroll-bottom.direc
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
-    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: MAT_SNACK_BAR_DATA, useValue: {} },
-    { provide: MAT_DIALOG_DATA, useValue: {} },
     ChangesPromptGuard,
   ],
   bootstrap: [AppComponent],
