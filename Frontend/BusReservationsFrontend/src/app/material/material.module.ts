@@ -33,7 +33,7 @@ import { MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule],
+  imports: [],
   exports: [
     MatSliderModule,
     MatToolbarModule,
