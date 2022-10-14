@@ -4,7 +4,9 @@ import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ComponentCanDeactivate } from 'src/app/guards/changes-prompt.guard';
+import { ComponentCanActivate } from 'src/app/guards/direct-link-input.guard';
 import { Account } from 'src/app/models/account';
+import { UserStates } from 'src/app/models/userStates';
 import { AccountService } from 'src/app/services/account.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
@@ -14,13 +16,19 @@ import { ConfirmationComponent } from '../confirmation/confirmation.component';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
 })
-export class ProfileComponent implements OnInit, ComponentCanDeactivate {
+export class ProfileComponent
+  implements OnInit, ComponentCanDeactivate, ComponentCanActivate
+{
   constructor(
     private tokenStorage: TokenStorageService,
     private accountService: AccountService,
     private dialog: MatDialog
   ) {
     this.getUserData();
+  }
+  canActivate(permissions: UserStates): boolean | Observable<boolean> {
+    if (permissions.isLoggedIn) return true;
+    return false;
   }
   @HostListener('window:beforeunload')
   canDeactivate(): boolean | Observable<boolean> {

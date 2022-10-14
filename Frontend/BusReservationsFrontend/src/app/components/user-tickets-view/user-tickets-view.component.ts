@@ -1,9 +1,12 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
+import { ComponentCanActivate } from 'src/app/guards/direct-link-input.guard';
 import { PagedList } from 'src/app/models/PagedList';
 import { ReservationGetDto } from 'src/app/models/reservationGetDto';
 import { User } from 'src/app/models/user';
+import { UserStates } from 'src/app/models/userStates';
 import { AccountService } from 'src/app/services/account.service';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { RouteDetailsService } from 'src/app/services/route-details.service';
@@ -21,7 +24,7 @@ import { TicketDetailsComponent } from '../ticket-details/ticket-details.compone
     '../bus-driven-routes-view/bus-driven-routes-view.component.css',
   ],
 })
-export class UserTicketsViewComponent implements OnInit {
+export class UserTicketsViewComponent implements OnInit, ComponentCanActivate {
   constructor(
     private userService: UserServiceService,
     private accountService: AccountService,
@@ -31,6 +34,11 @@ export class UserTicketsViewComponent implements OnInit {
     private dialog: MatDialog,
     private snackbar: MatSnackBar
   ) {}
+  canActivate(permissions: UserStates): boolean | Observable<boolean> {
+    if (permissions.isLoggedIn) return true;
+    return false;
+  }
+
   isLoading: boolean = true;
   isEmpty: boolean = false;
   reservations!: PagedList<ReservationGetDto>;
@@ -43,7 +51,6 @@ export class UserTicketsViewComponent implements OnInit {
       .getAccountById(this.tokenStorage.getSession().accountId)
       .subscribe({
         next: (a) => {
-          console.log(a);
           this.user = a.user;
           this.getUserReservations(a.user.id);
           console.log(this.reservations);

@@ -1,0 +1,23 @@
+.wrapper {
+  width: 100%;
+  height: fit-content;
+  font-size: 1.5em;
+  background-color: rgba(0, 0, 0, 0.9);
+  border-top: solid 0.1em #fdd835;
+  border-bottom: solid 0.1em #fdd835;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+p {
+  color: #fdd835;
+  font-size: 5rem;
+  line-height: normal;
+}
+button {
+  font-size: 2em;
+  line-height: normal;
+}

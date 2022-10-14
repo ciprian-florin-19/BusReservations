@@ -56,6 +56,8 @@ import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 import { AuthInterceptor } from '../auth.interceptor';
 import { ChangesPromptGuard } from '../guards/changes-prompt.guard';
 import { MAT_DATE_FORMATS } from '../MAT_DATE_FORMATS';
+import { DirectLinkInputGuard } from '../guards/direct-link-input.guard';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +98,7 @@ import { MAT_DATE_FORMATS } from '../MAT_DATE_FORMATS';
     RouteDialogComponent,
     BdrDialogComponent,
     MatSelectScrollBottomDirective,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -161,6 +164,7 @@ import { MAT_DATE_FORMATS } from '../MAT_DATE_FORMATS';
     { provide: MAT_SNACK_BAR_DATA, useValue: {} },
     { provide: MAT_DIALOG_DATA, useValue: {} },
     ChangesPromptGuard,
+    DirectLinkInputGuard,
   ],
 })
 export class ComponentsModule {}

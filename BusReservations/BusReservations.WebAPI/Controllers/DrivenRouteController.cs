@@ -5,6 +5,7 @@ using BusReservations.Core.Pagination;
 using BusReservations.Core.Queries;
 using BusReservations.WebAPI.DTOs;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BusReservations.WebAPI.Controllers
@@ -50,6 +51,7 @@ namespace BusReservations.WebAPI.Controllers
             }));
         }
         [HttpPost]
+        [Authorize(Policy = "Administrator")]
         public async Task<IActionResult> AddDrivenRoute([FromBody] DrivenRoutePutPostDto routeDto)
         {
             var route = _mapper.Map<DrivenRoute>(routeDto);
@@ -57,6 +59,7 @@ namespace BusReservations.WebAPI.Controllers
             return CreatedAtAction(nameof(GetDrivenRouteById), new { Id = result.Id }, result);
         }
         [HttpPut("{id}")]
+        [Authorize(Policy = "Administrator")]
         public async Task<IActionResult> UpdateDrivenRoute([FromBody] DrivenRoutePutPostDto routeDto, Guid id)
         {
             var route = _mapper.Map<DrivenRoute>(routeDto);
@@ -64,6 +67,7 @@ namespace BusReservations.WebAPI.Controllers
             return NoContent();
         }
         [HttpDelete("{id}")]
+        [Authorize(Policy = "Administrator")]
         public async Task<IActionResult> DeleteDrivenRoute(Guid id)
         {
             var result = await _mediator.Send(new DeleteRouteCommand { Id = id });

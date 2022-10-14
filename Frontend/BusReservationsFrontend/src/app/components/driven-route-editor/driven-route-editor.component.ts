@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 import { BusDataSource } from 'src/app/data-sources/busDataSource';
 import { RouteDataSource } from 'src/app/data-sources/routeDataSource';
+import { ComponentCanActivate } from 'src/app/guards/direct-link-input.guard';
 import { PaginationParameters } from 'src/app/models/paginationParameters';
+import { UserStates } from 'src/app/models/userStates';
 import { BusService } from 'src/app/services/bus.service';
 import { DrivenRouteService } from 'src/app/services/driven-route.service';
 import { BusDialogComponent } from '../bus-dialog/bus-dialog.component';
@@ -16,7 +19,9 @@ import { RouteDialogComponent } from '../route-dialog/route-dialog.component';
   templateUrl: './driven-route-editor.component.html',
   styleUrls: ['./driven-route-editor.component.css'],
 })
-export class DrivenRouteEditorComponent implements OnInit {
+export class DrivenRouteEditorComponent
+  implements OnInit, ComponentCanActivate
+{
   dataSource!: RouteDataSource;
   columns: string[] = [
     'start',
@@ -33,7 +38,10 @@ export class DrivenRouteEditorComponent implements OnInit {
     private snackbar: MatSnackBar,
     private dialog: MatDialog
   ) {}
-
+  canActivate(permissions: UserStates): boolean | Observable<boolean> {
+    if (permissions.isAdmin) return true;
+    return false;
+  }
   ngOnInit(): void {
     this.dataSource = new RouteDataSource(this.service);
     this.dataSource.getRoutes();

@@ -1,7 +1,10 @@
 import { DatePipe, NgFor } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ComponentCanActivate } from 'src/app/guards/direct-link-input.guard';
+import { UserStates } from 'src/app/models/userStates';
 import { BusDrivenRoutesService } from 'src/app/services/bus-driven-routes.service';
 
 @Component({
@@ -9,7 +12,9 @@ import { BusDrivenRoutesService } from 'src/app/services/bus-driven-routes.servi
   templateUrl: './available-rides-list.component.html',
   styleUrls: ['./available-rides-list.component.css'],
 })
-export class AvailableRidesListComponent implements OnInit {
+export class AvailableRidesListComponent
+  implements OnInit, ComponentCanActivate
+{
   @ViewChild('rides')
   rides?: any;
   constructor(
@@ -17,6 +22,10 @@ export class AvailableRidesListComponent implements OnInit {
     private datePipe: DatePipe,
     private activatedRoute: ActivatedRoute
   ) {}
+  canActivate(permissions: UserStates): boolean | Observable<boolean> {
+    if (permissions.isSearchValid) return true;
+    return false;
+  }
   formData?: any;
   ngOnInit(): void {
     let queryParams = this.activatedRoute.snapshot.queryParamMap;

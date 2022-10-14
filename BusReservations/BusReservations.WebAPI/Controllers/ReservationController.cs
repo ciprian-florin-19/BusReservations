@@ -4,6 +4,7 @@ using BusReservations.Core.Domain;
 using BusReservations.Core.Queries;
 using BusReservations.WebAPI.DTOs;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BusReservations.WebAPI.Controllers
@@ -44,6 +45,7 @@ namespace BusReservations.WebAPI.Controllers
             return CreatedAtAction(nameof(GetReservationById), new { Id = result.Id }, mappedResult);
         }
         [HttpDelete("id")]
+        [Authorize]
         public async Task<IActionResult> DeleteReservation(Guid id)
         {
             var result = await _mediator.Send(new CancelReservationCommand { Id = id });

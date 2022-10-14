@@ -15,9 +15,10 @@ export class TicketComponent implements OnInit {
   @Input()
   reservation?: ReservationGetDto;
   constructor(private details: RouteDetailsService) {
-    if (JSON.parse(localStorage.getItem('routeDetails')!).user) {
-      this.reservation = JSON.parse(localStorage.getItem('routeDetails')!);
-    }
+    if (localStorage.getItem('routeDetails'))
+      if (JSON.parse(localStorage.getItem('routeDetails')!).user) {
+        this.reservation = JSON.parse(localStorage.getItem('routeDetails')!);
+      }
   }
   ngOnInit(): void {}
   getStatusName(status: number): string {

@@ -53,6 +53,7 @@ namespace BusReservations.WebAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateUser(Guid id, UserPutPostDto user)
         {
             var mappedUser = _mapper.Map<User>(user);

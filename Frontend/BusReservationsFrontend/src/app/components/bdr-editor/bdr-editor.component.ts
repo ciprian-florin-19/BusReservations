@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 import { BdrDataSource } from 'src/app/data-sources/bdrDataSource';
 import { BusDataSource } from 'src/app/data-sources/busDataSource';
+import { ComponentCanActivate } from 'src/app/guards/direct-link-input.guard';
 import { PaginationParameters } from 'src/app/models/paginationParameters';
+import { UserStates } from 'src/app/models/userStates';
 import { BusDrivenRoutesService } from 'src/app/services/bus-driven-routes.service';
 import { BusService } from 'src/app/services/bus.service';
 import { BdrDialogComponent } from '../bdr-dialog/bdr-dialog.component';
@@ -16,7 +19,7 @@ import { MessageComponent } from '../message/message.component';
   templateUrl: './bdr-editor.component.html',
   styleUrls: ['./bdr-editor.component.css'],
 })
-export class BdrEditorComponent implements OnInit {
+export class BdrEditorComponent implements OnInit, ComponentCanActivate {
   dataSource!: BdrDataSource;
   columns: string[] = [
     'busName',
@@ -36,6 +39,10 @@ export class BdrEditorComponent implements OnInit {
     private snackbar: MatSnackBar,
     private dialog: MatDialog
   ) {}
+  canActivate(permissions: UserStates): boolean | Observable<boolean> {
+    if (permissions.isAdmin) return true;
+    return false;
+  }
 
   ngOnInit(): void {
     this.dataSource = new BdrDataSource(this.bdrService);
