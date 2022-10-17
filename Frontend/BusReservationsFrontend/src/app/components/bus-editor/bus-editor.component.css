@@ -1,11 +1,21 @@
+.scrollable {
+  width: 100vw;
+  overflow-x: scroll;
+  padding: 0;
+}
+.wrapper {
+  width: fit-content;
+}
 table {
-  width: 100%;
+  table-layout: auto;
+  width: max-content;
+  min-width: 100%;
   font-size: 2em;
   margin-top: 1em;
 }
 th,
 td {
-  width: 100%;
+  padding-right: 24px;
 }
 .mat-header-cell {
   color: #fdd835;
@@ -16,9 +26,9 @@ td {
   border-bottom: none;
   font-size: 1em;
   line-height: normal;
-}
-
-mat-row {
+  width: 100%;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 mat-cell {
   text-align: center;

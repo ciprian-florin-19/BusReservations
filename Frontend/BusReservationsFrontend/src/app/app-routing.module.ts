@@ -34,8 +34,8 @@ const routes: Routes = [
   },
   {
     path: 'routes/reservation-form/complete',
-    canActivate: [DirectLinkInputGuard],
     component: BookingCompleteViewComponent,
+    canActivate: [DirectLinkInputGuard],
   },
   {
     path: 'user/reservations',

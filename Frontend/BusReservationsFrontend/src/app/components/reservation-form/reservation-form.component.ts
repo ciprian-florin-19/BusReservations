@@ -6,11 +6,13 @@ import html2canvas from 'html2canvas';
 import jspdf from 'jspdf';
 import jsPDF from 'jspdf';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ComponentCanActivate } from 'src/app/guards/direct-link-input.guard';
 import { BusDrivenRoute } from 'src/app/models/busDrivenRoute';
 import { ReservationGetDto } from 'src/app/models/reservationGetDto';
 import { ReservationPutPostDto } from 'src/app/models/reservationPutPostDto';
 import { Seat } from 'src/app/models/seat';
 import { User } from 'src/app/models/user';
+import { UserStates } from 'src/app/models/userStates';
 import { AccountService } from 'src/app/services/account.service';
 import { BusDrivenRoutesService } from 'src/app/services/bus-driven-routes.service';
 import { ReservationService } from 'src/app/services/reservation.service';
@@ -23,7 +25,7 @@ import { TicketComponent } from '../ticket/ticket.component';
   templateUrl: './reservation-form.component.html',
   styleUrls: ['./reservation-form.component.css'],
 })
-export class ReservationFormComponent implements OnInit {
+export class ReservationFormComponent implements OnInit, ComponentCanActivate {
   routeForm = new FormGroup({
     date: new FormControl(''),
     departureTime: new FormControl(''),
@@ -71,6 +73,9 @@ export class ReservationFormComponent implements OnInit {
       this.isLoggedIn = r;
       console.log(r);
     });
+  }
+  canActivate(permissions: UserStates): boolean | Observable<boolean> {
+    return true;
   }
 
   ngOnInit(): void {

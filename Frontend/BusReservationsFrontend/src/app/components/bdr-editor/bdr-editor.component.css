@@ -1,6 +1,15 @@
+.scollable {
+  width: 100vw;
+  overflow-x: scroll;
+  padding: 0;
+}
+.wrapper {
+  width: fit-content;
+}
 table {
   table-layout: auto;
-  width: 100%;
+  width: max-content;
+  min-width: 100%;
   font-size: 2em;
   margin-top: 1em;
 }
@@ -20,9 +29,6 @@ td {
   width: 100%;
   padding-left: 24px;
   padding-right: 24px;
-}
-
-mat-row {
 }
 mat-cell {
   text-align: center;

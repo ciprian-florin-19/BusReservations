@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-panel',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminPanelComponent implements OnInit {
   constructor() {}
-
+  selectedOption: string = 'Autobuze';
   ngOnInit(): void {}
   selectDataSource() {}
 }

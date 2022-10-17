@@ -2,6 +2,8 @@ import { NgFor } from '@angular/common';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTabChangeEvent } from '@angular/material/tabs';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ComponentCanDeactivate } from 'src/app/guards/changes-prompt.guard';
 import { ComponentCanActivate } from 'src/app/guards/direct-link-input.guard';
@@ -19,10 +21,12 @@ import { ConfirmationComponent } from '../confirmation/confirmation.component';
 export class ProfileComponent
   implements OnInit, ComponentCanDeactivate, ComponentCanActivate
 {
+  isRendered = false;
   constructor(
     private tokenStorage: TokenStorageService,
     private accountService: AccountService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {
     this.getUserData();
   }
@@ -67,6 +71,7 @@ export class ProfileComponent
     if (this.tokenStorage.getSession().roles.includes('admin')) {
       this.isAdmin = true;
     }
+    this.isRendered = false;
   }
 
   private getUserData() {
@@ -85,5 +90,12 @@ export class ProfileComponent
     this.getUserData();
     console.log(this.accountData);
     console.log('updated');
+  }
+  selectPanelData(index: number) {
+    console.log(this.isRendered);
+
+    if (index == 2 && !this.isRendered)
+      this.router.navigateByUrl('/user/profile/bus-editor');
+    this.isRendered = true;
   }
 }

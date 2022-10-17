@@ -1,6 +1,7 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSidenav } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BehaviorSubject, distinctUntilChanged } from 'rxjs';
@@ -19,6 +20,8 @@ export class NavbarComponent implements OnInit {
   username: string = '';
   password: string = '';
   isLoggedIn?: boolean;
+  @ViewChild('drawer')
+  drawer?: MatSidenav;
 
   constructor(
     private dialog: MatDialog,
@@ -38,12 +41,16 @@ export class NavbarComponent implements OnInit {
   }
 
   openLoginForm() {
-    this.dialog.open(LoginFormComponent);
+    this.drawer?.close().then(() => {
+      this.dialog.open(LoginFormComponent);
+    });
     console.log('login opened');
   }
 
   openRegisterForm() {
-    this.dialog.open(RegisterFormComponent);
+    this.drawer?.close().then(() => {
+      this.dialog.open(RegisterFormComponent);
+    });
     console.log('register opened');
   }
 
@@ -55,7 +62,7 @@ export class NavbarComponent implements OnInit {
         this.showMessage(message, r.username);
       });
     this.tokenStorage.clearSession();
-    this.router.navigateByUrl('');
+    this.navigate('');
   }
 
   private showMessage(message: string, name: string) {
@@ -66,5 +73,13 @@ export class NavbarComponent implements OnInit {
         name: name,
       },
     });
+  }
+  navigate(link: string) {
+    this.drawer?.close().then(() => {
+      this.router.navigate([link]);
+    });
+  }
+  onBackdropClick() {
+    console.log('backdrop');
   }
 }

@@ -1,66 +1,70 @@
-<table mat-table [dataSource]="dataSource">
-  <ng-container matColumnDef="busName">
-    <th mat-header-cell *matHeaderCellDef>Autobuz</th>
-    <td mat-cell *matCellDef="let bdr">{{ bdr.bus.name }}</td>
-  </ng-container>
-  <ng-container matColumnDef="capacity">
-    <th mat-header-cell *matHeaderCellDef>Capacitate</th>
-    <td mat-cell *matCellDef="let bdr">{{ bdr.bus.capacity }}</td>
-  </ng-container>
-  <ng-container matColumnDef="seats">
-    <th mat-header-cell *matHeaderCellDef>Locuri ocupate</th>
-    <td mat-cell *matCellDef="let bdr">{{ bdr.occupiedSeats.length }}</td>
-  </ng-container>
+<div class="scollable">
+  <table mat-table [dataSource]="dataSource" #table>
+    <ng-container matColumnDef="busName">
+      <th mat-header-cell *matHeaderCellDef>Autobuz</th>
+      <td mat-cell *matCellDef="let bdr">{{ bdr.bus.name }}</td>
+    </ng-container>
+    <ng-container matColumnDef="capacity">
+      <th mat-header-cell *matHeaderCellDef>Capacitate</th>
+      <td mat-cell *matCellDef="let bdr">{{ bdr.bus.capacity }}</td>
+    </ng-container>
+    <ng-container matColumnDef="seats">
+      <th mat-header-cell *matHeaderCellDef>Locuri ocupate</th>
+      <td mat-cell *matCellDef="let bdr">{{ bdr.occupiedSeats.length }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="start">
-    <th mat-header-cell *matHeaderCellDef>Plecare</th>
-    <td mat-cell *matCellDef="let bdr">{{ bdr.drivenRoute.start }}</td>
-  </ng-container>
-  <ng-container matColumnDef="destination">
-    <th mat-header-cell *matHeaderCellDef>Sosire</th>
-    <td mat-cell *matCellDef="let bdr">{{ bdr.drivenRoute.destination }}</td>
-  </ng-container>
-  <ng-container matColumnDef="departure">
-    <th mat-header-cell *matHeaderCellDef>Data plecare</th>
-    <td mat-cell *matCellDef="let bdr">
-      {{ bdr.drivenRoute.timeTable.departureDate | date: "d/M/yy, H:mm " }}
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="arrival">
-    <th mat-header-cell *matHeaderCellDef>Data sosire</th>
-    <td mat-cell *matCellDef="let bdr">
-      {{ bdr.drivenRoute.timeTable.arivvalDate | date: "d/M/yy, H:mm " }}
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="price">
-    <th mat-header-cell *matHeaderCellDef>Pret</th>
-    <td mat-cell *matCellDef="let bdr">{{ bdr.drivenRoute.seatPrice }} lei</td>
-  </ng-container>
+    <ng-container matColumnDef="start">
+      <th mat-header-cell *matHeaderCellDef>Plecare</th>
+      <td mat-cell *matCellDef="let bdr">{{ bdr.drivenRoute.start }}</td>
+    </ng-container>
+    <ng-container matColumnDef="destination">
+      <th mat-header-cell *matHeaderCellDef>Sosire</th>
+      <td mat-cell *matCellDef="let bdr">{{ bdr.drivenRoute.destination }}</td>
+    </ng-container>
+    <ng-container matColumnDef="departure">
+      <th mat-header-cell *matHeaderCellDef>Data plecare</th>
+      <td mat-cell *matCellDef="let bdr">
+        {{ bdr.drivenRoute.timeTable.departureDate | date: "d/M/yy, H:mm " }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="arrival">
+      <th mat-header-cell *matHeaderCellDef>Data sosire</th>
+      <td mat-cell *matCellDef="let bdr">
+        {{ bdr.drivenRoute.timeTable.arivvalDate | date: "d/M/yy, H:mm " }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef>Pret</th>
+      <td mat-cell *matCellDef="let bdr">
+        {{ bdr.drivenRoute.seatPrice }} lei
+      </td>
+    </ng-container>
 
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef></th>
-    <td mat-cell *matCellDef="let row" class="actions">
-      <button class="edit" (click)="editRow(row)" matRipple>
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button class="delete" (click)="deleteRow(row)" matRipple>
-        <mat-icon>delete</mat-icon>
-      </button>
-    </td>
-  </ng-container>
-  <mat-header-row mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns"></mat-row>
-</table>
-<div class="add-wrapper">
-  <button class="add" (click)="addRow()" matRipple>
-    <mat-icon>playlist_add</mat-icon>
-  </button>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row" class="actions">
+        <button class="edit" (click)="editRow(row)" matRipple>
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button class="delete" (click)="deleteRow(row)" matRipple>
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <mat-header-row mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columns"></mat-row>
+  </table>
+  <div class="add-wrapper" [style.width]="table">
+    <button class="add" (click)="addRow()" matRipple>
+      <mat-icon>playlist_add</mat-icon>
+    </button>
+  </div>
+  <mat-paginator
+    [length]="paginationParameters.totalElementCount"
+    [pageIndex]="paginationParameters.currentPage"
+    [pageSize]="paginationParameters.pageSize"
+    [hidePageSize]="true"
+    [showFirstLastButtons]="true"
+    (page)="getPage($event)"
+  ></mat-paginator>
 </div>
-<mat-paginator
-  [length]="paginationParameters.totalElementCount"
-  [pageIndex]="paginationParameters.currentPage"
-  [pageSize]="paginationParameters.pageSize"
-  [hidePageSize]="true"
-  [showFirstLastButtons]="true"
-  (page)="getPage($event)"
-></mat-paginator>

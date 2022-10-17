@@ -21,7 +21,7 @@
         </div>
       </div>
     </div>
-    <mat-tab-group>
+    <mat-tab-group (selectedIndexChange)="selectPanelData($event)">
       <mat-tab label="Biletele mele">
         <ng-template matTabContent>
           <app-user-tickets-view [isEmbedded]="true"></app-user-tickets-view>

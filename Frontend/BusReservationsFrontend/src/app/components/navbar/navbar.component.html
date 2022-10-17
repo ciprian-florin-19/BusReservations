@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" fxLayoutAlign.lt-lg="center center">
   <a href="" routerLink="/home" mat-button class="title">
-    <span>BusReservations</span>
+    <span>Book-N-Travel</span>
     <mat-icon class="logo">directions_bus</mat-icon>
   </a>
   <div
@@ -69,11 +69,15 @@
       <span>Creeaza cont</span>
       <mat-icon>assignment</mat-icon>
     </button>
-    <button mat-button *ngIf="isLoggedIn" routerLink="user/profile">
+    <button mat-button (click)="navigate('user/profile')" *ngIf="isLoggedIn">
       <span>Profil</span>
       <mat-icon>account_circle</mat-icon>
     </button>
-    <button mat-button *ngIf="isLoggedIn" routerLink="user/reservations">
+    <button
+      mat-button
+      (click)="navigate('user/reservations')"
+      *ngIf="isLoggedIn"
+    >
       <span>Biletele mele</span>
       <mat-icon>bookmark</mat-icon>
     </button>

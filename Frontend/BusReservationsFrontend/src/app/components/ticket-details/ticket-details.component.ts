@@ -36,6 +36,8 @@ export class TicketDetailsComponent
             .map((char) => char.charCodeAt(0))
         );
         const blob = new Blob([byteArray], { type: 'application/pdf' });
+        console.log(blob);
+
         const link = document.createElement('a');
 
         link.href = URL.createObjectURL(blob);

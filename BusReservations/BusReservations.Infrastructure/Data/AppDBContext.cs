@@ -28,14 +28,5 @@ namespace BusReservations.Infrastructure.Data
             if (!optionsBuilder.IsConfigured)
                 optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=BusReservations;Trusted_Connection=True;TrustServerCertificate=True");
         }
-        //protected override void OnModelCreating(ModelBuilder builder)
-        //{
-        //    builder
-        //        .Entity<User>()
-        //        .Property(u => u.Status)
-        //        .HasConversion(
-        //        s => s.ToString(),
-        //        s => (Status)Enum.Parse(typeof(Status), s));
-        //}
     }
 }
