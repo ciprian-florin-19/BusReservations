@@ -41,16 +41,20 @@ export class NavbarComponent implements OnInit {
   }
 
   openLoginForm() {
-    this.drawer?.close().then(() => {
-      this.dialog.open(LoginFormComponent);
-    });
+    if (this.drawer?.opened)
+      this.drawer.close().then(() => {
+        this.dialog.open(LoginFormComponent);
+      });
+    else this.dialog.open(LoginFormComponent);
     console.log('login opened');
   }
 
   openRegisterForm() {
-    this.drawer?.close().then(() => {
-      this.dialog.open(RegisterFormComponent);
-    });
+    if (this.drawer?.opened)
+      this.drawer?.close().then(() => {
+        this.dialog.open(RegisterFormComponent);
+      });
+    else this.dialog.open(RegisterFormComponent);
     console.log('register opened');
   }
 
@@ -62,7 +66,7 @@ export class NavbarComponent implements OnInit {
         this.showMessage(message, r.username);
       });
     this.tokenStorage.clearSession();
-    this.navigate('');
+    this.router.navigateByUrl('');
   }
 
   private showMessage(message: string, name: string) {
@@ -75,9 +79,11 @@ export class NavbarComponent implements OnInit {
     });
   }
   navigate(link: string) {
-    this.drawer?.close().then(() => {
-      this.router.navigate([link]);
-    });
+    if (this.drawer?.opened)
+      this.drawer?.close().then(() => {
+        this.router.navigate([link]);
+      });
+    else this.router.navigate([link]);
   }
   onBackdropClick() {
     console.log('backdrop');

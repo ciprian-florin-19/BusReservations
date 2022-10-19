@@ -18,7 +18,6 @@ mat-label {
   padding-bottom: 1em;
 }
 .mat-raised-button {
-  background-color: #fdd835;
   color: black;
 }
 :host {

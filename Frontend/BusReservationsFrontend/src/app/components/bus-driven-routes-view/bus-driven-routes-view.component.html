@@ -65,6 +65,7 @@
             mat-raised-button
             color="primary"
             [routerLink]="['reservation-form']"
+            [disabled]="schema.selectedSeat == -1"
             (click)="sendRouteDetails(bdr.id, schema.selectedSeat)"
           >
             Rezerva loc

@@ -53,38 +53,10 @@ export class BdrDialogComponent implements OnInit {
     private snackbar: MatSnackBar,
     private datePipe: DatePipe
   ) {}
-  /*@ViewChild(MatAutocompleteTrigger)
-  autocompleteTrigger!: MatAutocompleteTrigger;
-
-  autocompleteScroll(autoComplete: MatAutocomplete) {
-    console.log(autoComplete);
-    console.log(this.autocompleteTrigger);
-
-    setTimeout(() => {
-      if (autoComplete && this.autocompleteTrigger && autoComplete.panel) {
-        fromEvent(autoComplete.panel.nativeElement, 'scroll')
-          .pipe(
-            map((x) => autoComplete.panel.nativeElement.scrollTop),
-            takeUntil(this.autocompleteTrigger.panelClosingActions)
-          )
-          .subscribe((x) => {
-            const scrollTop = autoComplete.panel.nativeElement.scrollTop;
-            const scrollHeight = autoComplete.panel.nativeElement.scrollHeight;
-            const elementHeight = autoComplete.panel.nativeElement.clientHeight;
-            const atBottom = scrollHeight === scrollTop + elementHeight;
-            if (atBottom) {
-              if (autoComplete.id == 'mat-autocomplete-0')
-                this.fetchBuses(++this.buses.currentPage);
-              else this.fetchRoutes(++this.routes.currentPage);
-            }
-          });
-      }
-    });
-  }*/
   ngOnInit(): void {
+    this.fetchSelection();
     this.fetchBuses();
     this.fetchRoutes();
-    this.fetchSelection();
   }
 
   fetchBuses(page: number = 1) {
@@ -93,6 +65,10 @@ export class BdrDialogComponent implements OnInit {
 
     this.busService.getAllBuses(page).subscribe({
       next: (r) => {
+        if (this.selectedBus) {
+          let index = r.items.findIndex((b) => b.id == this.selectedBus?.id);
+          r.items.splice(index, 1);
+        }
         this.buses.items = this.buses.items.concat(r.items);
         this.buses.hasNext = r.paginationParameters.hasNext;
         this.buses.currentPage = r.paginationParameters.currentPage;
@@ -109,14 +85,8 @@ export class BdrDialogComponent implements OnInit {
         next: (bdr) => {
           this.selectedBus = bdr.bus;
           this.selectedRoute = bdr.drivenRoute;
-
-          if (this.buses.items.includes(this.selectedBus))
-            this.buses.items.splice(this.buses.items.indexOf(this.selectedBus));
-          if (this.routes.items.includes(this.selectedRoute))
-            this.routes.items.splice(
-              this.routes.items.indexOf(this.selectedRoute)
-            );
           this.routes.items.unshift(this.selectedRoute);
+          this.buses.items.unshift(this.selectedBus);
         },
       });
   }
@@ -125,6 +95,10 @@ export class BdrDialogComponent implements OnInit {
     if (!this.routes.hasNext) return;
     this.routeService.getDrivenRoutes(page).subscribe({
       next: (r) => {
+        if (this.selectedRoute) {
+          let index = r.items.findIndex((r) => r.id == this.selectedRoute?.id);
+          r.items.splice(index, 1);
+        }
         this.routes.items = this.routes.items.concat(r.items);
         this.routes.hasNext = r.paginationParameters.hasNext;
         this.routes.currentPage = r.paginationParameters.currentPage;
